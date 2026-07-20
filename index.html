@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1a2639">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="GesssAI-Prono">
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkdlc3NBSS1Qcm9ubyIsCiAgInNob3J0X25hbWUiOiAiR2Vzc0FJLVByb25vIiwKICAiZGVzY3JpcHRpb24iOiAiQW5hbGlzaSBwYXJ0aXRlIGUgUHJvbm9zdGljaSBzcG9ydGl2aSIsCiAgInN0YXJ0X3VybCI6ICIuIiwKICAiZGlzcGxheSI6ICJzdGFuZGFsb25lIiwKICAiYmFja2dyb3VuZF9jb2xvciI6ICIjMWEyNjM5IiwKICAidGhlbWVfY29sb3IiOiAiIzFhMjYzOSIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbCw8c3ZnIHhtbG5zPSdodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2Zycgdmlld0JveD0nMCAwIDUxMiA1MTInPjxyZWN0IHdpZHRoPSc1MTInIGhlaWdodD0nNTEyJyByeD0nNTAlJyBmaWxsPScjZmM1YzdkJy8+PHRleHQgeD0nMjU2JyB5PSczNDAnIGZvbnQtc2l6ZT0nMjUwJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBmaWxsPSd3aGl0ZScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPvCfjIo8L3RleHQ+PC9zdmc+IgogICAgfQogIF0KfQ==">
+    <title>GesssAI-Prono</title>
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            background: #f5f7fc;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            min-height: 100dvh;
+            overflow: hidden;
+        }
+        body.dark {
+            background: #12161e;
+        }
+
+        .app {
+            max-width: 1200px;
+            width: 100%;
+            height: calc(100vh - 40px);
+            height: calc(100dvh - 40px);
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 24px;
+            background: linear-gradient(145deg, #1a2639, #0e1626);
+            border-radius: 24px;
+            color: white;
+            margin-bottom: 16px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+            position: relative;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+        body.dark header {
+            background: linear-gradient(145deg, #1e2a3a, #0f1825);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            min-width: 160px;
+            position: relative;
+        }
+        .header-left .clock {
+            font-size: 0.9rem;
+            background: rgba(255,255,255,0.07);
+            padding: 6px 16px;
+            border-radius: 60px;
+            border: 1px solid rgba(255,255,255,0.08);
+            backdrop-filter: blur(4px);
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            white-space: nowrap;
+            cursor: pointer;
+            user-select: none;
+        }
+        .header-left .clock:hover {
+            background: rgba(255,255,255,0.12);
+        }
+        .header-left .clock span {
+            font-weight: 300;
+            opacity: 0.9;
+        }
+        .header-left .clock .date-label {
+            font-weight: 400;
+            opacity: 0.6;
+            font-size: 0.7rem;
+            margin-right: 4px;
+        }
+
+        .header-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: 700;
+            font-size: 1.7rem;
+            letter-spacing: 1px;
+            background: linear-gradient(to right, #f0c27f, #fc5c7d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            white-space: nowrap;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-left: auto;
+        }
+
+        .tab-nav {
+            display: flex;
+            gap: 6px;
+            background: rgba(255,255,255,0.08);
+            padding: 4px;
+            border-radius: 60px;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,0.6);
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: 0.25s;
+            font-family: inherit;
+        }
+        .tab-btn:hover {
+            color: white;
+            background: rgba(255,255,255,0.08);
+        }
+        .tab-btn.active {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .tab-btn .badge {
+            background: #fc5c7d;
+            color: white;
+            border-radius: 40px;
+            padding: 0 8px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            margin-left: 4px;
+        }
+
+        /* ===== CALENDARIO ===== */
+        .calendar-popup {
+            display: none;
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            background: white;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            z-index: 1000;
+            min-width: 280px;
+            border: 1px solid rgba(0,0,0,0.08);
+        }
+        body.dark .calendar-popup {
+            background: #1e2838;
+            border-color: rgba(255,255,255,0.08);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+        }
+        .calendar-popup.show {
+            display: block;
+        }
+        .calendar-popup .cal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        .calendar-popup .cal-header .cal-month {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #1a2639;
+        }
+        body.dark .calendar-popup .cal-header .cal-month {
+            color: #e8edf5;
+        }
+        .calendar-popup .cal-header .cal-nav {
+            background: transparent;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 4px 12px;
+            border-radius: 8px;
+            color: #5d6f83;
+            font-family: inherit;
+        }
+        body.dark .calendar-popup .cal-header .cal-nav {
+            color: #8a9db5;
+        }
+        .calendar-popup .cal-header .cal-nav:hover {
+            background: rgba(0,0,0,0.05);
+        }
+        body.dark .calendar-popup .cal-header .cal-nav:hover {
+            background: rgba(255,255,255,0.05);
+        }
+        .calendar-popup .cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+        .calendar-popup .cal-grid .cal-day-label {
+            font-size: 0.65rem;
+            text-align: center;
+            color: #7b8a9e;
+            font-weight: 600;
+            padding: 4px 0;
+        }
+        body.dark .calendar-popup .cal-grid .cal-day-label {
+            color: #7a8fa8;
+        }
+        .calendar-popup .cal-grid .cal-day {
+            text-align: center;
+            padding: 8px 4px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #1a2639;
+            transition: 0.15s;
+        }
+        body.dark .calendar-popup .cal-grid .cal-day {
+            color: #e8edf5;
+        }
+        .calendar-popup .cal-grid .cal-day:hover {
+            background: rgba(252, 92, 125, 0.15);
+        }
+        .calendar-popup .cal-grid .cal-day.selected {
+            background: #fc5c7d;
+            color: white;
+        }
+        .calendar-popup .cal-grid .cal-day.other-month {
+            opacity: 0.3;
+        }
+        .calendar-popup .cal-grid .cal-day.today {
+            border: 2px solid #fc5c7d;
+        }
+        .calendar-popup .cal-footer {
+            margin-top: 12px;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .calendar-popup .cal-footer .cal-today-btn {
+            background: transparent;
+            border: 1px solid #dce6f5;
+            padding: 4px 16px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            color: #1f3a6b;
+            font-family: inherit;
+        }
+        body.dark .calendar-popup .cal-footer .cal-today-btn {
+            border-color: #2a3648;
+            color: #b8d0f0;
+        }
+        .calendar-popup .cal-footer .cal-today-btn:hover {
+            background: rgba(252, 92, 125, 0.1);
+        }
+
+        /* ===== CONTENUTO PRINCIPALE ===== */
+        .main-content {
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+            border-radius: 28px;
+            background: #12161e;
+            min-height: 0;
+        }
+        body.dark .main-content {
+            background: #0d1118;
+        }
+
+        .swipe-container {
+            display: flex;
+            width: 200%;
+            height: 100%;
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            touch-action: none;
+        }
+        .swipe-container.view-card {
+            transform: translateX(0%);
+        }
+        .swipe-container.view-ai {
+            transform: translateX(-50%);
+        }
+
+        .swipe-panel {
+            width: 50%;
+            height: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 20px 16px 80px 16px;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        .swipe-panel::-webkit-scrollbar {
+            width: 4px;
+        }
+        .swipe-panel::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+        }
+        .swipe-panel::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+        }
+
+        /* ===== CARD SINGOLA (versione compatta per swipe verticale) ===== */
+        .match-card-swipe {
+            background: rgba(255,255,255,0.06);
+            border-radius: 24px;
+            padding: 20px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(255,255,255,0.06);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .match-card-swipe:active {
+            transform: scale(0.98);
+        }
+        .match-card-swipe .card-header-swipe {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 8px;
+        }
+        .match-card-swipe .card-header-swipe .championship {
+            background: rgba(255,255,255,0.08);
+            padding: 2px 12px;
+            border-radius: 40px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.7);
+        }
+        .match-card-swipe .match-row-swipe {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+        .match-card-swipe .match-row-swipe .team {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 42%;
+        }
+        .match-card-swipe .match-row-swipe .vs {
+            color: rgba(255,255,255,0.3);
+            font-weight: 300;
+            font-size: 0.8rem;
+        }
+        .match-card-swipe .form-row-swipe {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 14px;
+            padding: 8px 12px;
+            margin: 6px 0 8px;
+        }
+        .match-card-swipe .form-row-swipe .form-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+        .match-card-swipe .form-row-swipe .form-box .label {
+            font-size: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 2px;
+            font-weight: 600;
+        }
+        .match-card-swipe .form-row-swipe .form-string {
+            font-family: 'Courier New', monospace;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            color: #ffffff;
+        }
+        .match-card-swipe .form-row-swipe .form-string .W { color: #3db86b; }
+        .match-card-swipe .form-row-swipe .form-string .D { color: #e6b422; }
+        .match-card-swipe .form-row-swipe .form-string .L { color: #e06060; }
+        .match-card-swipe .perc-row-swipe {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            margin: 4px 0 8px;
+        }
+        .match-card-swipe .perc-row-swipe .perc-box {
+            border-radius: 40px;
+            padding: 4px 10px;
+            flex: 1;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #1a1a1a;
+            border: 1px solid transparent;
+        }
+        .match-card-swipe .perc-row-swipe .perc-box small {
+            font-weight: 500;
+            font-size: 0.5rem;
+            color: #1a1a1a;
+            opacity: 0.8;
+        }
+        .match-card-swipe .stats-row-swipe {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            justify-content: space-between;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding-top: 10px;
+        }
+        .match-card-swipe .stats-row-swipe .stat-chip {
+            border-radius: 30px;
+            padding: 3px 10px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            flex: 1 0 auto;
+            text-align: center;
+            border: 1px solid transparent;
+        }
+        .match-card-swipe .stats-row-swipe .stat-chip .num { font-weight: 700; color: #1a1a1a; }
+        .match-card-swipe .stats-row-swipe .stat-chip.flag-red { background: #fde0e0; border-color: #e57373; }
+        .match-card-swipe .stats-row-swipe .stat-chip.flag-neutral { background: #f0f2f5; border-color: #b0b8c4; }
+        .match-card-swipe .stats-row-swipe .stat-chip.flag-green { background: #d4edda; border-color: #58b36b; }
+        .match-card-swipe .stats-row-swipe .stat-chip.flag-gold { background: #ffd966; border-color: #e6b800; }
+        .match-card-swipe .stats-row-swipe .stat-chip.flag-bomb { background: #ffb347; border-color: #e67300; }
+
+        .match-card-swipe .card-footer-swipe {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 0.6rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .match-card-swipe .flag-red { background: #fde0e0; border-color: #e57373; color: #1a1a1a; }
+        .match-card-swipe .flag-red small { color: #1a1a1a; }
+        .match-card-swipe .flag-neutral { background: #f0f2f5; border-color: #b0b8c4; color: #1a1a1a; }
+        .match-card-swipe .flag-neutral small { color: #1a1a1a; }
+        .match-card-swipe .flag-green { background: #d4edda; border-color: #58b36b; color: #1a1a1a; }
+        .match-card-swipe .flag-green small { color: #1a1a1a; }
+        .match-card-swipe .flag-gold {
+            background: #ffd966;
+            border-color: #e6b800;
+            color: #1a1a1a;
+            box-shadow: 0 0 0 1px #1e2838, 0 0 0 3px #ffd966;
+        }
+        .match-card-swipe .flag-gold small { color: #1a1a1a; }
+        .match-card-swipe .flag-bomb {
+            background: #ffb347;
+            border-color: #e67300;
+            color: #1a1a1a;
+            animation: pulse-gold 1.2s ease-in-out infinite;
+        }
+        .match-card-swipe .flag-bomb small { color: #1a1a1a; }
+
+        /* ===== PANEL AI ===== */
+        .ai-panel-content {
+            padding: 4px 0;
+        }
+        .ai-panel-content .ai-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .ai-panel-content .ai-header h2 {
+            color: #ffffff;
+            font-size: 1.2rem;
+        }
+        .ai-panel-content .ai-header .match-counter {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.8rem;
+        }
+        .ai-analysis-box {
+            background: rgba(255,255,255,0.05);
+            border-radius: 18px;
+            padding: 18px;
+            line-height: 1.7;
+            color: #ffffff;
+            border: 1px solid rgba(255,255,255,0.06);
+            white-space: pre-wrap;
+            font-size: 0.95rem;
+        }
+        .ai-analysis-box strong {
+            color: #fc5c7d;
+        }
+
+        /* ===== INDICATORI SWIPE ===== */
+        .swipe-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            padding: 10px 0 4px 0;
+            flex-shrink: 0;
+        }
+        .swipe-indicators .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .swipe-indicators .dot.active {
+            background: #fc5c7d;
+            width: 24px;
+            border-radius: 10px;
+        }
+        .swipe-indicators .dot-label {
+            font-size: 0.6rem;
+            color: rgba(255,255,255,0.3);
+            margin: 0 4px;
+        }
+
+        /* ===== PAGINE ===== */
+        .page {
+            display: none;
+            flex-direction: column;
+            height: 100%;
+        }
+        .page.active {
+            display: flex;
+        }
+
+        /* ===== IMPOSTAZIONI ===== */
+        .settings-container {
+            background: white;
+            border-radius: 28px;
+            padding: 30px;
+            box-shadow: 0 8px 24px rgba(0, 20, 40, 0.08);
+            max-width: 600px;
+            margin: 0 auto;
+            overflow-y: auto;
+        }
+        body.dark .settings-container {
+            background: #1e2838;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+        .settings-container h2 {
+            color: #1a2639;
+            margin-bottom: 24px;
+            font-size: 1.4rem;
+        }
+        body.dark .settings-container h2 {
+            color: #e8edf5;
+        }
+        .setting-group {
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid #eef2f7;
+        }
+        body.dark .setting-group {
+            border-bottom-color: #2a3648;
+        }
+        .setting-group:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        .setting-group label {
+            display: block;
+            font-weight: 600;
+            color: #1a2639;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+        }
+        body.dark .setting-group label {
+            color: #e8edf5;
+        }
+        .setting-group .description {
+            font-size: 0.8rem;
+            color: #7b8a9e;
+            margin-bottom: 8px;
+        }
+        body.dark .setting-group .description {
+            color: #7a8fa8;
+        }
+        .setting-group input[type="text"],
+        .setting-group input[type="password"] {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #dce6f5;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-family: 'Courier New', monospace;
+            background: #f9fafc;
+            color: #1a2639;
+            transition: 0.25s;
+        }
+        body.dark .setting-group input[type="text"],
+        body.dark .setting-group input[type="password"] {
+            background: #16202e;
+            border-color: #2a3648;
+            color: #e8edf5;
+        }
+        .setting-group input:focus {
+            outline: none;
+            border-color: #fc5c7d;
+            box-shadow: 0 0 0 3px rgba(252, 92, 125, 0.15);
+        }
+        .show-hide-btn {
+            margin-top: 8px;
+            background: #eef3fc;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            color: #1f3a6b;
+            font-family: inherit;
+        }
+        body.dark .show-hide-btn {
+            background: #2a3a52;
+            color: #b8d0f0;
+        }
+
+        .theme-switch {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 8px 0;
+        }
+        .theme-switch .switch {
+            position: relative;
+            width: 52px;
+            height: 28px;
+            background: #dce6f5;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.3s;
+            flex-shrink: 0;
+        }
+        body.dark .theme-switch .switch {
+            background: #2a3a52;
+        }
+        .theme-switch .switch .slider {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            transition: 0.3s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .theme-switch .switch.active .slider {
+            left: 27px;
+            background: #fc5c7d;
+        }
+        .theme-switch .switch-label {
+            font-weight: 500;
+            color: #1a2639;
+        }
+        body.dark .theme-switch .switch-label {
+            color: #e8edf5;
+        }
+        .theme-switch .switch-icon {
+            font-size: 1.2rem;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: rgba(255,255,255,0.5);
+        }
+        .empty-state span {
+            display: block;
+            font-size: 2.8rem;
+            margin-bottom: 12px;
+        }
+
+        .footer-note {
+            margin-top: 12px;
+            text-align: center;
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.2);
+            flex-shrink: 0;
+        }
+
+        /* ===== INSTALL BANNER ===== */
+        .install-banner {
+            display: none;
+            background: linear-gradient(145deg, #1a2639, #0e1626);
+            color: white;
+            padding: 10px 16px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+        body.dark .install-banner {
+            background: linear-gradient(145deg, #1e2a3a, #0f1825);
+        }
+        .install-banner.show {
+            display: flex;
+        }
+        .install-banner .install-btn {
+            background: #fc5c7d;
+            border: none;
+            color: white;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .install-banner .install-close {
+            background: transparent;
+            border: none;
+            color: rgba(255,255,255,0.6);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        @keyframes pulse-gold {
+            0% { box-shadow: 0 0 8px rgba(255, 179, 71, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(255, 179, 71, 0.6); }
+            100% { box-shadow: 0 0 8px rgba(255, 179, 71, 0.3); }
+        }
+
+        @media (max-width: 700px) {
+            body { padding: 12px; }
+            .app { height: calc(100vh - 24px); height: calc(100dvh - 24px); }
+            header { padding: 10px 14px; gap: 8px; }
+            .header-center { position: static; transform: none; font-size: 1.2rem; order: 0; width: 100%; text-align: center; }
+            .header-left { order: 1; flex: 1; justify-content: flex-start; }
+            .header-left .clock { font-size: 0.7rem; padding: 4px 10px; gap: 4px; }
+            .header-right { order: 2; flex-wrap: wrap; justify-content: flex-end; }
+            .tab-nav { order: 3; width: 100%; justify-content: center; }
+            .tab-btn { font-size: 0.65rem; padding: 4px 10px; }
+            .swipe-panel { padding: 12px 10px 70px 10px; }
+            .match-card-swipe { padding: 14px; }
+            .match-card-swipe .match-row-swipe { font-size: 0.95rem; }
+            .calendar-popup { left: -60px; min-width: 240px; }
+        }
+        @media (max-width: 480px) {
+            .header-left .clock { font-size: 0.6rem; padding: 3px 8px; }
+            .header-center { font-size: 1rem; }
+            .tab-btn { font-size: 0.55rem; padding: 3px 8px; }
+            .calendar-popup { left: -80px; min-width: 200px; }
+            .match-card-swipe .match-row-swipe { font-size: 0.85rem; }
+            .match-card-swipe .stats-row-swipe .stat-chip { font-size: 0.55rem; padding: 2px 6px; }
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+
+    <!-- INSTALL BANNER -->
+    <div class="install-banner" id="installBanner">
+        <span>📲 Installa GesssAI-Prono</span>
+        <div>
+            <button class="install-btn" id="installBtn">Installa</button>
+            <button class="install-close" id="installClose">✕</button>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="header-left">
+            <div class="clock" id="clockButton">
+                <span class="date-label">📅</span>
+                <span id="currentDate">--/--/----</span>
+                <span>•</span>
+                <span id="currentTime">--:--</span>
+                <span style="font-size:0.6rem; opacity:0.4; margin-left:4px;">▼</span>
+            </div>
+            <div class="calendar-popup" id="calendarPopup">
+                <div class="cal-header">
+                    <button class="cal-nav" id="calPrev">‹</button>
+                    <span class="cal-month" id="calMonth">Luglio 2026</span>
+                    <button class="cal-nav" id="calNext">›</button>
+                </div>
+                <div class="cal-grid" id="calGrid"></div>
+                <div class="cal-footer">
+                    <button class="cal-today-btn" id="calToday">📅 Oggi</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="header-center">⚡ GesssAI-Prono</div>
+
+        <div class="header-right">
+            <div class="tab-nav">
+                <button class="tab-btn active" data-tab="partite">📋 Partite <span class="badge" id="matchCountBadge">0</span></button>
+                <button class="tab-btn" data-tab="impostazioni">⚙️</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- PAGINA PARTITE (con swipe) -->
+    <div id="page-partite" class="page active">
+        <div class="main-content" id="mainContent">
+            <div class="swipe-container view-card" id="swipeContainer">
+                <!-- PANEL CARD (sinistra) -->
+                <div class="swipe-panel" id="cardPanel">
+                    <div id="cardsSwipeContainer"></div>
+                </div>
+                <!-- PANEL AI (destra) -->
+                <div class="swipe-panel" id="aiPanel">
+                    <div id="aiContainer" class="ai-panel-content"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Indicatori swipe orizzontali -->
+        <div class="swipe-indicators">
+            <span class="dot-label">⬅️ Card</span>
+            <div class="dot active" data-view="card" onclick="switchView('card')"></div>
+            <div class="dot" data-view="ai" onclick="switchView('ai')"></div>
+            <span class="dot-label">AI ➡️</span>
+        </div>
+
+        <div class="footer-note">⬆️⬇️ swipe verticale per cambiare partita · ⬅️➡️ swipe orizzontale per AI</div>
+    </div>
+
+    <!-- PAGINA IMPOSTAZIONI -->
+    <div id="page-impostazioni" class="page">
+        <div class="settings-container">
+            <h2>⚙️ Impostazioni</h2>
+
+            <div class="setting-group">
+                <label>Tema</label>
+                <div class="description">Seleziona il tema dell'applicazione</div>
+                <div class="theme-switch">
+                    <span class="switch-icon" id="settingsThemeIcon">🌙</span>
+                    <div class="switch" id="settingsThemeSwitch">
+                        <div class="slider"></div>
+                    </div>
+                    <span class="switch-label" id="settingsThemeLabel">Scuro</span>
+                </div>
+            </div>
+
+            <div class="setting-group">
+                <label>🔑 GROQ AI Key</label>
+                <div class="description">Chiave API per l'analisi AI delle partite</div>
+                <input type="password" id="groqKey" value="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">
+                <button class="show-hide-btn" onclick="toggleVisibility('groqKey')">👁️ Mostra/Nascondi</button>
+            </div>
+
+            <div class="setting-group">
+                <label>🌤️ World Weather Online Key</label>
+                <div class="description">Chiave API per il meteo in tempo reale</div>
+                <input type="password" id="weatherKey" value="d8df501134ef44eab6515526262007">
+                <button class="show-hide-btn" onclick="toggleVisibility('weatherKey')">👁️ Mostra/Nascondi</button>
+            </div>
+
+            <div style="margin-top:16px; font-size:0.8rem; color:#7b8a9e; text-align:center;">
+                Le chiavi sono salvate nel browser e non vengono inviate a nessun server esterno.
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    (function() {
+        // ============================================================
+        //  PWA INSTALL
+        // ============================================================
+        let deferredPrompt;
+        const installBanner = document.getElementById('installBanner');
+        const installBtn = document.getElementById('installBtn');
+        const installClose = document.getElementById('installClose');
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBanner.classList.add('show');
+        });
+
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const result = await deferredPrompt.userChoice;
+                if (result.outcome === 'accepted') {
+                    installBanner.classList.remove('show');
+                }
+                deferredPrompt = null;
+            }
+        });
+
+        installClose.addEventListener('click', () => {
+            installBanner.classList.remove('show');
+        });
+
+        window.addEventListener('appinstalled', () => {
+            installBanner.classList.remove('show');
+        });
+
+        // ============================================================
+        //  OROLOGIO E CALENDARIO
+        // ============================================================
+        let selectedDate = new Date();
+        let currentViewDate = new Date();
+        let calendarVisible = false;
+
+        const clockButton = document.getElementById('clockButton');
+        const calendarPopup = document.getElementById('calendarPopup');
+        const calGrid = document.getElementById('calGrid');
+        const calMonth = document.getElementById('calMonth');
+        const calPrev = document.getElementById('calPrev');
+        const calNext = document.getElementById('calNext');
+        const calToday = document.getElementById('calToday');
+
+        function updateClock() {
+            const now = new Date();
+            const d = now.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            const t = now.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('currentDate').textContent = d;
+            document.getElementById('currentTime').textContent = t;
+        }
+        updateClock();
+        setInterval(updateClock, 10000);
+
+        clockButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            calendarVisible = !calendarVisible;
+            calendarPopup.classList.toggle('show', calendarVisible);
+            if (calendarVisible) {
+                currentViewDate = new Date(selectedDate);
+                renderCalendar();
+            }
+        });
+
+        document.addEventListener('click', () => {
+            calendarPopup.classList.remove('show');
+            calendarVisible = false;
+        });
+
+        calendarPopup.addEventListener('click', (e) => e.stopPropagation());
+
+        function renderCalendar() {
+            const year = currentViewDate.getFullYear();
+            const month = currentViewDate.getMonth();
+
+            calMonth.textContent = currentViewDate.toLocaleDateString('it-IT', { month: 'long', year: 'numeric' });
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const daysInPrevMonth = new Date(year, month, 0).getDate();
+
+            const today = new Date();
+            const todayStr = today.toDateString();
+
+            let html = '';
+            const dayLabels = ['L', 'M', 'M', 'G', 'V', 'S', 'D'];
+            dayLabels.forEach(label => {
+                html += `<div class="cal-day-label">${label}</div>`;
+            });
+
+            const firstDayIndex = firstDay === 0 ? 6 : firstDay - 1;
+            for (let i = firstDayIndex - 1; i >= 0; i--) {
+                const day = daysInPrevMonth - i;
+                html += `<div class="cal-day other-month" data-date="${year}-${String(month).padStart(2,'0')}-${String(day).padStart(2,'0')}">${day}</div>`;
+            }
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateObj = new Date(year, month, day);
+                const dateStr = dateObj.toDateString();
+                let classes = 'cal-day';
+                if (dateStr === todayStr) classes += ' today';
+                if (dateStr === selectedDate.toDateString()) classes += ' selected';
+                html += `<div class="${classes}" data-date="${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}">${day}</div>`;
+            }
+
+            const totalCells = firstDayIndex + daysInMonth;
+            const remainingCells = (7 - (totalCells % 7)) % 7;
+            for (let day = 1; day <= remainingCells; day++) {
+                html += `<div class="cal-day other-month" data-date="${year}-${String(month+2).padStart(2,'0')}-${String(day).padStart(2,'0')}">${day}</div>`;
+            }
+
+            calGrid.innerHTML = html;
+
+            calGrid.querySelectorAll('.cal-day').forEach(el => {
+                el.addEventListener('click', function() {
+                    const dateParts = this.dataset.date.split('-').map(Number);
+                    selectedDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2]);
+                    calendarPopup.classList.remove('show');
+                    calendarVisible = false;
+                    document.getElementById('currentDate').textContent = 
+                        selectedDate.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
+                    loadMatchesForDate(selectedDate);
+                });
+            });
+        }
+
+        calPrev.addEventListener('click', () => {
+            currentViewDate.setMonth(currentViewDate.getMonth() - 1);
+            renderCalendar();
+        });
+
+        calNext.addEventListener('click', () => {
+            currentViewDate.setMonth(currentViewDate.getMonth() + 1);
+            renderCalendar();
+        });
+
+        calToday.addEventListener('click', () => {
+            selectedDate = new Date();
+            currentViewDate = new Date();
+            document.getElementById('currentDate').textContent = 
+                selectedDate.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            calendarPopup.classList.remove('show');
+            calendarVisible = false;
+            loadMatchesForDate(selectedDate);
+        });
+
+        // ============================================================
+        //  TAB NAVIGATION
+        // ============================================================
+        let currentTab = 'partite';
+
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const pages = {
+            partite: document.getElementById('page-partite'),
+            impostazioni: document.getElementById('page-impostazioni')
+        };
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tab = this.dataset.tab;
+                switchTab(tab);
+            });
+        });
+
+        function switchTab(tab) {
+            currentTab = tab;
+            tabBtns.forEach(b => b.classList.remove('active'));
+            document.querySelector(`.tab-btn[data-tab="${tab}"]`)?.classList.add('active');
+            Object.keys(pages).forEach(key => {
+                pages[key].classList.toggle('active', key === tab);
+            });
+        }
+
+        // ============================================================
+        //  TEMA
+        // ============================================================
+        let darkMode = true;
+
+        function applyTheme() {
+            document.body.classList.toggle('dark', darkMode);
+            document.getElementById('settingsThemeIcon').textContent = darkMode ? '🌙' : '☀️';
+            document.getElementById('settingsThemeLabel').textContent = darkMode ? 'Scuro' : 'Chiaro';
+            document.getElementById('settingsThemeSwitch').classList.toggle('active', darkMode);
+            document.querySelector('meta[name="theme-color"]').content = darkMode ? '#1a2639' : '#f5f7fc';
+        }
+
+        document.getElementById('settingsThemeSwitch').addEventListener('click', function() {
+            darkMode = !darkMode;
+            applyTheme();
+        });
+
+        applyTheme();
+
+        // ============================================================
+        //  MOSTRA/NASCONDI PASSWORD
+        // ============================================================
+        window.toggleVisibility = function(id) {
+            const input = document.getElementById(id);
+            if (input.type === 'password') {
+                input.type = 'text';
+            } else {
+                input.type = 'password';
+            }
+        };
+
+        // ============================================================
+        //  UTILITY PER LE PERCENTUALI
+        // ============================================================
+        function getFlagClass(percentuale) {
+            if (percentuale >= 90) return 'flag-bomb';
+            if (percentuale >= 66.67) return 'flag-green';
+            if (percentuale >= 33.34) return 'flag-neutral';
+            return 'flag-red';
+        }
+
+        // ============================================================
+        //  DATI PARTITE
+        // ============================================================
+        const allMatches = [
+            {
+                id: 1,
+                campionato: "J1 League",
+                giornata: 24,
+                data: "20/07/2026",
+                dataObj: new Date(2026, 6, 20),
+                ora: "19:00",
+                home: "F. Okayama",
+                away: "Vissel Kobe",
+                formHome: "WLDWD",
+                formAway: "DWWLD",
+                percHome: 67,
+                percAway: 33,
+                under45: 78,
+                multigol: 62,
+                over15: 84,
+                homeStats: { xG: 1.8, goalsAvg: 1.4, shots: 12 },
+                awayStats: { xG: 1.2, goalsAvg: 0.9, shots: 9 },
+                venue: "JFE Sunny Country Stadium",
+                weather: { temp: 24, condition: 'Parzialmente nuvoloso', wind: 12, humidity: 65, icon: '⛅' }
+            },
+            {
+                id: 2,
+                campionato: "J1 League",
+                giornata: 24,
+                data: "20/07/2026",
+                dataObj: new Date(2026, 6, 20),
+                ora: "19:00",
+                home: "Yokohama F.M.",
+                away: "Grampus",
+                formHome: "LWDWL",
+                formAway: "DLWDL",
+                percHome: 55,
+                percAway: 45,
+                under45: 69,
+                multigol: 55,
+                over15: 71,
+                homeStats: { xG: 1.6, goalsAvg: 1.8, shots: 14 },
+                awayStats: { xG: 1.1, goalsAvg: 0.7, shots: 8 },
+                venue: "Nissan Stadium",
+                weather: { temp: 26, condition: 'Sereno', wind: 8, humidity: 55, icon: '☀️' }
+            },
+            {
+                id: 3,
+                campionato: "J1 League",
+                giornata: 24,
+                data: "20/07/2026",
+                dataObj: new Date(2026, 6, 20),
+                ora: "19:00",
+                home: "Albirex Niigata",
+                away: "Sanf. Hiroshima",
+                formHome: "LDDWL",
+                formAway: "WDWWL",
+                percHome: 38,
+                percAway: 62,
+                under45: 81,
+                multigol: 44,
+                over15: 59,
+                homeStats: { xG: 0.9, goalsAvg: 0.7, shots: 8 },
+                awayStats: { xG: 1.5, goalsAvg: 1.7, shots: 13 },
+                venue: "Denka Big Swan Stadium",
+                weather: { temp: 22, condition: 'Pioggia leggera', wind: 18, humidity: 80, icon: '🌧️' }
+            },
+            {
+                id: 4,
+                campionato: "Ireland Premier Division",
+                giornata: 25,
+                data: "20/07/2026",
+                dataObj: new Date(2026, 6, 20),
+                ora: "20:00",
+                home: "Bohemian FC",
+                away: "Shamrock",
+                formHome: "WLWDL",
+                formAway: "WWLWD",
+                percHome: 48,
+                percAway: 52,
+                under45: 73,
+                multigol: 58,
+                over15: 66,
+                homeStats: { xG: 1.3, goalsAvg: 1.1, shots: 10 },
+                awayStats: { xG: 1.4, goalsAvg: 1.5, shots: 11 },
+                venue: "Dalymount Park",
+                weather: { temp: 18, condition: 'Nuvoloso', wind: 14, humidity: 72, icon: '☁️' }
+            },
+            {
+                id: 5,
+                campionato: "J1 League",
+                giornata: 25,
+                data: "21/07/2026",
+                dataObj: new Date(2026, 6, 21),
+                ora: "19:00",
+                home: "Kashima Antlers",
+                away: "FC Tokyo",
+                formHome: "WWLWD",
+                formAway: "LWDWL",
+                percHome: 58,
+                percAway: 42,
+                under45: 72,
+                multigol: 54,
+                over15: 68,
+                homeStats: { xG: 1.9, goalsAvg: 1.6, shots: 13 },
+                awayStats: { xG: 1.0, goalsAvg: 0.8, shots: 7 },
+                venue: "Kashima Soccer Stadium",
+                weather: { temp: 25, condition: 'Sereno', wind: 6, humidity: 50, icon: '☀️' }
+            }
+        ];
+
+        // ============================================================
+        //  STATO SWIPE
+        // ============================================================
+        let currentMatches = [];
+        let currentIndex = 0;
+        let currentView = 'card'; // 'card' o 'ai'
+
+        const swipeContainer = document.getElementById('swipeContainer');
+        const cardPanel = document.getElementById('cardPanel');
+        const aiPanel = document.getElementById('aiPanel');
+        const cardsSwipeContainer = document.getElementById('cardsSwipeContainer');
+        const aiContainer = document.getElementById('aiContainer');
+        const dots = document.querySelectorAll('.dot');
+
+        // ============================================================
+        //  FUNZIONI DI NAVIGAZIONE
+        // ============================================================
+        function loadMatchesForDate(date) {
+            const dateStr = date.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            currentMatches = allMatches.filter(m => m.data === dateStr);
+            currentIndex = 0;
+            renderSwipeCards();
+            updateMatchCount(currentMatches.length);
+            // Resetta la vista a card
+            switchView('card');
+        }
+
+        function renderSwipeCards() {
+            if (!currentMatches.length) {
+                cardsSwipeContainer.innerHTML = `
+                    <div class="empty-state">
+                        <span>📅</span>
+                        Nessuna partita per questa data
+                    </div>
+                `;
+                aiContainer.innerHTML = `
+                    <div class="empty-state">
+                        <span>🤖</span>
+                        Nessuna partita da analizzare
+                    </div>
+                `;
+                return;
+            }
+
+            // Renderizza tutte le card (una sotto l'altra per swipe verticale)
+            let cardsHtml = '';
+            currentMatches.forEach((m, idx) => {
+                const formHomeColored = m.formHome.split('').map(c => `<span class="${c}">${c}</span>`).join('');
+                const formAwayColored = m.formAway.split('').map(c => `<span class="${c}">${c}</span>`).join('');
+
+                const homeClass = getFlagClass(m.percHome);
+                const awayClass = getFlagClass(m.percAway);
+                const underClass = getFlagClass(m.under45);
+                const multiClass = getFlagClass(m.multigol);
+                const overClass = getFlagClass(m.over15);
+
+                const isActive = idx === currentIndex ? 'style="border-color:#fc5c7d; box-shadow:0 0 20px rgba(252,92,125,0.15);"' : '';
+
+                cardsHtml += `
+                    <div class="match-card-swipe" data-index="${idx}" ${isActive} onclick="selectMatch(${idx})">
+                        <div class="card-header-swipe">
+                            <span>${m.campionato}</span>
+                            <span class="championship">Giornata ${m.giornata}</span>
+                        </div>
+                        <div class="match-row-swipe">
+                            <span class="team">${m.home}</span>
+                            <span class="vs">VS</span>
+                            <span class="team">${m.away}</span>
+                        </div>
+                        <div class="form-row-swipe">
+                            <div class="form-box">
+                                <span class="label">STATO FORMA</span>
+                                <div class="form-string">${formHomeColored}</div>
+                            </div>
+                            <div class="form-box">
+                                <span class="label">STATO FORMA</span>
+                                <div class="form-string">${formAwayColored}</div>
+                            </div>
+                        </div>
+                        <div class="perc-row-swipe">
+                            <div class="perc-box ${homeClass}">${m.percHome}% <small>${m.home}</small></div>
+                            <div class="perc-box ${awayClass}">${m.percAway}% <small>${m.away}</small></div>
+                        </div>
+                        <div class="stats-row-swipe">
+                            <span class="stat-chip ${underClass}">📊 12+under 4,5 <span class="num">${m.under45}%</span></span>
+                            <span class="stat-chip ${multiClass}">🎯 Multigol <span class="num">${m.multigol}%</span></span>
+                            <span class="stat-chip ${overClass}">⚽ Over 1,5 <span class="num">${m.over15}%</span></span>
+                        </div>
+                        <div class="card-footer-swipe">
+                            <span>📅 ${m.data} • ${m.ora}</span>
+                            <span>#${m.id}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            cardsSwipeContainer.innerHTML = cardsHtml;
+
+            // AI Panel
+            renderAIPanel(currentMatches[currentIndex] || currentMatches[0]);
+        }
+
+        function renderAIPanel(match) {
+            if (!match) {
+                aiContainer.innerHTML = `<div class="empty-state"><span>🤖</span>Nessuna partita selezionata</div>`;
+                return;
+            }
+
+            const analysis = generateAIAnalysis(match);
+            const w = match.weather || { temp: 24, condition: 'Parzialmente nuvoloso', wind: 12, humidity: 65, icon: '⛅' };
+
+            aiContainer.innerHTML = `
+                <div class="ai-header">
+                    <h2>🤖 Analisi AI</h2>
+                    <span class="match-counter">${currentIndex+1}/${currentMatches.length}</span>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;">
+                    <div style="background:rgba(255,255,255,0.05); border-radius:14px; padding:14px;">
+                        <div style="font-size:0.65rem; color:rgba(255,255,255,0.4); text-transform:uppercase; margin-bottom:4px;">🏟️ Stadio</div>
+                        <div style="color:white; font-weight:600;">${match.venue}</div>
+                        <div style="font-size:0.7rem; color:rgba(255,255,255,0.3);">${match.campionato} · G.${match.giornata}</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.05); border-radius:14px; padding:14px;">
+                        <div style="font-size:0.65rem; color:rgba(255,255,255,0.4); text-transform:uppercase; margin-bottom:4px;">🌤️ Meteo</div>
+                        <div style="display:flex; align-items:center; gap:10px;">
+                            <span style="font-size:1.8rem;">${w.icon}</span>
+                            <div>
+                                <div style="color:white; font-weight:600; font-size:1.2rem;">${w.temp}°C</div>
+                                <div style="color:rgba(255,255,255,0.5); font-size:0.75rem;">${w.condition}</div>
+                                <div style="color:rgba(255,255,255,0.3); font-size:0.65rem;">💨 ${w.wind} km/h · 💧 ${w.humidity}%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;">
+                    <div style="background:rgba(255,255,255,0.05); border-radius:14px; padding:14px;">
+                        <div style="font-size:0.65rem; color:rgba(255,255,255,0.4); text-transform:uppercase; margin-bottom:6px;">📊 ${match.home}</div>
+                        <div style="color:white; font-size:0.9rem;">xG: <strong>${match.homeStats.xG}</strong></div>
+                        <div style="color:rgba(255,255,255,0.6); font-size:0.8rem;">Media gol: ${match.homeStats.goalsAvg}</div>
+                        <div style="color:rgba(255,255,255,0.6); font-size:0.8rem;">Tiri: ${match.homeStats.shots}</div>
+                    </div>
+                    <div style="background:rgba(255,255,255,0.05); border-radius:14px; padding:14px;">
+                        <div style="font-size:0.65rem; color:rgba(255,255,255,0.4); text-transform:uppercase; margin-bottom:6px;">📊 ${match.away}</div>
+                        <div style="color:white; font-size:0.9rem;">xG: <strong>${match.awayStats.xG}</strong></div>
+                        <div style="color:rgba(255,255,255,0.6); font-size:0.8rem;">Media gol: ${match.awayStats.goalsAvg}</div>
+                        <div style="color:rgba(255,255,255,0.6); font-size:0.8rem;">Tiri: ${match.awayStats.shots}</div>
+                    </div>
+                </div>
+                <div style="background:rgba(255,255,255,0.05); border-radius:14px; padding:14px; margin-bottom:16px;">
+                    <div style="font-size:0.65rem; color:rgba(255,255,255,0.4); text-transform:uppercase; margin-bottom:6px;">🎯 Pronostici</div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px 16px;">
+                        <div style="color:rgba(255,255,255,0.5); font-size:0.8rem;">12+under 4,5</div>
+                        <div style="color:white; font-weight:600; text-align:right;">${match.under45}%</div>
+                        <div style="color:rgba(255,255,255,0.5); font-size:0.8rem;">Multigol</div>
+                        <div style="color:white; font-weight:600; text-align:right;">${match.multigol}%</div>
+                        <div style="color:rgba(255,255,255,0.5); font-size:0.8rem;">Over 1,5</div>
+                        <div style="color:white; font-weight:600; text-align:right;">${match.over15}%</div>
+                        <div style="color:rgba(255,255,255,0.5); font-size:0.8rem; border-top:1px solid rgba(255,255,255,0.06); padding-top:4px;">${match.home}</div>
+                        <div style="color:white; font-weight:600; text-align:right; border-top:1px solid rgba(255,255,255,0.06); padding-top:4px;">${match.percHome}%</div>
+                        <div style="color:rgba(255,255,255,0.5); font-size:0.8rem;">${match.away}</div>
+                        <div style="color:white; font-weight:600; text-align:right;">${match.percAway}%</div>
+                    </div>
+                </div>
+                <div class="ai-analysis-box">${analysis}</div>
+            `;
+        }
+
+        // ============================================================
+        //  GENERA ANALISI AI
+        // ============================================================
+        function generateAIAnalysis(match) {
+            const homeForm = match.formHome;
+            const awayForm = match.formAway;
+            const homePerc = match.percHome;
+            const awayPerc = match.percAway;
+            const homeXG = match.homeStats.xG;
+            const awayXG = match.awayStats.xG;
+
+            let analysis = `🔍 **Analisi tattica**:\n\n`;
+            analysis += `**${match.home}** (${homePerc}% di vittoria stimata) - Ultime 5: ${homeForm}\n`;
+            analysis += `**${match.away}** (${awayPerc}% di vittoria stimata) - Ultime 5: ${awayForm}\n\n`;
+
+            analysis += `📊 **Punti di forza**:\n`;
+            if (homeXG > awayXG) {
+                analysis += `• ${match.home} ha un xG più alto (${homeXG} vs ${awayXG}), indicando maggior pericolosità offensiva.\n`;
+            } else {
+                analysis += `• ${match.away} ha un xG più alto (${awayXG} vs ${homeXG}), indicando maggior pericolosità offensiva.\n`;
+            }
+
+            if (homePerc > 50 && awayPerc < 50) {
+                analysis += `• ${match.home} è favorito secondo le probabilità, con un vantaggio del ${homePerc - awayPerc}%.\n`;
+            } else if (awayPerc > 50 && homePerc < 50) {
+                analysis += `• ${match.away} è favorito secondo le probabilità, con un vantaggio del ${awayPerc - homePerc}%.\n`;
+            } else {
+                analysis += `• Le due squadre sono bilanciate, con probabilità molto vicine.\n`;
+            }
+
+            analysis += `\n⚠️ **Punti deboli**:\n`;
+            if (homeForm.includes('L')) {
+                analysis += `• ${match.home} ha recenti sconfitte (${homeForm}), potenziale calo di fiducia.\n`;
+            }
+            if (awayForm.includes('L')) {
+                analysis += `• ${match.away} ha recenti sconfitte (${awayForm}), potenziale calo di fiducia.\n`;
+            }
+            if (!homeForm.includes('L') && !awayForm.includes('L')) {
+                analysis += `• Entrambe le squadre sono in buona forma, senza recenti sconfitte.\n`;
+            }
+
+            analysis += `\n📈 **Previsione**:\n`;
+            const overPerc = match.over15;
+            if (overPerc > 70) {
+                analysis += `• Alta probabilità di Over 1,5 (${overPerc}%), partita potenzialmente ricca di gol.\n`;
+            } else {
+                analysis += `• Bassa probabilità di Over 1,5 (${overPerc}%), partita potenzialmente equilibrata.\n`;
+            }
+
+            analysis += `\n💡 **Consiglio**: ${homePerc > awayPerc ? match.home : match.away} leggermente favorito. `;
+            analysis += `Il mercato più interessante sembra essere ${match.under45 > 70 ? '12+under 4,5' : match.multigol > 60 ? 'Multigol' : 'Over 1,5'} con ${Math.max(match.under45, match.multigol, match.over15)}% di probabilità.`;
+
+            return analysis;
+        }
+
+        // ============================================================
+        //  SELEZIONE PARTITA
+        // ============================================================
+        window.selectMatch = function(index) {
+            if (index < 0 || index >= currentMatches.length) return;
+            currentIndex = index;
+            renderSwipeCards();
+            // Scorri alla card selezionata
+            const cards = cardsSwipeContainer.querySelectorAll('.match-card-swipe');
+            if (cards[index]) {
+                cards[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            // Aggiorna l'AI
+            renderAIPanel(currentMatches[index]);
+        };
+
+        function updateMatchCount(count) {
+            const badge = document.getElementById('matchCountBadge');
+            badge.textContent = count || currentMatches.length;
+        }
+
+        // ============================================================
+        //  SWIPE VERTICALE (cambio partita)
+        // ============================================================
+        let touchStartY = 0;
+        let touchStartX = 0;
+        let touchDeltaY = 0;
+        let touchDeltaX = 0;
+        let isSwiping = false;
+
+        const mainContent = document.getElementById('mainContent');
+
+        mainContent.addEventListener('touchstart', (e) => {
+            const touch = e.touches[0];
+            touchStartY = touch.clientY;
+            touchStartX = touch.clientX;
+            touchDeltaY = 0;
+            touchDeltaX = 0;
+            isSwiping = true;
+        }, { passive: true });
+
+        mainContent.addEventListener('touchmove', (e) => {
+            if (!isSwiping) return;
+            const touch = e.touches[0];
+            touchDeltaY = touch.clientY - touchStartY;
+            touchDeltaX = touch.clientX - touchStartX;
+
+            // Se lo swipe è prevalentemente orizzontale, lo gestiamo per cambiare vista
+            if (Math.abs(touchDeltaX) > 30 && Math.abs(touchDeltaX) > Math.abs(touchDeltaY) * 1.2) {
+                e.preventDefault();
+                // Cambio vista orizzontale
+                if (touchDeltaX < -30 && currentView === 'card') {
+                    switchView('ai');
+                } else if (touchDeltaX > 30 && currentView === 'ai') {
+                    switchView('card');
+                }
+                isSwiping = false;
+                return;
+            }
+
+            // Swipe verticale: cambio partita
+            if (Math.abs(touchDeltaY) > 80 && Math.abs(touchDeltaY) > Math.abs(touchDeltaX) * 1.2) {
+                e.preventDefault();
+                if (touchDeltaY < -80 && currentIndex < currentMatches.length - 1) {
+                    // Swipe verso l'alto → partita successiva
+                    selectMatch(currentIndex + 1);
+                } else if (touchDeltaY > 80 && currentIndex > 0) {
+                    // Swipe verso il basso → partita precedente
+                    selectMatch(currentIndex - 1);
+                }
+                isSwiping = false;
+            }
+        }, { passive: false });
+
+        mainContent.addEventListener('touchend', () => {
+            isSwiping = false;
+        }, { passive: true });
+
+        // ============================================================
+        //  SWIPE ORIZZONTALE (cambio vista) - mouse drag support
+        // ============================================================
+        let mouseDownX = 0;
+        let mouseDownY = 0;
+        let isDragging = false;
+
+        mainContent.addEventListener('mousedown', (e) => {
+            mouseDownX = e.clientX;
+            mouseDownY = e.clientY;
+            isDragging = true;
+        });
+
+        mainContent.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const deltaX = e.clientX - mouseDownX;
+            const deltaY = e.clientY - mouseDownY;
+
+            if (Math.abs(deltaX) > 40 && Math.abs(deltaX) > Math.abs(deltaY) * 1.2) {
+                if (deltaX < -40 && currentView === 'card') {
+                    switchView('ai');
+                } else if (deltaX > 40 && currentView === 'ai') {
+                    switchView('card');
+                }
+                isDragging = false;
+            }
+        });
+
+        mainContent.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        // ============================================================
+        //  CAMBIO VISTA (Card / AI)
+        // ============================================================
+        window.switchView = function(view) {
+            if (view === currentView) return;
+            currentView = view;
+            swipeContainer.classList.remove('view-card', 'view-ai');
+            swipeContainer.classList.add(view === 'card' ? 'view-card' : 'view-ai');
+            dots.forEach(d => {
+                d.classList.toggle('active', d.dataset.view === view);
+            });
+        };
+
+        // ============================================================
+        //  KEYBOARD SUPPORT (freccie)
+        // ============================================================
+        document.addEventListener('keydown', (e) => {
+            if (currentTab !== 'partite') return;
+            if (e.key === 'ArrowUp' && currentIndex > 0) {
+                e.preventDefault();
+                selectMatch(currentIndex - 1);
+            } else if (e.key === 'ArrowDown' && currentIndex < currentMatches.length - 1) {
+                e.preventDefault();
+                selectMatch(currentIndex + 1);
+            } else if (e.key === 'ArrowRight' && currentView === 'card') {
+                e.preventDefault();
+                switchView('ai');
+            } else if (e.key === 'ArrowLeft' && currentView === 'ai') {
+                e.preventDefault();
+                switchView('card');
+            }
+        });
+
+        // ============================================================
+        //  SALVA CHIAVI
+        // ============================================================
+        document.querySelectorAll('#groqKey, #weatherKey').forEach(input => {
+            input.addEventListener('change', function() {
+                localStorage.setItem(this.id, this.value);
+            });
+            const saved = localStorage.getItem(input.id);
+            if (saved) input.value = saved;
+        });
+
+        // ============================================================
+        //  SERVICE WORKER
+        // ============================================================
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+                .then(() => console.log('Service Worker registrato'))
+                .catch(err => console.log('SW registrazione fallita:', err));
+        }
+
+        // ============================================================
+        //  INIT
+        // ============================================================
+        loadMatchesForDate(selectedDate);
+
+        console.log('GesssAI-Prono PWA · swipe ready');
+    })();
+</script>
+</body>
+</html>
