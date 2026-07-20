@@ -325,12 +325,12 @@
             border-radius: 10px;
         }
 
-        /* ===== CARD SINGOLA (versione compatta per swipe verticale) ===== */
+        /* ===== CARD SINGOLA - CARATTERI PIÙ GROSSI ===== */
         .match-card-swipe {
             background: rgba(255,255,255,0.06);
             border-radius: 24px;
-            padding: 20px;
-            margin-bottom: 12px;
+            padding: 24px 20px;
+            margin-bottom: 16px;
             border: 1px solid rgba(255,255,255,0.06);
             cursor: pointer;
             transition: 0.2s;
@@ -342,15 +342,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: rgba(255,255,255,0.5);
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
         .match-card-swipe .card-header-swipe .championship {
             background: rgba(255,255,255,0.08);
-            padding: 2px 12px;
+            padding: 3px 14px;
             border-radius: 40px;
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             font-weight: 600;
             color: rgba(255,255,255,0.7);
         }
@@ -360,9 +360,9 @@
             align-items: center;
             gap: 8px;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.4rem;
             color: #ffffff;
-            margin-bottom: 10px;
+            margin-bottom: 14px;
         }
         .match-card-swipe .match-row-swipe .team {
             white-space: nowrap;
@@ -371,18 +371,18 @@
             max-width: 42%;
         }
         .match-card-swipe .match-row-swipe .vs {
-            color: rgba(255,255,255,0.3);
+            color: rgba(255,255,255,0.25);
             font-weight: 300;
-            font-size: 0.8rem;
+            font-size: 1rem;
         }
         .match-card-swipe .form-row-swipe {
             display: flex;
             justify-content: space-between;
-            gap: 16px;
+            gap: 20px;
             background: rgba(255,255,255,0.04);
-            border-radius: 14px;
-            padding: 8px 12px;
-            margin: 6px 0 8px;
+            border-radius: 16px;
+            padding: 10px 14px;
+            margin: 8px 0 12px;
         }
         .match-card-swipe .form-row-swipe .form-box {
             display: flex;
@@ -391,64 +391,80 @@
             flex: 1;
         }
         .match-card-swipe .form-row-swipe .form-box .label {
-            font-size: 0.5rem;
+            font-size: 0.6rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             color: rgba(255,255,255,0.4);
-            margin-bottom: 2px;
+            margin-bottom: 3px;
             font-weight: 600;
         }
         .match-card-swipe .form-row-swipe .form-string {
             font-family: 'Courier New', monospace;
             font-weight: 700;
-            font-size: 1rem;
-            letter-spacing: 2px;
+            font-size: 1.3rem;
+            letter-spacing: 3px;
             color: #ffffff;
         }
         .match-card-swipe .form-row-swipe .form-string .W { color: #3db86b; }
         .match-card-swipe .form-row-swipe .form-string .D { color: #e6b422; }
         .match-card-swipe .form-row-swipe .form-string .L { color: #e06060; }
+
         .match-card-swipe .perc-row-swipe {
             display: flex;
             justify-content: space-between;
-            gap: 10px;
-            margin: 4px 0 8px;
+            gap: 12px;
+            margin: 6px 0 12px;
         }
         .match-card-swipe .perc-row-swipe .perc-box {
             border-radius: 40px;
-            padding: 4px 10px;
+            padding: 6px 14px;
             flex: 1;
             text-align: center;
             font-weight: 700;
-            font-size: 0.95rem;
+            font-size: 1.2rem;
             color: #1a1a1a;
             border: 1px solid transparent;
         }
         .match-card-swipe .perc-row-swipe .perc-box small {
             font-weight: 500;
-            font-size: 0.5rem;
+            font-size: 0.6rem;
             color: #1a1a1a;
             opacity: 0.8;
         }
+
+        /* ===== 3 GIOCATE UNA PER RIGA ===== */
         .match-card-swipe .stats-row-swipe {
             display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 8px;
             border-top: 1px solid rgba(255,255,255,0.06);
-            padding-top: 10px;
+            padding-top: 12px;
         }
         .match-card-swipe .stats-row-swipe .stat-chip {
             border-radius: 30px;
-            padding: 3px 10px;
-            font-size: 0.65rem;
-            font-weight: 600;
+            padding: 10px 16px;
+            font-size: 1rem;
+            font-weight: 700;
             color: #1a1a1a;
-            flex: 1 0 auto;
+            width: 100%;
             text-align: center;
             border: 1px solid transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
         }
-        .match-card-swipe .stats-row-swipe .stat-chip .num { font-weight: 700; color: #1a1a1a; }
+        .match-card-swipe .stats-row-swipe .stat-chip .num {
+            font-weight: 700;
+            color: #1a1a1a;
+            font-size: 1.1rem;
+        }
+        .match-card-swipe .stats-row-swipe .stat-chip .multigol-label {
+            font-weight: 400;
+            font-size: 0.75rem;
+            color: rgba(0,0,0,0.5);
+            margin-left: 4px;
+        }
         .match-card-swipe .stats-row-swipe .stat-chip.flag-red { background: #fde0e0; border-color: #e57373; }
         .match-card-swipe .stats-row-swipe .stat-chip.flag-neutral { background: #f0f2f5; border-color: #b0b8c4; }
         .match-card-swipe .stats-row-swipe .stat-chip.flag-green { background: #d4edda; border-color: #58b36b; }
@@ -458,8 +474,8 @@
         .match-card-swipe .card-footer-swipe {
             display: flex;
             justify-content: space-between;
-            margin-top: 10px;
-            font-size: 0.6rem;
+            margin-top: 12px;
+            font-size: 0.7rem;
             color: rgba(255,255,255,0.4);
         }
 
@@ -484,7 +500,7 @@
         }
         .match-card-swipe .flag-bomb small { color: #1a1a1a; }
 
-        /* ===== PANEL AI ===== */
+        /* ===== PANEL AI - CARATTERI PIÙ GROSSI ===== */
         .ai-panel-content {
             padding: 4px 0;
         }
@@ -492,27 +508,128 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 16px;
+            margin-bottom: 18px;
             flex-wrap: wrap;
             gap: 8px;
         }
         .ai-panel-content .ai-header h2 {
             color: #ffffff;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
         }
         .ai-panel-content .ai-header .match-counter {
             color: rgba(255,255,255,0.4);
-            font-size: 0.8rem;
+            font-size: 0.9rem;
         }
+
+        .ai-panel-content .ai-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .ai-panel-content .ai-box {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 16px;
+        }
+        .ai-panel-content .ai-box .ai-label {
+            font-size: 0.7rem;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .ai-panel-content .ai-box .ai-value {
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        .ai-panel-content .ai-box .ai-value small {
+            font-weight: 400;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+        }
+        .ai-panel-content .ai-box .ai-weather {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .ai-panel-content .ai-box .ai-weather .wi {
+            font-size: 2.2rem;
+        }
+        .ai-panel-content .ai-box .ai-weather .temp {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        .ai-panel-content .ai-box .ai-weather .cond {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85rem;
+        }
+        .ai-panel-content .ai-box .ai-weather .details {
+            color: rgba(255,255,255,0.3);
+            font-size: 0.75rem;
+        }
+
+        /* 3 giocate nell'AI */
+        .ai-panel-content .ai-stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin-top: 6px;
+        }
+        .ai-panel-content .ai-stats-grid .ai-stat-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 10px 8px;
+            text-align: center;
+        }
+        .ai-panel-content .ai-stats-grid .ai-stat-item .stat-label {
+            font-size: 0.65rem;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .ai-panel-content .ai-stats-grid .ai-stat-item .stat-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-top: 2px;
+        }
+        .ai-panel-content .ai-stats-grid .ai-stat-item .stat-sub {
+            font-size: 0.6rem;
+            color: rgba(255,255,255,0.3);
+        }
+
+        .ai-panel-content .ai-pronostici-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4px 16px;
+        }
+        .ai-panel-content .ai-pronostici-grid .p-label {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.85rem;
+        }
+        .ai-panel-content .ai-pronostici-grid .p-value {
+            color: #ffffff;
+            font-weight: 700;
+            text-align: right;
+            font-size: 1rem;
+        }
+        .ai-panel-content .ai-pronostici-grid .p-value .highlight {
+            color: #fc5c7d;
+        }
+
         .ai-analysis-box {
             background: rgba(255,255,255,0.05);
             border-radius: 18px;
-            padding: 18px;
-            line-height: 1.7;
+            padding: 20px;
+            line-height: 1.8;
             color: #ffffff;
             border: 1px solid rgba(255,255,255,0.06);
             white-space: pre-wrap;
-            font-size: 0.95rem;
+            font-size: 1.05rem;
         }
         .ai-analysis-box strong {
             color: #fc5c7d;
@@ -540,7 +657,7 @@
             border-radius: 10px;
         }
         .swipe-indicators .dot-label {
-            font-size: 0.6rem;
+            font-size: 0.7rem;
             color: rgba(255,255,255,0.3);
             margin: 0 4px;
         }
@@ -711,7 +828,6 @@
             flex-shrink: 0;
         }
 
-        /* ===== INSTALL BANNER ===== */
         .install-banner {
             display: none;
             background: linear-gradient(145deg, #1a2639, #0e1626);
@@ -767,17 +883,28 @@
             .tab-nav { order: 3; width: 100%; justify-content: center; }
             .tab-btn { font-size: 0.65rem; padding: 4px 10px; }
             .swipe-panel { padding: 12px 10px 70px 10px; }
-            .match-card-swipe { padding: 14px; }
-            .match-card-swipe .match-row-swipe { font-size: 0.95rem; }
+            .match-card-swipe { padding: 16px 14px; }
+            .match-card-swipe .match-row-swipe { font-size: 1.2rem; }
+            .match-card-swipe .form-row-swipe .form-string { font-size: 1.1rem; }
+            .match-card-swipe .stats-row-swipe .stat-chip { font-size: 0.85rem; padding: 8px 12px; }
+            .ai-panel-content .ai-box .ai-value { font-size: 0.95rem; }
+            .ai-panel-content .ai-stats-grid { grid-template-columns: 1fr 1fr 1fr; }
+            .ai-panel-content .ai-stats-grid .ai-stat-item .stat-value { font-size: 1.1rem; }
+            .ai-analysis-box { font-size: 0.95rem; padding: 16px; }
             .calendar-popup { left: -60px; min-width: 240px; }
+            .ai-panel-content .ai-grid-2 { grid-template-columns: 1fr; }
         }
         @media (max-width: 480px) {
             .header-left .clock { font-size: 0.6rem; padding: 3px 8px; }
             .header-center { font-size: 1rem; }
             .tab-btn { font-size: 0.55rem; padding: 3px 8px; }
+            .match-card-swipe .match-row-swipe { font-size: 1rem; }
+            .match-card-swipe .stats-row-swipe .stat-chip { font-size: 0.75rem; padding: 6px 10px; }
+            .match-card-swipe .perc-row-swipe .perc-box { font-size: 1rem; }
             .calendar-popup { left: -80px; min-width: 200px; }
-            .match-card-swipe .match-row-swipe { font-size: 0.85rem; }
-            .match-card-swipe .stats-row-swipe .stat-chip { font-size: 0.55rem; padding: 2px 6px; }
+            .ai-panel-content .ai-stats-grid { grid-template-columns: 1fr 1fr 1fr; }
+            .ai-panel-content .ai-stats-grid .ai-stat-item .stat-value { font-size: 0.95rem; }
+            .ai-analysis-box { font-size: 0.85rem; }
         }
     </style>
 </head>
@@ -1113,7 +1240,7 @@
         }
 
         // ============================================================
-        //  DATI PARTITE
+        //  DATI PARTITE (con Multigol fasce)
         // ============================================================
         const allMatches = [
             {
@@ -1131,6 +1258,7 @@
                 percAway: 33,
                 under45: 78,
                 multigol: 62,
+                multigolFasce: "0-2 - 1-3",
                 over15: 84,
                 homeStats: { xG: 1.8, goalsAvg: 1.4, shots: 12 },
                 awayStats: { xG: 1.2, goalsAvg: 0.9, shots: 9 },
@@ -1152,6 +1280,7 @@
                 percAway: 45,
                 under45: 69,
                 multigol: 55,
+                multigolFasce: "1-3 - 2-5",
                 over15: 71,
                 homeStats: { xG: 1.6, goalsAvg: 1.8, shots: 14 },
                 awayStats: { xG: 1.1, goalsAvg: 0.7, shots: 8 },
@@ -1173,6 +1302,7 @@
                 percAway: 62,
                 under45: 81,
                 multigol: 44,
+                multigolFasce: "0-2 - 1-3",
                 over15: 59,
                 homeStats: { xG: 0.9, goalsAvg: 0.7, shots: 8 },
                 awayStats: { xG: 1.5, goalsAvg: 1.7, shots: 13 },
@@ -1194,6 +1324,7 @@
                 percAway: 52,
                 under45: 73,
                 multigol: 58,
+                multigolFasce: "2-5 - 0-2",
                 over15: 66,
                 homeStats: { xG: 1.3, goalsAvg: 1.1, shots: 10 },
                 awayStats: { xG: 1.4, goalsAvg: 1.5, shots: 11 },
@@ -1215,6 +1346,7 @@
                 percAway: 42,
                 under45: 72,
                 multigol: 54,
+                multigolFasce: "1-3 - 2-5",
                 over15: 68,
                 homeStats: { xG: 1.9, goalsAvg: 1.6, shots: 13 },
                 awayStats: { xG: 1.0, goalsAvg: 0.8, shots: 7 },
@@ -1246,7 +1378,6 @@
             currentIndex = 0;
             renderSwipeCards();
             updateMatchCount(currentMatches.length);
-            // Resetta la vista a card
             switchView('card');
         }
 
@@ -1267,7 +1398,6 @@
                 return;
             }
 
-            // Renderizza tutte le card (una sotto l'altra per swipe verticale)
             let cardsHtml = '';
             currentMatches.forEach((m, idx) => {
                 const formHomeColored = m.formHome.split('').map(c => `<span class="${c}">${c}</span>`).join('');
@@ -1279,7 +1409,7 @@
                 const multiClass = getFlagClass(m.multigol);
                 const overClass = getFlagClass(m.over15);
 
-                const isActive = idx === currentIndex ? 'style="border-color:#fc5c7d; box-shadow:0 0 20px rgba(252,92,125,0.15);"' : '';
+                const isActive = idx === currentIndex ? 'style="border-color:#fc5c7d; box-shadow:0 0 30px rgba(252,92,125,0.15);"' : '';
 
                 cardsHtml += `
                     <div class="match-card-swipe" data-index="${idx}" ${isActive} onclick="selectMatch(${idx})">
@@ -1306,10 +1436,11 @@
                             <div class="perc-box ${homeClass}">${m.percHome}% <small>${m.home}</small></div>
                             <div class="perc-box ${awayClass}">${m.percAway}% <small>${m.away}</small></div>
                         </div>
+                        <!-- 3 GIOCATE UNA PER RIGA -->
                         <div class="stats-row-swipe">
-                            <span class="stat-chip ${underClass}">📊 12+under 4,5 <span class="num">${m.under45}%</span></span>
-                            <span class="stat-chip ${multiClass}">🎯 Multigol <span class="num">${m.multigol}%</span></span>
-                            <span class="stat-chip ${overClass}">⚽ Over 1,5 <span class="num">${m.over15}%</span></span>
+                            <div class="stat-chip ${underClass}">📊 12+under 4,5 <span class="num">${m.under45}%</span></div>
+                            <div class="stat-chip ${multiClass}">🎯 Multigol <span class="num">${m.multigol}%</span> <span class="multigol-label">(${m.multigolFasce})</span></div>
+                            <div class="stat-chip ${overClass}">⚽ Over 1,5 <span class="num">${m.over15}%</span></div>
                         </div>
                         <div class="card-footer-swipe">
                             <span>📅 ${m.data} • ${m.ora}</span>
@@ -1320,8 +1451,6 @@
             });
 
             cardsSwipeContainer.innerHTML = cardsHtml;
-
-            // AI Panel
             renderAIPanel(currentMatches[currentIndex] || currentMatches[0]);
         }
 
@@ -1339,59 +1468,81 @@
                     <h2>🤖 Analisi AI</h2>
                     <span class="match-counter">${currentIndex+1}/${currentMatches.length}</span>
                 </div>
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;">
-                    <div style="background:rgba(255,255,255,0.05); border-radius:14px; padding:14px;">
-                        <div style="font-size:0.65rem; color:rgba(255,255,255,0.4); text-transform:uppercase; margin-bottom:4px;">🏟️ Stadio</div>
-                        <div style="color:white; font-weight:600;">${match.venue}</div>
-                        <div style="font-size:0.7rem; color:rgba(255,255,255,0.3);">${match.campionato} · G.${match.giornata}</div>
+
+                <div class="ai-grid-2">
+                    <div class="ai-box">
+                        <div class="ai-label">🏟️ Stadio</div>
+                        <div class="ai-value">${match.venue}</div>
+                        <div style="font-size:0.8rem; color:rgba(255,255,255,0.3);">${match.campionato} · G.${match.giornata}</div>
                     </div>
-                    <div style="background:rgba(255,255,255,0.05); border-radius:14px; padding:14px;">
-                        <div style="font-size:0.65rem; color:rgba(255,255,255,0.4); text-transform:uppercase; margin-bottom:4px;">🌤️ Meteo</div>
-                        <div style="display:flex; align-items:center; gap:10px;">
-                            <span style="font-size:1.8rem;">${w.icon}</span>
+                    <div class="ai-box">
+                        <div class="ai-label">🌤️ Meteo</div>
+                        <div class="ai-weather">
+                            <span class="wi">${w.icon}</span>
                             <div>
-                                <div style="color:white; font-weight:600; font-size:1.2rem;">${w.temp}°C</div>
-                                <div style="color:rgba(255,255,255,0.5); font-size:0.75rem;">${w.condition}</div>
-                                <div style="color:rgba(255,255,255,0.3); font-size:0.65rem;">💨 ${w.wind} km/h · 💧 ${w.humidity}%</div>
+                                <div class="temp">${w.temp}°C</div>
+                                <div class="cond">${w.condition}</div>
+                                <div class="details">💨 ${w.wind} km/h · 💧 ${w.humidity}%</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:16px;">
-                    <div style="background:rgba(255,255,255,0.05); border-radius:14px; padding:14px;">
-                        <div style="font-size:0.65rem; color:rgba(255,255,255,0.4); text-transform:uppercase; margin-bottom:6px;">📊 ${match.home}</div>
-                        <div style="color:white; font-size:0.9rem;">xG: <strong>${match.homeStats.xG}</strong></div>
-                        <div style="color:rgba(255,255,255,0.6); font-size:0.8rem;">Media gol: ${match.homeStats.goalsAvg}</div>
-                        <div style="color:rgba(255,255,255,0.6); font-size:0.8rem;">Tiri: ${match.homeStats.shots}</div>
+
+                <div class="ai-grid-2">
+                    <div class="ai-box">
+                        <div class="ai-label">📊 ${match.home}</div>
+                        <div class="ai-value">xG: <strong>${match.homeStats.xG}</strong></div>
+                        <div style="color:rgba(255,255,255,0.5); font-size:0.9rem;">Media gol: ${match.homeStats.goalsAvg}</div>
+                        <div style="color:rgba(255,255,255,0.5); font-size:0.9rem;">Tiri: ${match.homeStats.shots}</div>
                     </div>
-                    <div style="background:rgba(255,255,255,0.05); border-radius:14px; padding:14px;">
-                        <div style="font-size:0.65rem; color:rgba(255,255,255,0.4); text-transform:uppercase; margin-bottom:6px;">📊 ${match.away}</div>
-                        <div style="color:white; font-size:0.9rem;">xG: <strong>${match.awayStats.xG}</strong></div>
-                        <div style="color:rgba(255,255,255,0.6); font-size:0.8rem;">Media gol: ${match.awayStats.goalsAvg}</div>
-                        <div style="color:rgba(255,255,255,0.6); font-size:0.8rem;">Tiri: ${match.awayStats.shots}</div>
-                    </div>
-                </div>
-                <div style="background:rgba(255,255,255,0.05); border-radius:14px; padding:14px; margin-bottom:16px;">
-                    <div style="font-size:0.65rem; color:rgba(255,255,255,0.4); text-transform:uppercase; margin-bottom:6px;">🎯 Pronostici</div>
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:4px 16px;">
-                        <div style="color:rgba(255,255,255,0.5); font-size:0.8rem;">12+under 4,5</div>
-                        <div style="color:white; font-weight:600; text-align:right;">${match.under45}%</div>
-                        <div style="color:rgba(255,255,255,0.5); font-size:0.8rem;">Multigol</div>
-                        <div style="color:white; font-weight:600; text-align:right;">${match.multigol}%</div>
-                        <div style="color:rgba(255,255,255,0.5); font-size:0.8rem;">Over 1,5</div>
-                        <div style="color:white; font-weight:600; text-align:right;">${match.over15}%</div>
-                        <div style="color:rgba(255,255,255,0.5); font-size:0.8rem; border-top:1px solid rgba(255,255,255,0.06); padding-top:4px;">${match.home}</div>
-                        <div style="color:white; font-weight:600; text-align:right; border-top:1px solid rgba(255,255,255,0.06); padding-top:4px;">${match.percHome}%</div>
-                        <div style="color:rgba(255,255,255,0.5); font-size:0.8rem;">${match.away}</div>
-                        <div style="color:white; font-weight:600; text-align:right;">${match.percAway}%</div>
+                    <div class="ai-box">
+                        <div class="ai-label">📊 ${match.away}</div>
+                        <div class="ai-value">xG: <strong>${match.awayStats.xG}</strong></div>
+                        <div style="color:rgba(255,255,255,0.5); font-size:0.9rem;">Media gol: ${match.awayStats.goalsAvg}</div>
+                        <div style="color:rgba(255,255,255,0.5); font-size:0.9rem;">Tiri: ${match.awayStats.shots}</div>
                     </div>
                 </div>
+
+                <!-- 3 GIOCATE NELL'AI -->
+                <div class="ai-box" style="margin-bottom:16px;">
+                    <div class="ai-label">🎯 Pronostici</div>
+                    <div class="ai-stats-grid">
+                        <div class="ai-stat-item ${getFlagClass(match.under45)}" style="background:${getFlagClass(match.under45) === 'flag-red' ? '#fde0e0' : getFlagClass(match.under45) === 'flag-neutral' ? '#f0f2f5' : getFlagClass(match.under45) === 'flag-green' ? '#d4edda' : getFlagClass(match.under45) === 'flag-gold' ? '#ffd966' : '#ffb347'}; color:#1a1a1a;">
+                            <div class="stat-label" style="color:#1a1a1a; opacity:0.6;">12+under 4,5</div>
+                            <div class="stat-value" style="color:#1a1a1a;">${match.under45}%</div>
+                        </div>
+                        <div class="ai-stat-item ${getFlagClass(match.multigol)}" style="background:${getFlagClass(match.multigol) === 'flag-red' ? '#fde0e0' : getFlagClass(match.multigol) === 'flag-neutral' ? '#f0f2f5' : getFlagClass(match.multigol) === 'flag-green' ? '#d4edda' : getFlagClass(match.multigol) === 'flag-gold' ? '#ffd966' : '#ffb347'}; color:#1a1a1a;">
+                            <div class="stat-label" style="color:#1a1a1a; opacity:0.6;">Multigol</div>
+                            <div class="stat-value" style="color:#1a1a1a;">${match.multigol}%</div>
+                            <div class="stat-sub" style="color:#1a1a1a; opacity:0.5;">${match.multigolFasce}</div>
+                        </div>
+                        <div class="ai-stat-item ${getFlagClass(match.over15)}" style="background:${getFlagClass(match.over15) === 'flag-red' ? '#fde0e0' : getFlagClass(match.over15) === 'flag-neutral' ? '#f0f2f5' : getFlagClass(match.over15) === 'flag-green' ? '#d4edda' : getFlagClass(match.over15) === 'flag-gold' ? '#ffd966' : '#ffb347'}; color:#1a1a1a;">
+                            <div class="stat-label" style="color:#1a1a1a; opacity:0.6;">Over 1,5</div>
+                            <div class="stat-value" style="color:#1a1a1a;">${match.over15}%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ai-box" style="margin-bottom:16px;">
+                    <div class="ai-label">📊 Probabilità vittoria</div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                        <div style="text-align:center; padding:8px; background:rgba(255,255,255,0.03); border-radius:12px;">
+                            <div style="font-size:0.8rem; color:rgba(255,255,255,0.5);">${match.home}</div>
+                            <div style="font-size:1.4rem; font-weight:700; color:#ffffff;">${match.percHome}%</div>
+                        </div>
+                        <div style="text-align:center; padding:8px; background:rgba(255,255,255,0.03); border-radius:12px;">
+                            <div style="font-size:0.8rem; color:rgba(255,255,255,0.5);">${match.away}</div>
+                            <div style="font-size:1.4rem; font-weight:700; color:#ffffff;">${match.percAway}%</div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="ai-analysis-box">${analysis}</div>
             `;
         }
 
         // ============================================================
-        //  GENERA ANALISI AI
+        //  GENERA ANALISI AI (con Multigol fasce)
         // ============================================================
         function generateAIAnalysis(match) {
             const homeForm = match.formHome;
@@ -1439,6 +1590,9 @@
                 analysis += `• Bassa probabilità di Over 1,5 (${overPerc}%), partita potenzialmente equilibrata.\n`;
             }
 
+            // Multigol con fasce
+            analysis += `• Multigol: ${match.multigol}% (fasce ${match.multigolFasce}), indica una partita con ${match.multigol > 60 ? 'buona' : 'moderata'} produzione offensiva.\n`;
+
             analysis += `\n💡 **Consiglio**: ${homePerc > awayPerc ? match.home : match.away} leggermente favorito. `;
             analysis += `Il mercato più interessante sembra essere ${match.under45 > 70 ? '12+under 4,5' : match.multigol > 60 ? 'Multigol' : 'Over 1,5'} con ${Math.max(match.under45, match.multigol, match.over15)}% di probabilità.`;
 
@@ -1452,12 +1606,10 @@
             if (index < 0 || index >= currentMatches.length) return;
             currentIndex = index;
             renderSwipeCards();
-            // Scorri alla card selezionata
             const cards = cardsSwipeContainer.querySelectorAll('.match-card-swipe');
             if (cards[index]) {
                 cards[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
-            // Aggiorna l'AI
             renderAIPanel(currentMatches[index]);
         };
 
@@ -1492,10 +1644,8 @@
             touchDeltaY = touch.clientY - touchStartY;
             touchDeltaX = touch.clientX - touchStartX;
 
-            // Se lo swipe è prevalentemente orizzontale, lo gestiamo per cambiare vista
             if (Math.abs(touchDeltaX) > 30 && Math.abs(touchDeltaX) > Math.abs(touchDeltaY) * 1.2) {
                 e.preventDefault();
-                // Cambio vista orizzontale
                 if (touchDeltaX < -30 && currentView === 'card') {
                     switchView('ai');
                 } else if (touchDeltaX > 30 && currentView === 'ai') {
@@ -1505,14 +1655,11 @@
                 return;
             }
 
-            // Swipe verticale: cambio partita
             if (Math.abs(touchDeltaY) > 80 && Math.abs(touchDeltaY) > Math.abs(touchDeltaX) * 1.2) {
                 e.preventDefault();
                 if (touchDeltaY < -80 && currentIndex < currentMatches.length - 1) {
-                    // Swipe verso l'alto → partita successiva
                     selectMatch(currentIndex + 1);
                 } else if (touchDeltaY > 80 && currentIndex > 0) {
-                    // Swipe verso il basso → partita precedente
                     selectMatch(currentIndex - 1);
                 }
                 isSwiping = false;
@@ -1569,7 +1716,7 @@
         };
 
         // ============================================================
-        //  KEYBOARD SUPPORT (freccie)
+        //  KEYBOARD SUPPORT
         // ============================================================
         document.addEventListener('keydown', (e) => {
             if (currentTab !== 'partite') return;
