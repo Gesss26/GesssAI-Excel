@@ -62,7 +62,6 @@
             font-size: var(--font-size-base);
         }
 
-        /* Dimensioni font */
         .font-sm { --font-size-base: 13px; }
         .font-md { --font-size-base: 16px; }
         .font-lg { --font-size-base: 19px; }
@@ -183,6 +182,9 @@
             justify-content: space-between;
             margin-bottom: 12px;
         }
+        .data-ora .today-badge { color: #22c55e; font-weight: 700; }
+        .data-ora .tomorrow-badge { color: #eab308; font-weight: 700; }
+
         .squadre {
             display: flex;
             justify-content: space-between;
@@ -357,7 +359,7 @@
         }
 
         /* ================================================================ */
-        /* ANALISI AI - Stile professionale */
+        /* ANALISI AI */
         /* ================================================================ */
 
         .ai-container {
@@ -553,7 +555,7 @@
         }
 
         /* ================================================================ */
-        /* IMPOSTAZIONI - Slider dimensione caratteri */
+        /* IMPOSTAZIONI */
         /* ================================================================ */
 
         .font-slider-container {
@@ -985,20 +987,22 @@
     let matches = [];
 
     // ================================================================
-    // FILTRO PARTITE: oggi e domani (FUTURE)
+    // FILTRO PARTITE: DATA FORZATA - SOLO OGGI E DOMANI
     // ================================================================
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
+    // DATA FORZATA MANUALMENTE (per evitare problemi di fuso orario)
+    const oggiStr = '2026-07-21';
+    const domaniStr = '2026-07-22';
 
-    const todayStr = today.toISOString().split('T')[0];
-    const tomorrowStr = tomorrow.toISOString().split('T')[0];
-
-    // Filtra partite con data >= oggi (oggi e future)
-    matches = matchesData.filter(m => m.data >= todayStr);
+    // FILTRO: solo partite con data = oggi OPPURE data = domani
+    matches = matchesData.filter(m => m.data === oggiStr || m.data === domaniStr);
     matches.sort((a, b) => (a.data + a.ora).localeCompare(b.data + b.ora));
+
+    // DEBUG: mostra le date nel console
+    console.log('📅 Oggi (forzato):', oggiStr);
+    console.log('📅 Domani (forzato):', domaniStr);
+    console.log('📊 Partite trovate per oggi/domani:', matches.length);
+    matches.forEach(m => console.log('  -', m.data, m.casa, 'vs', m.ospite));
 
     // ================================================================
     // RENDER PALINSESTO
@@ -1007,7 +1011,7 @@
     function renderCards() {
         const container = document.getElementById('cardsContainer');
         if (matches.length === 0) {
-            container.innerHTML = `<div class="no-match">📅 Nessuna partita in programma per oggi o domani (${formatDate(todayStr)} - ${formatDate(tomorrowStr)}).</div>`;
+            container.innerHTML = `<div class="no-match">📅 Nessuna partita in programma per oggi (${formatDate(oggiStr)}) o domani (${formatDate(domaniStr)}).</div>`;
             return;
         }
 
@@ -1035,10 +1039,16 @@
             const homeBestFlag = getFlag(homeBest);
             const awayBestFlag = getFlag(awayBest);
 
-            // Data display con indicazione "OGGI" o "DOMANI"
+            // Data display con indicazione OGGI o DOMANI
             let dataDisplay = formatDate(match.data);
-            if (match.data === todayStr) dataDisplay = '🔴 OGGI ' + dataDisplay;
-            else if (match.data === tomorrowStr) dataDisplay = '🟡 DOMANI ' + dataDisplay;
+            let badgeClass = '';
+            if (match.data === oggiStr) {
+                dataDisplay = '🔴 OGGI ' + dataDisplay;
+                badgeClass = 'today-badge';
+            } else if (match.data === domaniStr) {
+                dataDisplay = '🟡 DOMANI ' + dataDisplay;
+                badgeClass = 'tomorrow-badge';
+            }
 
             html += `
                 <div class="card" data-index="${idx}" data-tab="palinsesto">
@@ -1047,7 +1057,7 @@
                         <span class="giornata">Giornata ${match.giornata}</span>
                     </div>
                     <div class="data-ora">
-                        <span>📅 ${dataDisplay}</span>
+                        <span>📅 <span class="${badgeClass}">${dataDisplay}</span></span>
                         <span>⏰ ${match.ora}</span>
                     </div>
                     <div class="squadre">
@@ -1501,16 +1511,12 @@ Usa solo i dati forniti. Arrotonda le percentuali.`;
 
     const fontClasses = ['font-sm', 'font-md', 'font-lg', 'font-xl'];
     const fontLabels = ['Piccolo (13px)', 'Medio (16px)', 'Grande (19px)', 'Extra Grande (22px)'];
-    const fontValues = [13, 16, 19, 22];
 
     function applyFontSize(level) {
-        // Rimuovi tutte le classi di font
         document.body.classList.remove(...fontClasses);
-        // Aggiungi la classe corrispondente
         if (level >= 1 && level <= 4) {
             document.body.classList.add(fontClasses[level - 1]);
         }
-        // Aggiorna il display
         document.getElementById('fontSizeDisplay').textContent = fontLabels[level - 1] || 'Medio (16px)';
         document.getElementById('fontSizeSlider').value = level;
         localStorage.setItem('fontSize', level);
@@ -1569,7 +1575,6 @@ Usa solo i dati forniti. Arrotonda le percentuali.`;
     // AVVIO
     // ================================================================
 
-    // Carica font size salvato
     const savedFontSize = parseInt(localStorage.getItem('fontSize')) || 2;
     applyFontSize(savedFontSize);
 
