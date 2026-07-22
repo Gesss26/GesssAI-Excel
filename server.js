@@ -11,35 +11,30 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname)));
 
-// Funzione per ottenere le date
-function getDates() {
+// ================================================================
+// FUNZIONE PER OTTENERE LE DATE (supporta entrambi i formati)
+// ================================================================
+function getTargetDates() {
     const today = new Date();
     const dates = [];
-    // Formato AAAA-MM-GG (quello che usa il server)
-    const formatISO = (d) => {
-        const year = d.getFullYear();
-        const month = String(d.getMonth() + 1).padStart(2, '0');
-        const day = String(d.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    };
-    // Formato GG/MM/AAAA (quello che hai nel tuo Excel)
-    const formatEU = (d) => {
-        const year = d.getFullYear();
-        const month = String(d.getMonth() + 1).padStart(2, '0');
-        const day = String(d.getDate()).padStart(2, '0');
-        return `${day}/${month}/${year}`;
-    };
     
     for (let i = 0; i < 3; i++) {
         const d = new Date(today);
         d.setDate(d.getDate() + i);
-        dates.push(formatISO(d));
-        dates.push(formatEU(d));  // Aggiungi anche il formato EU
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        
+        // Aggiungi entrambi i formati
+        dates.push(`${year}-${month}-${day}`);  // AAAA-MM-GG
+        dates.push(`${day}/${month}/${year}`);  // GG/MM/AAAA
     }
     return dates;
 }
 
-// Funzione per leggere il file Excel
+// ================================================================
+// FUNZIONE PER LEGGERE IL FILE EXCEL
+// ================================================================
 function readExcelFile(filePath, sheetName) {
     try {
         if (!fs.existsSync(filePath)) {
@@ -55,7 +50,9 @@ function readExcelFile(filePath, sheetName) {
     }
 }
 
+// ================================================================
 // ENDPOINT: PARTITE
+// ================================================================
 app.get('/api/matches', (req, res) => {
     try {
         const filePath = path.join(__dirname, 'prono.xlsx');
@@ -77,12 +74,15 @@ app.get('/api/matches', (req, res) => {
             });
         }
 
-        const targetDates = getDates();
+        const targetDates = getTargetDates();
+        console.log('🎯 Date target:', targetDates);
 
         const matches = data
             .filter(row => {
                 const dateStr = String(row.Data || row['Data'] || '').trim();
                 if (!dateStr) return false;
+                
+                // Controlla se la data corrisponde a una delle date target
                 return targetDates.some(target => dateStr.includes(target));
             })
             .map(row => ({
@@ -104,7 +104,6 @@ app.get('/api/matches', (req, res) => {
         res.json({
             success: true,
             matches: matches,
-            dates: targetDates,
             total: matches.length
         });
 
@@ -117,7 +116,9 @@ app.get('/api/matches', (req, res) => {
     }
 });
 
+// ================================================================
 // ENDPOINT: CLASSIFICA
+// ================================================================
 app.get('/api/standings', (req, res) => {
     try {
         const filePath = path.join(__dirname, 'prono.xlsx');
@@ -145,21 +146,37 @@ app.get('/api/standings', (req, res) => {
     }
 });
 
+// ================================================================
 // ENDPOINT: TEST
+// ================================================================
 app.get('/api/test', (req, res) => {
     const filePath = path.join(__dirname, 'prono.xlsx');
+    const exists = fs.existsSync(filePath);
+    
+    let sheets = [];
+    if (exists) {
+        try {
+            const workbook = XLSX.readFile(filePath);
+            sheets = workbook.SheetNames;
+        } catch (e) {}
+    }
+    
     res.json({
         success: true,
-        fileExists: fs.existsSync(filePath),
+        fileExists: exists,
         filePath: filePath,
-        cwd: __dirname
+        cwd: __dirname,
+        sheets: sheets
     });
 });
 
+// ================================================================
 // AVVIO SERVER
+// ================================================================
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`\n✅ Server avviato sulla porta ${PORT}`);
     console.log(`📁 Cartella: ${__dirname}`);
-    console.log(`📊 prono.xlsx: ${fs.existsSync(path.join(__dirname, 'prono.xlsx')) ? '✅ TROVATO' : '❌ NON TROVATO'}`);
+    const filePath = path.join(__dirname, 'prono.xlsx');
+    console.log(`📊 prono.xlsx: ${fs.existsSync(filePath) ? '✅ TROVATO' : '❌ NON TROVATO'}`);
     console.log(`\n🌐 Accessibile da tutti\n`);
 });
