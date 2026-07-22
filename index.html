@@ -35,6 +35,8 @@
             --font-size-base: 16px;
             --select-bg: #1e293b;
             --select-border: #334155;
+            --gold: #facc15;
+            --gold-dark: #d4a800;
         }
         body.light {
             --bg: #f1f5f9;
@@ -314,7 +316,7 @@
         .stat-perc {
             font-size: 0.8rem;
             font-weight: 600;
-            padding: 4px 12px;
+            padding: 8px 12px;
             border-radius: 30px;
             text-align: center;
             margin: 4px 0 8px;
@@ -322,12 +324,12 @@
             color: var(--text-secondary);
         }
         .stat-perc .perc {
-            padding: 2px 8px;
+            padding: 4px 12px;
             border-radius: 20px;
             display: inline-block;
             font-weight: 700;
+            font-size: 0.85rem;
         }
-        .stat-perc .label { color: var(--text-secondary); font-weight: 500; margin-right: 4px; }
 
         .flag-red { background: #dc2626; color: #fff; }
         .flag-neutral { background: #6b7280; color: #fff; }
@@ -450,6 +452,42 @@
             border-radius: 30px;
         }
 
+        .ai-rigenera {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+        .ai-rigenera button {
+            background: var(--tab-active);
+            color: #fff;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .ai-rigenera button:hover { transform: scale(1.02); opacity: 0.9; }
+        .ai-rigenera button:active { transform: scale(0.95); }
+        .ai-rigenera button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        .ai-rigenera button .spinner-small {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
         .ai-weather {
             display: flex;
             justify-content: space-between;
@@ -492,7 +530,7 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
             display: flex;
             align-items: center;
             gap: 6px;
@@ -503,6 +541,59 @@
             line-height: 1.6;
             white-space: pre-wrap;
         }
+        .ai-section .section-content table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.78rem;
+            margin-top: 4px;
+        }
+        .ai-section .section-content table th {
+            text-align: left;
+            color: var(--text-secondary);
+            font-weight: 600;
+            padding: 3px 5px;
+            border-bottom: 1px solid var(--card-border);
+        }
+        .ai-section .section-content table td {
+            padding: 3px 5px;
+            border-bottom: 1px solid var(--card-border);
+            color: var(--text-primary);
+        }
+        .ai-section .section-content table tr.gold td {
+            background: var(--gold);
+            color: #000;
+            font-weight: 700;
+        }
+
+        .ai-forma-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 4px 0;
+            flex-wrap: wrap;
+        }
+        .ai-forma-row .team-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            min-width: 80px;
+            font-size: 0.8rem;
+        }
+        .ai-forma-row .forma-box-small {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 0.65rem;
+            color: #000;
+            background: #6b7280;
+        }
+        .ai-forma-row .forma-box-small.V { background: #22c55e; }
+        .ai-forma-row .forma-box-small.P { background: #eab308; }
+        .ai-forma-row .forma-box-small.S { background: #ef4444; }
+        .ai-forma-row .forma-box-small.\- { background: #6b7280; color: #fff; }
 
         .ai-pronostico {
             display: grid;
@@ -578,7 +669,6 @@
             animation: spin 0.8s linear infinite;
             margin-bottom: 12px;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
 
         .home-btn {
             position: fixed;
@@ -667,6 +757,111 @@
             font-weight: 600;
         }
 
+        /* Pulsante Simula Telefono */
+        .simulate-btn {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #8b5cf6;
+            color: #fff;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 99;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .simulate-btn:hover { transform: scale(1.1); }
+        .simulate-btn:active { transform: scale(0.9); }
+
+        /* MODAL SIMULAZIONE TELEFONO */
+        .phone-simulator-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .phone-simulator-overlay.active {
+            display: flex;
+        }
+        .phone-frame {
+            width: 390px;
+            max-width: 100%;
+            height: 844px;
+            max-height: 90vh;
+            background: #000;
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+            position: relative;
+            overflow: hidden;
+        }
+        .phone-frame .notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 25px;
+            background: #000;
+            border-radius: 0 0 16px 16px;
+            z-index: 10;
+        }
+        .phone-frame .phone-content {
+            width: 100%;
+            height: 100%;
+            border-radius: 28px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            background: var(--bg);
+            padding: 10px 8px 20px;
+            scroll-behavior: smooth;
+        }
+        .phone-frame .phone-content::-webkit-scrollbar {
+            width: 3px;
+        }
+        .phone-frame .phone-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .phone-frame .phone-content::-webkit-scrollbar-thumb {
+            background: var(--tab-active);
+            border-radius: 10px;
+        }
+        .phone-close-btn {
+            position: absolute;
+            top: 30px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+        .phone-close-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
         @media (max-width: 480px) {
             .top-bar { flex-direction: column; align-items: stretch; gap: 8px; }
             .datetime { justify-content: space-between; }
@@ -683,6 +878,14 @@
             .ai-weather .temp { font-size: 1.4rem; }
             .filter-bar select { min-width: 120px; max-width: 100%; }
             .filter-bar { flex-direction: column; align-items: stretch; }
+            .ai-section .section-content table { font-size: 0.6rem; }
+            .ai-section .section-content table th,
+            .ai-section .section-content table td { padding: 2px 3px; }
+            .simulate-btn { bottom: 80px; right: 10px; width: 42px; height: 42px; font-size: 16px; }
+            .phone-frame { width: 100%; height: 100%; max-height: 100vh; border-radius: 0; padding: 8px; }
+            .phone-frame .phone-content { border-radius: 0; }
+            .phone-frame .notch { display: none; }
+            .phone-close-btn { top: 10px; right: 10px; width: 32px; height: 32px; font-size: 18px; }
         }
         @media (max-width: 380px) {
             .ai-pronostico { grid-template-columns: 1fr; }
@@ -690,6 +893,17 @@
     </style>
 </head>
 <body>
+
+<!-- MODAL SIMULAZIONE TELEFONO -->
+<div class="phone-simulator-overlay" id="phoneSimulator">
+    <div class="phone-frame">
+        <div class="notch"></div>
+        <button class="phone-close-btn" onclick="closePhoneSimulator()">✕</button>
+        <div class="phone-content" id="phoneContent">
+            <!-- Il contenuto viene clonato qui -->
+        </div>
+    </div>
+</div>
 
 <div class="top-bar">
     <div class="datetime">
@@ -702,6 +916,9 @@
         <button class="tab-btn" data-tab="impostazioni">⚙️ Impostazioni</button>
     </div>
 </div>
+
+<!-- Pulsante Simula Telefono -->
+<button class="simulate-btn" id="simulateBtn" title="Simula schermo telefono">📱</button>
 
 <div class="tab-content active" id="tab-palinsesto">
     <div class="swipe-indicator">⬅️ 👆 Scorri per navigare tra le partite 👇 ➡️</div>
@@ -748,12 +965,25 @@
 
         <label style="display:block;font-size:0.8rem;font-weight:500;color:var(--text-secondary);margin:10px 0 4px;">GROQ API Key</label>
         <input type="text" id="groqKey" placeholder="Inserisci API Key GROQ" style="width:100%;padding:10px 14px;border-radius:12px;border:1px solid var(--card-border);background:var(--bg);color:var(--text-primary);font-size:0.85rem;outline:none;margin-bottom:4px;">
-        <div style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:12px;">✅ API Key salvata localmente</div>
+        <div style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:8px;">✅ API Key salvata localmente</div>
+
+        <label style="display:block;font-size:0.8rem;font-weight:500;color:var(--text-secondary);margin:10px 0 4px;">Modello GROQ</label>
+        <select id="groqModel" style="width:100%;padding:10px 14px;border-radius:12px;border:1px solid var(--card-border);background:var(--bg);color:var(--text-primary);font-size:0.85rem;outline:none;margin-bottom:8px;">
+            <option value="llama3-8b-8192">🦙 Llama 3 8B</option>
+            <option value="llama3-70b-8192">🦙 Llama 3 70B</option>
+            <option value="mixtral-8x7b-32768">🧠 Mixtral 8x7B</option>
+            <option value="gemma-7b-it">🔵 Gemma 7B</option>
+            <option value="gemma2-9b-it">🔵 Gemma 2 9B</option>
+            <option value="llama-3.1-8b-instant" selected>🦙 Llama 3.1 8B</option>
+            <option value="llama-3.1-70b-versatile">🦙 Llama 3.1 70B</option>
+        </select>
+        <div style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:12px;">✅ Modello salvato localmente</div>
 
         <label style="display:block;font-size:0.8rem;font-weight:500;color:var(--text-secondary);margin:10px 0 4px;">World Weather Online API Key</label>
         <input type="text" id="weatherKey" placeholder="Inserisci API Key Weather" style="width:100%;padding:10px 14px;border-radius:12px;border:1px solid var(--card-border);background:var(--bg);color:var(--text-primary);font-size:0.85rem;outline:none;margin-bottom:4px;">
         <div style="font-size:0.75rem;color:var(--text-secondary);margin-bottom:16px;">✅ API Key salvata localmente</div>
 
+        <button id="testGroqBtn" style="width:100%;padding:12px;border-radius:30px;border:none;background:#f59e0b;color:#000;font-weight:600;font-size:0.95rem;cursor:pointer;margin-bottom:8px;">🔍 Test Connessione GROQ</button>
         <button id="saveSettings" style="width:100%;padding:12px;border-radius:30px;border:none;background:#3b82f6;color:#fff;font-weight:600;font-size:0.95rem;cursor:pointer;">💾 Salva Impostazioni</button>
     </div>
 </div>
@@ -762,13 +992,11 @@
 
 <script>
     // ================================================================
-    // DATI REALI - AGGIUNTE PARTITE EUROPA LEAGUE 23/07/2026
+    // DATI REALI
     // ================================================================
 
     const matchesData = [
-        // ============================================================
-        // 🏆 EUROPA LEAGUE - 23 LUGLIO 2026
-        // ============================================================
+        // Europa League - 23 LUGLIO 2026
         { campionato: 'Europa League', giornata: 'QR2 Andata', data: '2026-07-23', ora: '18:45', casa: 'Molde', ospite: 'Legia Warszawa' },
         { campionato: 'Europa League', giornata: 'QR2 Andata', data: '2026-07-23', ora: '18:45', casa: 'Slavia Praha', ospite: 'Fenerbahçe' },
         { campionato: 'Europa League', giornata: 'QR2 Andata', data: '2026-07-23', ora: '18:45', casa: 'Gent', ospite: 'AZ Alkmaar' },
@@ -789,14 +1017,9 @@
         { campionato: 'Europa League', giornata: 'QR2 Andata', data: '2026-07-23', ora: '21:00', casa: 'FCSB', ospite: 'Viktoria Plzeň' },
         { campionato: 'Europa League', giornata: 'QR2 Andata', data: '2026-07-23', ora: '21:00', casa: 'Rangers', ospite: 'KÍ' },
         { campionato: 'Europa League', giornata: 'QR2 Andata', data: '2026-07-23', ora: '21:00', casa: 'Basel', ospite: 'Ferencváros' },
-        { campionato: 'Europa League', giornata: 'QR2 Andata', data: '2026-07-23', ora: '21:00', casa: 'København', ospite: 'Trabzonspor' },
         { campionato: 'Europa League', giornata: 'QR2 Andata', data: '2026-07-23', ora: '21:00', casa: 'Malmö', ospite: 'KAA Gent' },
         { campionato: 'Europa League', giornata: 'QR2 Andata', data: '2026-07-23', ora: '21:00', casa: 'Bodø/Glimt', ospite: 'Rijeka' },
         { campionato: 'Europa League', giornata: 'QR2 Andata', data: '2026-07-23', ora: '21:00', casa: 'Shamrock Rovers', ospite: 'Maccabi Haifa' },
-
-        // ============================================================
-        // ALTRI CAMPIONATI (data originale)
-        // ============================================================
         // Allsvenskan
         { campionato: 'Allsvenskan', giornata: 13, data: '2026-07-19', ora: '16:30', casa: 'Halmstad', ospite: 'BK Häcken' },
         { campionato: 'Allsvenskan', giornata: 13, data: '2026-07-19', ora: '16:30', casa: 'Elfsborg', ospite: 'Sirius' },
@@ -856,126 +1079,126 @@
         { campionato: 'K League 1', giornata: 19, data: '2026-07-22', ora: '19:30', casa: 'Bucheon FC', ospite: 'FC Anyang' },
     ];
 
-    // --------------------- CLASSIFICA ---------------------
+    // --------------------- CLASSIFICA COMPLETA ---------------------
     const standings = [
         // Allsvenskan
-        { campionato: 'Allsvenskan', squadra: 'Sirius', pos: 1, punti: 32, forma: 'W W W D W', gf: 33, gs: 15 },
-        { campionato: 'Allsvenskan', squadra: 'Hammarby', pos: 2, punti: 23, forma: 'L L L W W', gf: 28, gs: 14 },
-        { campionato: 'Allsvenskan', squadra: 'AIK Stockholm', pos: 3, punti: 21, forma: 'W L W W W', gf: 18, gs: 18 },
-        { campionato: 'Allsvenskan', squadra: 'BK Häcken', pos: 4, punti: 20, forma: 'W D W L L', gf: 25, gs: 22 },
-        { campionato: 'Allsvenskan', squadra: 'Djurgården', pos: 5, punti: 19, forma: 'W L L W W', gf: 26, gs: 15 },
-        { campionato: 'Allsvenskan', squadra: 'Malmö', pos: 6, punti: 19, forma: 'L L W W W', gf: 25, gs: 20 },
-        { campionato: 'Allsvenskan', squadra: 'GAIS', pos: 7, punti: 19, forma: 'L W D W L', gf: 18, gs: 14 },
-        { campionato: 'Allsvenskan', squadra: 'Västerås', pos: 8, punti: 19, forma: 'W L W W D', gf: 22, gs: 23 },
-        { campionato: 'Allsvenskan', squadra: 'Elfsborg', pos: 9, punti: 18, forma: 'D D D L L', gf: 17, gs: 14 },
-        { campionato: 'Allsvenskan', squadra: 'Mjällby', pos: 10, punti: 17, forma: 'D D D L D', gf: 19, gs: 17 },
-        { campionato: 'Allsvenskan', squadra: 'Brommapojkarna', pos: 11, punti: 16, forma: 'W D D L L', gf: 18, gs: 21 },
-        { campionato: 'Allsvenskan', squadra: 'Kalmar', pos: 12, punti: 13, forma: 'L W L W L', gf: 14, gs: 17 },
-        { campionato: 'Allsvenskan', squadra: 'Göteborg', pos: 13, punti: 13, forma: 'D W L L W', gf: 16, gs: 29 },
-        { campionato: 'Allsvenskan', squadra: 'Degerfors', pos: 14, punti: 10, forma: 'D L D L L', gf: 12, gs: 19 },
-        { campionato: 'Allsvenskan', squadra: 'Örgryte', pos: 15, punti: 9, forma: 'L L D L W', gf: 14, gs: 31 },
-        { campionato: 'Allsvenskan', squadra: 'Halmstad', pos: 16, punti: 6, forma: 'D W L L L', gf: 10, gs: 26 },
+        { campionato: 'Allsvenskan', squadra: 'Sirius', pos: 1, punti: 32, pg: 12, v: 10, p: 2, s: 0, gf: 33, gs: 15, diff: 18, xg: 28.5, forma: 'W W W D W' },
+        { campionato: 'Allsvenskan', squadra: 'Hammarby', pos: 2, punti: 23, pg: 12, v: 7, p: 2, s: 3, gf: 28, gs: 14, diff: 14, xg: 24.2, forma: 'L L L W W' },
+        { campionato: 'Allsvenskan', squadra: 'AIK Stockholm', pos: 3, punti: 21, pg: 12, v: 6, p: 3, s: 3, gf: 18, gs: 18, diff: 0, xg: 16.8, forma: 'W L W W W' },
+        { campionato: 'Allsvenskan', squadra: 'BK Häcken', pos: 4, punti: 20, pg: 12, v: 6, p: 2, s: 4, gf: 25, gs: 22, diff: 3, xg: 22.1, forma: 'W D W L L' },
+        { campionato: 'Allsvenskan', squadra: 'Djurgården', pos: 5, punti: 19, pg: 12, v: 6, p: 1, s: 5, gf: 26, gs: 15, diff: 11, xg: 23.4, forma: 'W L L W W' },
+        { campionato: 'Allsvenskan', squadra: 'Malmö', pos: 6, punti: 19, pg: 12, v: 6, p: 1, s: 5, gf: 25, gs: 20, diff: 5, xg: 21.9, forma: 'L L W W W' },
+        { campionato: 'Allsvenskan', squadra: 'GAIS', pos: 7, punti: 19, pg: 12, v: 5, p: 4, s: 3, gf: 18, gs: 14, diff: 4, xg: 16.3, forma: 'L W D W L' },
+        { campionato: 'Allsvenskan', squadra: 'Västerås', pos: 8, punti: 19, pg: 12, v: 5, p: 4, s: 3, gf: 22, gs: 23, diff: -1, xg: 19.7, forma: 'W L W W D' },
+        { campionato: 'Allsvenskan', squadra: 'Elfsborg', pos: 9, punti: 18, pg: 12, v: 4, p: 6, s: 2, gf: 17, gs: 14, diff: 3, xg: 15.4, forma: 'D D D L L' },
+        { campionato: 'Allsvenskan', squadra: 'Mjällby', pos: 10, punti: 17, pg: 12, v: 4, p: 5, s: 3, gf: 19, gs: 17, diff: 2, xg: 17.2, forma: 'D D D L D' },
+        { campionato: 'Allsvenskan', squadra: 'Brommapojkarna', pos: 11, punti: 16, pg: 12, v: 4, p: 4, s: 4, gf: 18, gs: 21, diff: -3, xg: 15.9, forma: 'W D D L L' },
+        { campionato: 'Allsvenskan', squadra: 'Kalmar', pos: 12, punti: 13, pg: 12, v: 4, p: 1, s: 7, gf: 14, gs: 17, diff: -3, xg: 13.1, forma: 'L W L W L' },
+        { campionato: 'Allsvenskan', squadra: 'Göteborg', pos: 13, punti: 13, pg: 12, v: 3, p: 4, s: 5, gf: 16, gs: 29, diff: -13, xg: 14.2, forma: 'D W L L W' },
+        { campionato: 'Allsvenskan', squadra: 'Degerfors', pos: 14, punti: 10, pg: 12, v: 2, p: 4, s: 6, gf: 12, gs: 19, diff: -7, xg: 11.8, forma: 'D L D L L' },
+        { campionato: 'Allsvenskan', squadra: 'Örgryte', pos: 15, punti: 9, pg: 12, v: 2, p: 3, s: 7, gf: 14, gs: 31, diff: -17, xg: 12.7, forma: 'L L D L W' },
+        { campionato: 'Allsvenskan', squadra: 'Halmstad', pos: 16, punti: 6, pg: 12, v: 1, p: 3, s: 8, gf: 10, gs: 26, diff: -16, xg: 9.8, forma: 'D W L L L' },
         // Chinese Super League
-        { campionato: 'Chinese Super League', squadra: 'Rongcheng', pos: 1, punti: 43, forma: 'W W D D D', gf: 39, gs: 18 },
-        { campionato: 'Chinese Super League', squadra: 'Chongqing', pos: 2, punti: 29, forma: 'L W L D D', gf: 23, gs: 21 },
-        { campionato: 'Chinese Super League', squadra: 'Dalian Yingbo', pos: 3, punti: 28, forma: 'W L L W W', gf: 28, gs: 32 },
-        { campionato: 'Chinese Super League', squadra: 'Q. West Coast', pos: 4, punti: 25, forma: 'D W W L D', gf: 23, gs: 29 },
-        { campionato: 'Chinese Super League', squadra: 'Yunnan Yukun', pos: 5, punti: 25, forma: 'D L W L D', gf: 36, gs: 35 },
-        { campionato: 'Chinese Super League', squadra: 'SD Taishan', pos: 6, punti: 30, forma: 'L W L W L', gf: 35, gs: 34 },
-        { campionato: 'Chinese Super League', squadra: 'Beijing Guoan', pos: 7, punti: 27, forma: 'L W W W D', gf: 30, gs: 24 },
-        { campionato: 'Chinese Super League', squadra: 'Shenyang Urban', pos: 8, punti: 21, forma: 'W W L W D', gf: 25, gs: 30 },
-        { campionato: 'Chinese Super League', squadra: 'Zhejiang', pos: 9, punti: 26, forma: 'W L L W D', gf: 27, gs: 32 },
-        { campionato: 'Chinese Super League', squadra: 'SZ Peng City', pos: 10, punti: 20, forma: 'W L L W L', gf: 25, gs: 33 },
-        { campionato: 'Chinese Super League', squadra: 'Shanghai Shen', pos: 11, punti: 29, forma: 'L D W W L', gf: 36, gs: 29 },
-        { campionato: 'Chinese Super League', squadra: 'Henan', pos: 12, punti: 24, forma: 'W L L L W', gf: 23, gs: 23 },
-        { campionato: 'Chinese Super League', squadra: 'Shanghai Port', pos: 13, punti: 21, forma: 'D L W L D', gf: 28, gs: 26 },
-        { campionato: 'Chinese Super League', squadra: 'Qingdao Hainiu', pos: 14, punti: 21, forma: 'L W D L L', gf: 30, gs: 36 },
-        { campionato: 'Chinese Super League', squadra: 'Jinmen Tiger', pos: 15, punti: 21, forma: 'D W L W W', gf: 24, gs: 22 },
-        { campionato: 'Chinese Super League', squadra: 'Wuhan 3 Towns', pos: 16, punti: 16, forma: 'D D L L W', gf: 26, gs: 34 },
+        { campionato: 'Chinese Super League', squadra: 'Rongcheng', pos: 1, punti: 43, pg: 20, v: 12, p: 7, s: 1, gf: 39, gs: 18, diff: 21, xg: 35.6, forma: 'W W D D D' },
+        { campionato: 'Chinese Super League', squadra: 'SD Taishan', pos: 2, punti: 30, pg: 20, v: 9, p: 3, s: 8, gf: 35, gs: 34, diff: 1, xg: 31.2, forma: 'L W L W L' },
+        { campionato: 'Chinese Super League', squadra: 'Shanghai Shen', pos: 3, punti: 29, pg: 20, v: 8, p: 5, s: 7, gf: 36, gs: 29, diff: 7, xg: 32.8, forma: 'L D W W L' },
+        { campionato: 'Chinese Super League', squadra: 'Chongqing', pos: 4, punti: 29, pg: 20, v: 8, p: 5, s: 7, gf: 23, gs: 21, diff: 2, xg: 21.4, forma: 'L W L D D' },
+        { campionato: 'Chinese Super League', squadra: 'Dalian Yingbo', pos: 5, punti: 28, pg: 20, v: 8, p: 4, s: 8, gf: 28, gs: 32, diff: -4, xg: 25.9, forma: 'W L L W W' },
+        { campionato: 'Chinese Super League', squadra: 'Beijing Guoan', pos: 6, punti: 27, pg: 20, v: 8, p: 3, s: 9, gf: 30, gs: 24, diff: 6, xg: 27.5, forma: 'L W W W D' },
+        { campionato: 'Chinese Super League', squadra: 'Zhejiang', pos: 7, punti: 26, pg: 20, v: 7, p: 5, s: 8, gf: 27, gs: 32, diff: -5, xg: 24.8, forma: 'W L L W D' },
+        { campionato: 'Chinese Super League', squadra: 'Q. West Coast', pos: 8, punti: 25, pg: 20, v: 6, p: 7, s: 7, gf: 23, gs: 29, diff: -6, xg: 21.7, forma: 'D W W L D' },
+        { campionato: 'Chinese Super League', squadra: 'Yunnan Yukun', pos: 9, punti: 25, pg: 20, v: 6, p: 7, s: 7, gf: 36, gs: 35, diff: 1, xg: 32.4, forma: 'D L W L D' },
+        { campionato: 'Chinese Super League', squadra: 'Henan', pos: 10, punti: 24, pg: 20, v: 7, p: 3, s: 10, gf: 23, gs: 23, diff: 0, xg: 21.3, forma: 'W L L L W' },
+        { campionato: 'Chinese Super League', squadra: 'Shenyang Urban', pos: 11, punti: 21, pg: 20, v: 5, p: 6, s: 9, gf: 25, gs: 30, diff: -5, xg: 22.8, forma: 'W W L W D' },
+        { campionato: 'Chinese Super League', squadra: 'Shanghai Port', pos: 12, punti: 21, pg: 20, v: 5, p: 6, s: 9, gf: 28, gs: 26, diff: 2, xg: 25.1, forma: 'D L W L D' },
+        { campionato: 'Chinese Super League', squadra: 'Qingdao Hainiu', pos: 13, punti: 21, pg: 20, v: 6, p: 3, s: 11, gf: 30, gs: 36, diff: -6, xg: 27.3, forma: 'L W D L L' },
+        { campionato: 'Chinese Super League', squadra: 'Jinmen Tiger', pos: 14, punti: 21, pg: 20, v: 6, p: 3, s: 11, gf: 24, gs: 22, diff: 2, xg: 22.1, forma: 'D W L W W' },
+        { campionato: 'Chinese Super League', squadra: 'SZ Peng City', pos: 15, punti: 20, pg: 20, v: 5, p: 5, s: 10, gf: 25, gs: 33, diff: -8, xg: 22.6, forma: 'W L L W L' },
+        { campionato: 'Chinese Super League', squadra: 'Wuhan 3 Towns', pos: 16, punti: 16, pg: 20, v: 4, p: 4, s: 12, gf: 26, gs: 34, diff: -8, xg: 23.5, forma: 'D D L L W' },
         // Veikkausliiga
-        { campionato: 'Veikkausliiga', squadra: 'KuPS', pos: 1, punti: 33, forma: 'D W W W W', gf: 29, gs: 15 },
-        { campionato: 'Veikkausliiga', squadra: 'Inter Turku', pos: 2, punti: 30, forma: 'D D D D W', gf: 23, gs: 12 },
-        { campionato: 'Veikkausliiga', squadra: 'VPS', pos: 3, punti: 27, forma: 'W D W W L', gf: 23, gs: 13 },
-        { campionato: 'Veikkausliiga', squadra: 'AC Oulu', pos: 4, punti: 26, forma: 'W L D L L', gf: 20, gs: 20 },
-        { campionato: 'Veikkausliiga', squadra: 'HJK Helsinki', pos: 5, punti: 25, forma: 'D W L L W', gf: 27, gs: 20 },
-        { campionato: 'Veikkausliiga', squadra: 'IF Gnistan', pos: 6, punti: 25, forma: 'D D L W W', gf: 25, gs: 20 },
-        { campionato: 'Veikkausliiga', squadra: 'TPS', pos: 7, punti: 22, forma: 'L D W L W', gf: 19, gs: 16 },
-        { campionato: 'Veikkausliiga', squadra: 'Lahti', pos: 8, punti: 19, forma: 'L D D W W', gf: 18, gs: 15 },
-        { campionato: 'Veikkausliiga', squadra: 'Ilves', pos: 9, punti: 16, forma: 'W W L D L', gf: 25, gs: 29 },
-        { campionato: 'Veikkausliiga', squadra: 'SJK', pos: 10, punti: 14, forma: 'D D W L L', gf: 18, gs: 25 },
-        { campionato: 'Veikkausliiga', squadra: 'FF Jaro', pos: 11, punti: 11, forma: 'L L D L W', gf: 15, gs: 32 },
-        { campionato: 'Veikkausliiga', squadra: 'IFK Mariehamn', pos: 12, punti: 4, forma: 'L L L L L', gf: 8, gs: 33 },
+        { campionato: 'Veikkausliiga', squadra: 'KuPS', pos: 1, punti: 33, pg: 15, v: 10, p: 3, s: 2, gf: 29, gs: 15, diff: 14, xg: 26.3, forma: 'D W W W W' },
+        { campionato: 'Veikkausliiga', squadra: 'Inter Turku', pos: 2, punti: 30, pg: 15, v: 8, p: 6, s: 1, gf: 23, gs: 12, diff: 11, xg: 21.1, forma: 'D D D D W' },
+        { campionato: 'Veikkausliiga', squadra: 'VPS', pos: 3, punti: 27, pg: 15, v: 8, p: 3, s: 4, gf: 23, gs: 13, diff: 10, xg: 20.8, forma: 'W D W W L' },
+        { campionato: 'Veikkausliiga', squadra: 'AC Oulu', pos: 4, punti: 26, pg: 15, v: 7, p: 5, s: 3, gf: 20, gs: 20, diff: 0, xg: 18.4, forma: 'W L D L L' },
+        { campionato: 'Veikkausliiga', squadra: 'HJK Helsinki', pos: 5, punti: 25, pg: 15, v: 7, p: 4, s: 4, gf: 27, gs: 20, diff: 7, xg: 24.5, forma: 'D W L L W' },
+        { campionato: 'Veikkausliiga', squadra: 'IF Gnistan', pos: 6, punti: 25, pg: 15, v: 7, p: 4, s: 4, gf: 25, gs: 20, diff: 5, xg: 22.7, forma: 'D D L W W' },
+        { campionato: 'Veikkausliiga', squadra: 'TPS', pos: 7, punti: 22, pg: 15, v: 6, p: 4, s: 5, gf: 19, gs: 16, diff: 3, xg: 17.4, forma: 'L D W L W' },
+        { campionato: 'Veikkausliiga', squadra: 'Lahti', pos: 8, punti: 19, pg: 15, v: 5, p: 4, s: 6, gf: 18, gs: 15, diff: 3, xg: 16.5, forma: 'L D D W W' },
+        { campionato: 'Veikkausliiga', squadra: 'Ilves', pos: 9, punti: 16, pg: 15, v: 4, p: 4, s: 7, gf: 25, gs: 29, diff: -4, xg: 22.8, forma: 'W W L D L' },
+        { campionato: 'Veikkausliiga', squadra: 'SJK', pos: 10, punti: 14, pg: 15, v: 3, p: 5, s: 7, gf: 18, gs: 25, diff: -7, xg: 16.3, forma: 'D D W L L' },
+        { campionato: 'Veikkausliiga', squadra: 'FF Jaro', pos: 11, punti: 11, pg: 15, v: 3, p: 2, s: 10, gf: 15, gs: 32, diff: -17, xg: 13.8, forma: 'L L D L W' },
+        { campionato: 'Veikkausliiga', squadra: 'IFK Mariehamn', pos: 12, punti: 4, pg: 15, v: 1, p: 1, s: 13, gf: 8, gs: 33, diff: -25, xg: 7.8, forma: 'L L L L L' },
         // Ireland Premier Division
-        { campionato: 'Ireland Premier Division', squadra: 'Shamrock', pos: 1, punti: 50, forma: 'L W D W W', gf: 40, gs: 22 },
-        { campionato: 'Ireland Premier Division', squadra: 'Bohemian FC', pos: 2, punti: 43, forma: 'L L W W W', gf: 40, gs: 27 },
-        { campionato: 'Ireland Premier Division', squadra: 'St Patrick\'s', pos: 3, punti: 42, forma: 'W W L W D', gf: 39, gs: 20 },
-        { campionato: 'Ireland Premier Division', squadra: 'Dundalk FC', pos: 4, punti: 35, forma: 'W W L L L', gf: 38, gs: 36 },
-        { campionato: 'Ireland Premier Division', squadra: 'Shelbourne FC', pos: 5, punti: 34, forma: 'W D L D W', gf: 35, gs: 35 },
-        { campionato: 'Ireland Premier Division', squadra: 'Derry City', pos: 6, punti: 29, forma: 'W L D W L', gf: 32, gs: 31 },
-        { campionato: 'Ireland Premier Division', squadra: 'Galway United', pos: 7, punti: 27, forma: 'L W L L W', gf: 32, gs: 39 },
-        { campionato: 'Ireland Premier Division', squadra: 'Drogheda United', pos: 8, punti: 25, forma: 'L D L L W', gf: 29, gs: 41 },
-        { campionato: 'Ireland Premier Division', squadra: 'Waterford United', pos: 9, punti: 21, forma: 'W L W W D', gf: 33, gs: 47 },
-        { campionato: 'Ireland Premier Division', squadra: 'Sligo Rovers', pos: 10, punti: 20, forma: 'L L D L L', gf: 20, gs: 40 },
+        { campionato: 'Ireland Premier Division', squadra: 'Shamrock', pos: 1, punti: 50, pg: 24, v: 15, p: 5, s: 4, gf: 40, gs: 22, diff: 18, xg: 36.7, forma: 'L W D W W' },
+        { campionato: 'Ireland Premier Division', squadra: 'Bohemian FC', pos: 2, punti: 43, pg: 24, v: 13, p: 4, s: 7, gf: 40, gs: 27, diff: 13, xg: 36.2, forma: 'L L W W W' },
+        { campionato: 'Ireland Premier Division', squadra: 'St Patrick\'s', pos: 3, punti: 42, pg: 24, v: 12, p: 6, s: 6, gf: 39, gs: 20, diff: 19, xg: 35.8, forma: 'W W L W D' },
+        { campionato: 'Ireland Premier Division', squadra: 'Dundalk FC', pos: 4, punti: 35, pg: 24, v: 10, p: 5, s: 9, gf: 38, gs: 36, diff: 2, xg: 34.5, forma: 'W W L L L' },
+        { campionato: 'Ireland Premier Division', squadra: 'Shelbourne FC', pos: 5, punti: 34, pg: 24, v: 9, p: 7, s: 8, gf: 35, gs: 35, diff: 0, xg: 32.1, forma: 'W D L D W' },
+        { campionato: 'Ireland Premier Division', squadra: 'Derry City', pos: 6, punti: 29, pg: 24, v: 8, p: 5, s: 11, gf: 32, gs: 31, diff: 1, xg: 29.4, forma: 'W L D W L' },
+        { campionato: 'Ireland Premier Division', squadra: 'Galway United', pos: 7, punti: 27, pg: 24, v: 8, p: 3, s: 13, gf: 32, gs: 39, diff: -7, xg: 29.1, forma: 'L W L L W' },
+        { campionato: 'Ireland Premier Division', squadra: 'Drogheda United', pos: 8, punti: 25, pg: 24, v: 7, p: 4, s: 13, gf: 29, gs: 41, diff: -12, xg: 26.4, forma: 'L D L L W' },
+        { campionato: 'Ireland Premier Division', squadra: 'Waterford United', pos: 9, punti: 21, pg: 24, v: 6, p: 3, s: 15, gf: 33, gs: 47, diff: -14, xg: 29.8, forma: 'W L W W D' },
+        { campionato: 'Ireland Premier Division', squadra: 'Sligo Rovers', pos: 10, punti: 20, pg: 24, v: 5, p: 5, s: 14, gf: 20, gs: 40, diff: -20, xg: 18.5, forma: 'L L D L L' },
         // K League 1
-        { campionato: 'K League 1', squadra: 'FC Seoul', pos: 1, punti: 36, forma: 'L W W W D', gf: 28, gs: 12 },
-        { campionato: 'K League 1', squadra: 'Gangwon FC', pos: 2, punti: 31, forma: 'W W W D W', gf: 23, gs: 11 },
-        { campionato: 'K League 1', squadra: 'Jeonbuk', pos: 3, punti: 29, forma: 'D W L W L', gf: 25, gs: 16 },
-        { campionato: 'K League 1', squadra: 'Ulsan HD', pos: 4, punti: 28, forma: 'W L D L D', gf: 26, gs: 26 },
-        { campionato: 'K League 1', squadra: 'Pohang Steelers', pos: 5, punti: 28, forma: 'W L W W L', gf: 19, gs: 16 },
-        { campionato: 'K League 1', squadra: 'Incheon United', pos: 6, punti: 24, forma: 'L W L L W', gf: 22, gs: 19 },
-        { campionato: 'K League 1', squadra: 'FC Anyang', pos: 7, punti: 23, forma: 'D D W L W', gf: 22, gs: 19 },
-        { campionato: 'K League 1', squadra: 'Jeju United', pos: 8, punti: 23, forma: 'L L D D W', gf: 16, gs: 18 },
-        { campionato: 'K League 1', squadra: 'Daejeon Hana', pos: 9, punti: 19, forma: 'L L D D D', gf: 21, gs: 20 },
-        { campionato: 'K League 1', squadra: 'Bucheon FC', pos: 10, punti: 19, forma: 'L D W D D', gf: 14, gs: 18 },
-        { campionato: 'K League 1', squadra: 'Sangmu', pos: 11, punti: 16, forma: 'D L D D L', gf: 17, gs: 25 },
-        { campionato: 'K League 1', squadra: 'Gwangju FC', pos: 12, punti: 8, forma: 'D L L D L', gf: 8, gs: 41 },
+        { campionato: 'K League 1', squadra: 'FC Seoul', pos: 1, punti: 36, pg: 18, v: 10, p: 6, s: 2, gf: 28, gs: 12, diff: 16, xg: 25.8, forma: 'L W W W D' },
+        { campionato: 'K League 1', squadra: 'Gangwon FC', pos: 2, punti: 31, pg: 18, v: 9, p: 4, s: 5, gf: 23, gs: 11, diff: 12, xg: 21.3, forma: 'W W W D W' },
+        { campionato: 'K League 1', squadra: 'Jeonbuk', pos: 3, punti: 29, pg: 18, v: 8, p: 5, s: 5, gf: 25, gs: 16, diff: 9, xg: 22.9, forma: 'D W L W L' },
+        { campionato: 'K League 1', squadra: 'Ulsan HD', pos: 4, punti: 28, pg: 18, v: 8, p: 4, s: 6, gf: 26, gs: 26, diff: 0, xg: 23.7, forma: 'W L D L D' },
+        { campionato: 'K League 1', squadra: 'Pohang Steelers', pos: 5, punti: 28, pg: 18, v: 8, p: 4, s: 6, gf: 19, gs: 16, diff: 3, xg: 17.5, forma: 'W L W W L' },
+        { campionato: 'K League 1', squadra: 'Incheon United', pos: 6, punti: 24, pg: 18, v: 7, p: 3, s: 8, gf: 22, gs: 19, diff: 3, xg: 20.2, forma: 'L W L L W' },
+        { campionato: 'K League 1', squadra: 'FC Anyang', pos: 7, punti: 23, pg: 18, v: 6, p: 5, s: 7, gf: 22, gs: 19, diff: 3, xg: 20.1, forma: 'D D W L W' },
+        { campionato: 'K League 1', squadra: 'Jeju United', pos: 8, punti: 23, pg: 18, v: 6, p: 5, s: 7, gf: 16, gs: 18, diff: -2, xg: 14.8, forma: 'L L D D W' },
+        { campionato: 'K League 1', squadra: 'Daejeon Hana', pos: 9, punti: 19, pg: 18, v: 4, p: 7, s: 7, gf: 21, gs: 20, diff: 1, xg: 19.3, forma: 'L L D D D' },
+        { campionato: 'K League 1', squadra: 'Bucheon FC', pos: 10, punti: 19, pg: 18, v: 5, p: 4, s: 9, gf: 14, gs: 18, diff: -4, xg: 13.1, forma: 'L D W D D' },
+        { campionato: 'K League 1', squadra: 'Sangmu', pos: 11, punti: 16, pg: 18, v: 3, p: 7, s: 8, gf: 17, gs: 25, diff: -8, xg: 15.6, forma: 'D L D D L' },
+        { campionato: 'K League 1', squadra: 'Gwangju FC', pos: 12, punti: 8, pg: 18, v: 1, p: 5, s: 12, gf: 8, gs: 41, diff: -33, xg: 7.2, forma: 'D L L D L' },
         // Austria Bundesliga
-        { campionato: 'Austria Bundesliga', squadra: 'LASK', pos: 1, punti: 0, forma: '', gf: 0, gs: 0 },
-        { campionato: 'Austria Bundesliga', squadra: 'Sturm Graz', pos: 2, punti: 0, forma: '', gf: 0, gs: 0 },
-        { campionato: 'Austria Bundesliga', squadra: 'Rapid Wien', pos: 3, punti: 0, forma: '', gf: 0, gs: 0 },
-        { campionato: 'Austria Bundesliga', squadra: 'Austria Wien', pos: 4, punti: 0, forma: '', gf: 0, gs: 0 },
-        { campionato: 'Austria Bundesliga', squadra: 'RB Salzburg', pos: 5, punti: 0, forma: '', gf: 0, gs: 0 },
-        { campionato: 'Austria Bundesliga', squadra: 'Grazer AK', pos: 6, punti: 0, forma: '', gf: 0, gs: 0 },
-        { campionato: 'Austria Bundesliga', squadra: 'Ried', pos: 7, punti: 0, forma: '', gf: 0, gs: 0 },
-        { campionato: 'Austria Bundesliga', squadra: 'WSG Tirol', pos: 8, punti: 0, forma: '', gf: 0, gs: 0 },
-        { campionato: 'Austria Bundesliga', squadra: 'Austria Lustenau', pos: 9, punti: 0, forma: '', gf: 0, gs: 0 },
-        { campionato: 'Austria Bundesliga', squadra: 'Rheindorf Altach', pos: 10, punti: 0, forma: '', gf: 0, gs: 0 },
-        { campionato: 'Austria Bundesliga', squadra: 'RZ Pellets WAC', pos: 11, punti: 0, forma: '', gf: 0, gs: 0 },
-        { campionato: 'Austria Bundesliga', squadra: 'Hartberg', pos: 12, punti: 0, forma: '', gf: 0, gs: 0 },
-        // Europa League - classifica fittizia per avere statistiche
-        { campionato: 'Europa League', squadra: 'Roma', pos: 1, punti: 0, forma: 'D W W L W', gf: 12, gs: 8 },
-        { campionato: 'Europa League', squadra: 'Lazio', pos: 2, punti: 0, forma: 'W W D W W', gf: 14, gs: 6 },
-        { campionato: 'Europa League', squadra: 'Athletic Bilbao', pos: 3, punti: 0, forma: 'W D W W L', gf: 10, gs: 7 },
-        { campionato: 'Europa League', squadra: 'Betis', pos: 4, punti: 0, forma: 'L W W D W', gf: 11, gs: 9 },
-        { campionato: 'Europa League', squadra: 'Olympiacos', pos: 5, punti: 0, forma: 'W W L W D', gf: 9, gs: 5 },
-        { campionato: 'Europa League', squadra: 'Rangers', pos: 6, punti: 0, forma: 'W L W W D', gf: 8, gs: 6 },
-        { campionato: 'Europa League', squadra: 'Fenerbahçe', pos: 7, punti: 0, forma: 'W W D L W', gf: 13, gs: 7 },
-        { campionato: 'Europa League', squadra: 'Celtic', pos: 8, punti: 0, forma: 'W W W L W', gf: 15, gs: 5 },
-        { campionato: 'Europa League', squadra: 'Copenhagen', pos: 9, punti: 0, forma: 'D W L W D', gf: 7, gs: 8 },
-        { campionato: 'Europa League', squadra: 'Slavia Praha', pos: 10, punti: 0, forma: 'W L W D W', gf: 10, gs: 8 },
-        { campionato: 'Europa League', squadra: 'Molde', pos: 11, punti: 0, forma: 'W W D L W', gf: 9, gs: 7 },
-        { campionato: 'Europa League', squadra: 'Gent', pos: 12, punti: 0, forma: 'D W L W D', gf: 6, gs: 5 },
-        { campionato: 'Europa League', squadra: 'AZ Alkmaar', pos: 13, punti: 0, forma: 'W L W W D', gf: 11, gs: 6 },
-        { campionato: 'Europa League', squadra: 'PAOK', pos: 14, punti: 0, forma: 'W D L W W', gf: 8, gs: 7 },
-        { campionato: 'Europa League', squadra: 'Anderlecht', pos: 15, punti: 0, forma: 'L W W D L', gf: 7, gs: 9 },
-        { campionato: 'Europa League', squadra: 'Maccabi Tel Aviv', pos: 16, punti: 0, forma: 'W D L W D', gf: 6, gs: 4 },
-        { campionato: 'Europa League', squadra: 'HJK Helsinki', pos: 17, punti: 0, forma: 'L L W L D', gf: 4, gs: 8 },
-        { campionato: 'Europa League', squadra: 'Dinamo Zagreb', pos: 18, punti: 0, forma: 'W L W L L', gf: 5, gs: 7 },
-        { campionato: 'Europa League', squadra: 'Bodø/Glimt', pos: 19, punti: 0, forma: 'W W W L W', gf: 12, gs: 4 },
-        { campionato: 'Europa League', squadra: 'Legia Warszawa', pos: 20, punti: 0, forma: 'L W D W L', gf: 6, gs: 8 },
-        { campionato: 'Europa League', squadra: 'Trabzonspor', pos: 21, punti: 0, forma: 'W L D W W', gf: 8, gs: 6 },
-        { campionato: 'Europa League', squadra: 'Malmö', pos: 22, punti: 0, forma: 'D W L W D', gf: 7, gs: 9 },
-        { campionato: 'Europa League', squadra: 'KAA Gent', pos: 23, punti: 0, forma: 'W D L W L', gf: 5, gs: 6 },
-        { campionato: 'Europa League', squadra: 'Basel', pos: 24, punti: 0, forma: 'L W D W L', gf: 6, gs: 7 },
-        { campionato: 'Europa League', squadra: 'Ferencváros', pos: 25, punti: 0, forma: 'W L W D W', gf: 9, gs: 5 },
-        { campionato: 'Europa League', squadra: 'Sparta Praha', pos: 26, punti: 0, forma: 'W W L D W', gf: 8, gs: 6 },
-        { campionato: 'Europa League', squadra: 'Union Saint-Gilloise', pos: 27, punti: 0, forma: 'D W L W D', gf: 7, gs: 8 },
-        { campionato: 'Europa League', squadra: 'Hajduk Split', pos: 28, punti: 0, forma: 'W L W L D', gf: 6, gs: 7 },
-        { campionato: 'Europa League', squadra: 'Rijeka', pos: 29, punti: 0, forma: 'L W D L W', gf: 5, gs: 6 },
-        { campionato: 'Europa League', squadra: 'FCSB', pos: 30, punti: 0, forma: 'W L W D L', gf: 4, gs: 5 },
-        { campionato: 'Europa League', squadra: 'Viktoria Plzeň', pos: 31, punti: 0, forma: 'L W D W L', gf: 6, gs: 5 },
-        { campionato: 'Europa League', squadra: 'Maccabi Haifa', pos: 32, punti: 0, forma: 'D L W W D', gf: 5, gs: 4 },
-        { campionato: 'Europa League', squadra: 'Shamrock Rovers', pos: 33, punti: 0, forma: 'W L L W L', gf: 4, gs: 7 },
+        { campionato: 'Austria Bundesliga', squadra: 'LASK', pos: 1, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Austria Bundesliga', squadra: 'Sturm Graz', pos: 2, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Austria Bundesliga', squadra: 'Rapid Wien', pos: 3, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Austria Bundesliga', squadra: 'Austria Wien', pos: 4, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Austria Bundesliga', squadra: 'RB Salzburg', pos: 5, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Austria Bundesliga', squadra: 'Grazer AK', pos: 6, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Austria Bundesliga', squadra: 'Ried', pos: 7, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Austria Bundesliga', squadra: 'WSG Tirol', pos: 8, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Austria Bundesliga', squadra: 'Austria Lustenau', pos: 9, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Austria Bundesliga', squadra: 'Rheindorf Altach', pos: 10, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Austria Bundesliga', squadra: 'RZ Pellets WAC', pos: 11, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Austria Bundesliga', squadra: 'Hartberg', pos: 12, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        // Europa League
+        { campionato: 'Europa League', squadra: 'Roma', pos: 1, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Lazio', pos: 2, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Athletic Bilbao', pos: 3, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Betis', pos: 4, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Olympiacos', pos: 5, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Rangers', pos: 6, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Fenerbahçe', pos: 7, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Celtic', pos: 8, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Copenhagen', pos: 9, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Slavia Praha', pos: 10, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Molde', pos: 11, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Gent', pos: 12, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'AZ Alkmaar', pos: 13, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'PAOK', pos: 14, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Anderlecht', pos: 15, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Maccabi Tel Aviv', pos: 16, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'HJK Helsinki', pos: 17, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Dinamo Zagreb', pos: 18, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Bodø/Glimt', pos: 19, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Legia Warszawa', pos: 20, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Trabzonspor', pos: 21, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Malmö', pos: 22, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'KAA Gent', pos: 23, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Basel', pos: 24, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Ferencváros', pos: 25, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Sparta Praha', pos: 26, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Union Saint-Gilloise', pos: 27, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Hajduk Split', pos: 28, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Rijeka', pos: 29, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'FCSB', pos: 30, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Viktoria Plzeň', pos: 31, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Maccabi Haifa', pos: 32, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
+        { campionato: 'Europa League', squadra: 'Shamrock Rovers', pos: 33, punti: 0, pg: 0, v: 0, p: 0, s: 0, gf: 0, gs: 0, diff: 0, xg: 0, forma: '' },
     ];
 
     // --------------------- MAPPATURA SQUADRA -> CITTÀ ---------------------
@@ -1006,7 +1229,6 @@
         'Ulsan HD': 'Ulsan', 'Pohang Steelers': 'Pohang', 'Incheon United': 'Incheon',
         'FC Anyang': 'Anyang', 'Jeju United': 'Jeju', 'Daejeon Hana': 'Daejeon',
         'Bucheon FC': 'Bucheon', 'Sangmu': 'Gimcheon', 'Gwangju FC': 'Gwangju',
-        // Europa League
         'Roma': 'Roma', 'Lazio': 'Roma', 'Athletic Bilbao': 'Bilbao',
         'Betis': 'Sevilla', 'Olympiacos': 'Piraeus', 'Rangers': 'Glasgow',
         'Fenerbahçe': 'Istanbul', 'Celtic': 'Glasgow', 'Copenhagen': 'Copenhagen',
@@ -1030,7 +1252,23 @@
     function getTeamStats(campionato, squadra) {
         const found = standings.find(s => s.campionato === campionato && s.squadra === squadra);
         if (found) return found;
-        return { pos: '-', punti: '-', forma: '', gf: 0, gs: 0 };
+        return { pos: '-', punti: '-', pg: '-', v: '-', p: '-', s: '-', gf: 0, gs: 0, diff: '-', xg: 0, forma: '' };
+    }
+
+    function formaBoxes(forma) {
+        if (!forma || forma === '') {
+            return '<span class="forma-box">-</span><span class="forma-box">-</span><span class="forma-box">-</span><span class="forma-box">-</span><span class="forma-box">-</span>';
+        }
+        return forma.split(' ').map(c => {
+            const letter = c === 'W' ? 'V' : c === 'D' ? 'P' : c === 'L' ? 'S' : '-';
+            return `<span class="forma-box ${letter}">${letter}</span>`;
+        }).join('');
+    }
+
+    function formatDate(dateStr) {
+        const parts = dateStr.split('-');
+        if (parts.length !== 3) return dateStr;
+        return `${parts[2]}/${parts[1]}/${parts[0]}`;
     }
 
     function calculateFormScore(forma) {
@@ -1040,17 +1278,63 @@
         return total;
     }
 
-    function winPercentage(stats) {
-        if (!stats || stats.punti === '-') return { value: 0, label: '0%', flag: 'flag-neutral' };
-        const pts = parseInt(stats.punti) || 0;
-        if (pts === 0) return { value: 0, label: '0%', flag: 'flag-neutral' };
-        const gf = parseInt(stats.gf) || 0;
-        const gs = parseInt(stats.gs) || 0;
-        const diff = gf - gs;
-        let base = Math.min(100, Math.round((pts * 4.2) + (diff * 1.5)));
-        base = Math.min(100, Math.max(5, base));
-        return { value: base, label: base + '%', flag: getFlag(base) };
+    // ================================================================
+    // CALCOLO PERCENTUALI 1X2 CORRETTO (somma = 100%)
+    // ================================================================
+
+    function getWinPercentages(homeStats, awayStats) {
+        const homePts = parseInt(homeStats.punti) || 0;
+        const awayPts = parseInt(awayStats.punti) || 0;
+        const homeGf = parseInt(homeStats.gf) || 0;
+        const homeGs = parseInt(homeStats.gs) || 0;
+        const awayGf = parseInt(awayStats.gf) || 0;
+        const awayGs = parseInt(awayStats.gs) || 0;
+        
+        const homeDiff = homeGf - homeGs;
+        const awayDiff = awayGf - awayGs;
+        
+        // Rating: punti * 3 + differenza reti * 0.5
+        const homeRating = (homePts * 3) + (homeDiff * 0.5);
+        const awayRating = (awayPts * 3) + (awayDiff * 0.5);
+        
+        // Se entrambi i rating sono 0, usa valori predefiniti
+        if (homeRating === 0 && awayRating === 0) {
+            return { home: 33, draw: 34, away: 33 };
+        }
+        
+        // Calcola le probabilità grezze (base 15% per squadra + 30% pareggio)
+        const totalRating = homeRating + awayRating;
+        let homeProb = (homeRating / totalRating) * 70 + 15;
+        let awayProb = (awayRating / totalRating) * 70 + 15;
+        let drawProb = 30;
+        
+        // Normalizza per avere somma 100
+        const sum = homeProb + drawProb + awayProb;
+        homeProb = Math.round((homeProb / sum) * 100);
+        drawProb = Math.round((drawProb / sum) * 100);
+        awayProb = Math.round((awayProb / sum) * 100);
+        
+        // Correggi arrotondamenti
+        let diff = 100 - (homeProb + drawProb + awayProb);
+        if (diff !== 0) {
+            if (homeProb >= drawProb && homeProb >= awayProb) homeProb += diff;
+            else if (drawProb >= homeProb && drawProb >= awayProb) drawProb += diff;
+            else awayProb += diff;
+        }
+        
+        return { home: homeProb, draw: drawProb, away: awayProb };
     }
+
+    function getFlagForPercent(value) {
+        if (value >= 75) return 'flag-bomb';
+        if (value >= 60) return 'flag-gold';
+        if (value >= 40) return 'flag-green';
+        return 'flag-neutral';
+    }
+
+    // ================================================================
+    // MULTIGOL E UNDER/OVER
+    // ================================================================
 
     function multiGoalValues(stats) {
         if (!stats) return { p02: 0, p13: 0, p25: 0 };
@@ -1080,7 +1364,7 @@
         else if (media < 3.5) value = 48;
         else if (media < 4.5) value = 35;
         else value = 22;
-        return { value, label: value + '%', flag: getFlag(value) };
+        return { value, label: value + '%', flag: getFlagForPercent(value) };
     }
 
     function over15Percent(homeStats, awayStats) {
@@ -1095,30 +1379,7 @@
         else if (media < 3.5) value = 70;
         else if (media < 4.5) value = 82;
         else value = 92;
-        return { value, label: value + '%', flag: getFlag(value) };
-    }
-
-    function getFlag(value) {
-        if (value >= 90) return 'flag-bomb';
-        if (value >= 66.67) return 'flag-gold';
-        if (value >= 33.34) return 'flag-green';
-        return 'flag-neutral';
-    }
-
-    function formaBoxes(forma) {
-        if (!forma || forma === '') {
-            return '<span class="forma-box">-</span><span class="forma-box">-</span><span class="forma-box">-</span><span class="forma-box">-</span><span class="forma-box">-</span>';
-        }
-        return forma.split(' ').map(c => {
-            const letter = c === 'W' ? 'V' : c === 'D' ? 'P' : c === 'L' ? 'S' : '-';
-            return `<span class="forma-box ${letter}">${letter}</span>`;
-        }).join('');
-    }
-
-    function formatDate(dateStr) {
-        const parts = dateStr.split('-');
-        if (parts.length !== 3) return dateStr;
-        return `${parts[2]}/${parts[1]}/${parts[0]}`;
+        return { value, label: value + '%', flag: getFlagForPercent(value) };
     }
 
     // ================================================================
@@ -1129,9 +1390,10 @@
     let currentMatchIndex = 0;
     let matches = [];
     let currentFilter = 'all';
+    let isGenerating = false;
 
     // ================================================================
-    // CALCOLO DATE OGGI E DOMANI IN MODO DINAMICO
+    // CALCOLO DATE
     // ================================================================
 
     function getTodayAndTomorrow() {
@@ -1153,25 +1415,17 @@
     }
 
     // ================================================================
-    // FILTRO PARTITE: OGGI, DOMANI E DOPODOMANI (3 GIORNI)
+    // FILTRO PARTITE
     // ================================================================
 
     function filterMatchesByDate() {
         const { oggi, domani, dopoDomani } = getTodayAndTomorrow();
-        console.log('📅 Oggi (dinamico):', oggi);
-        console.log('📅 Domani (dinamico):', domani);
-        console.log('📅 Dopodomani (dinamico):', dopoDomani);
-
-        // Filtra partite con data = oggi, domani o dopodomani
         matches = matchesData.filter(m => m.data === oggi || m.data === domani || m.data === dopoDomani);
         matches.sort((a, b) => (a.data + a.ora).localeCompare(b.data + b.ora));
-
-        console.log('📊 Partite trovate per oggi/domani/dopodomani:', matches.length);
-        matches.forEach(m => console.log('  -', m.data, m.casa, 'vs', m.ospite));
     }
 
     // ================================================================
-    // RENDER PALINSESTO
+    // RENDER PALINSESTO (con layout percentuali a 2 righe)
     // ================================================================
 
     function getFilteredMatches() {
@@ -1196,8 +1450,13 @@
         filtered.forEach((match, idx) => {
             const homeStats = getTeamStats(match.campionato, match.casa);
             const awayStats = getTeamStats(match.campionato, match.ospite);
-            const homePerc = winPercentage(homeStats);
-            const awayPerc = winPercentage(awayStats);
+            
+            // CALCOLO PERCENTUALI 1X2 CORRETTO (somma = 100%)
+            const perc = getWinPercentages(homeStats, awayStats);
+            const homePerc = perc.home;
+            const drawPerc = perc.draw;
+            const awayPerc = perc.away;
+            
             const homeMulti = multiGoalValues(homeStats);
             const awayMulti = multiGoalValues(awayStats);
             const under45 = under45Percent(homeStats, awayStats);
@@ -1210,17 +1469,19 @@
             const awayBest = Math.max(awayMulti.p02, awayMulti.p13, awayMulti.p25);
             const homeBestLabel = homeBest === homeMulti.p02 ? '(0-2)' : homeBest === homeMulti.p13 ? '(1-3)' : '(2-5)';
             const awayBestLabel = awayBest === awayMulti.p02 ? '(0-2)' : awayBest === awayMulti.p13 ? '(1-3)' : '(2-5)';
-            const diff = homePerc.value - awayPerc.value;
+            
+            // Differenza percentuali per la freccia
+            const diff = homePerc - awayPerc;
             const diffAbs = Math.abs(diff);
             const diffLabel = diffAbs + '%';
             let arrow = '↔️';
             let arrowColor = 'color: #eab308;';
-            if (diff > 5) { arrow = '⬅️'; arrowColor = 'color: #22c55e;'; }
-            else if (diff < -5) { arrow = '➡️'; arrowColor = 'color: #ef4444;'; }
+            if (diff > 10) { arrow = '⬅️'; arrowColor = 'color: #22c55e;'; }
+            else if (diff < -10) { arrow = '➡️'; arrowColor = 'color: #ef4444;'; }
             else { arrow = '↔️'; arrowColor = 'color: #eab308;'; }
             
-            const homeBestFlag = getFlag(homeBest);
-            const awayBestFlag = getFlag(awayBest);
+            const homeBestFlag = getFlagForPercent(homeBest);
+            const awayBestFlag = getFlagForPercent(awayBest);
 
             const formDiff = homeScore - awayScore;
             const formDiffAbs = Math.abs(Math.round(formDiff));
@@ -1275,10 +1536,12 @@
                         <span>Percentuale Vittoria: <span class="diff-value" style="${arrowColor}"><span class="diff-arrow">${arrow}</span> ${diffLabel}</span></span>
                     </div>
                     <div class="stat-perc">
-                        <span class="label">Percentuale di Vittoria</span>
-                        <span class="perc ${homePerc.flag}">${homePerc.label}</span>
-                        <span style="color:var(--text-secondary);">|</span>
-                        <span class="perc ${awayPerc.flag}">${awayPerc.label}</span>
+                        <div style="font-size:0.7rem;color:var(--text-secondary);font-weight:500;margin-bottom:2px;">Percentuale di Vittoria</div>
+                        <div style="display:flex;justify-content:center;gap:12px;font-weight:700;">
+                            <span class="perc ${getFlagForPercent(homePerc)}" style="font-size:0.85rem;">🏠 ${homePerc}%</span>
+                            <span class="perc ${getFlagForPercent(drawPerc)}" style="font-size:0.85rem;">🤝 ${drawPerc}%</span>
+                            <span class="perc ${getFlagForPercent(awayPerc)}" style="font-size:0.85rem;">✈️ ${awayPerc}%</span>
+                        </div>
                     </div>
                     <div class="stat-row">
                         <span class="stat-label">🏠 ${match.casa}</span>
@@ -1335,75 +1598,337 @@
     }
 
     // ================================================================
-    // GENERAZIONE PRONOSTICI STATISTICI (FALLBACK)
+    // GENERAZIONE STATISTICHE PER IL PROMPT
     // ================================================================
 
-    function generateStatisticalTips(match) {
+    function generateStatsForPrompt(match) {
         const homeStats = getTeamStats(match.campionato, match.casa);
         const awayStats = getTeamStats(match.campionato, match.ospite);
 
-        const homePts = parseInt(homeStats.punti) || 0;
-        const awayPts = parseInt(awayStats.punti) || 0;
-        const homeGf = parseInt(homeStats.gf) || 0;
-        const homeGs = parseInt(homeStats.gs) || 0;
-        const awayGf = parseInt(awayStats.gf) || 0;
-        const awayGs = parseInt(awayStats.gs) || 0;
+        const homeMediaFatti = homeStats.pg > 0 ? (homeStats.gf / homeStats.pg).toFixed(2) : 'N/D';
+        const homeMediaSubiti = homeStats.pg > 0 ? (homeStats.gs / homeStats.pg).toFixed(2) : 'N/D';
+        const homeMediaTotali = homeStats.pg > 0 ? ((homeStats.gf + homeStats.gs) / homeStats.pg).toFixed(2) : 'N/D';
+        const awayMediaFatti = awayStats.pg > 0 ? (awayStats.gf / awayStats.pg).toFixed(2) : 'N/D';
+        const awayMediaSubiti = awayStats.pg > 0 ? (awayStats.gs / awayStats.pg).toFixed(2) : 'N/D';
+        const awayMediaTotali = awayStats.pg > 0 ? ((awayStats.gf + awayStats.gs) / awayStats.pg).toFixed(2) : 'N/D';
 
-        const homeDiff = homeGf - homeGs;
-        const awayDiff = awayGf - awayGs;
-        const totalGoals = homeGf + homeGs + awayGf + awayGs;
+        const formaHome = homeStats.forma || '';
+        const formaAway = awayStats.forma || '';
+        const puntiHome = formaHome ? formaHome.split(' ').filter(c => c === 'W').length * 3 + formaHome.split(' ').filter(c => c === 'D').length * 1 : 0;
+        const puntiAway = formaAway ? formaAway.split(' ').filter(c => c === 'W').length * 3 + formaAway.split(' ').filter(c => c === 'D').length * 1 : 0;
+        const percPuntiHome = formaHome ? Math.round((puntiHome / 15) * 100) : 0;
+        const percPuntiAway = formaAway ? Math.round((puntiAway / 15) * 100) : 0;
 
-        const homeWinPerc = Math.min(100, Math.round((homePts * 4.2) + (homeDiff * 1.5)));
-        const awayWinPerc = Math.min(100, Math.round((awayPts * 4.2) + (awayDiff * 1.5)));
-        const drawPerc = Math.max(0, 100 - homeWinPerc - awayWinPerc);
+        const trendHome = percPuntiHome >= 80 ? '📈 In crescita' : percPuntiHome >= 50 ? '📊 Stabile' : '📉 In calo';
+        const trendAway = percPuntiAway >= 80 ? '📈 In crescita' : percPuntiAway >= 50 ? '📊 Stabile' : '📉 In calo';
 
-        const homeWin = Math.min(100, Math.max(5, homeWinPerc));
-        const awayWin = Math.min(100, Math.max(5, awayWinPerc));
-        const draw = Math.min(100, Math.max(5, drawPerc));
+        return {
+            homeStats, awayStats,
+            homeMediaFatti, homeMediaSubiti, homeMediaTotali,
+            awayMediaFatti, awayMediaSubiti, awayMediaTotali,
+            percPuntiHome, percPuntiAway,
+            trendHome, trendAway,
+            formaHome, formaAway
+        };
+    }
 
-        let pronostico = 'X';
-        if (homeWin > awayWin && homeWin > draw) pronostico = '1';
-        else if (awayWin > homeWin && awayWin > draw) pronostico = '2';
+    // ================================================================
+    // GENERAZIONE REPORT FALLBACK
+    // ================================================================
 
-        const maxPerc = Math.max(homeWin, awayWin, draw);
-        const sicurezza = Math.min(100, Math.round(maxPerc + 10));
-
-        const over15 = Math.min(100, Math.round((totalGoals / 20) * 100 + 20));
-        const under45 = Math.min(100, Math.round(100 - (totalGoals / 20) * 15));
+    function generateFallbackReport(match, stats) {
+        const { homeStats, awayStats, homeMediaFatti, homeMediaSubiti, homeMediaTotali, awayMediaFatti, awayMediaSubiti, awayMediaTotali, percPuntiHome, percPuntiAway, trendHome, trendAway } = stats;
 
         const homeMulti = multiGoalValues(homeStats);
         const awayMulti = multiGoalValues(awayStats);
-        const multi13 = Math.round((homeMulti.p13 + awayMulti.p13) / 2);
 
-        let tip1 = 'X';
-        if (homeWin > 60) tip1 = '1';
-        else if (awayWin > 60) tip1 = '2';
-        else if (homeWin > 40 && awayWin > 40) tip1 = '12';
-        else if (homeWin > 40) tip1 = '1X';
-        else if (awayWin > 40) tip1 = 'X2';
+        const totalGoals = (parseInt(homeStats.gf) || 0) + (parseInt(homeStats.gs) || 0) + (parseInt(awayStats.gf) || 0) + (parseInt(awayStats.gs) || 0);
+        const mediaGol = homeStats.pg > 0 && awayStats.pg > 0 ? totalGoals / (homeStats.pg + awayStats.pg) : 0;
+        
+        const over15 = Math.min(100, Math.round((mediaGol / 5) * 100 + 10));
+        const over25 = Math.min(100, Math.round((mediaGol / 4) * 100 + 5));
+        const under35 = Math.min(100, Math.round(100 - (mediaGol / 4) * 80));
+        const under45 = Math.min(100, Math.round(100 - (mediaGol / 5) * 60));
 
-        const tip2 = `${tip1} + Under 4.5`;
+        const vittorieCasa = parseInt(homeStats.v) || 0;
+        const vittorieOspite = parseInt(awayStats.v) || 0;
+        const totalePartite = (parseInt(homeStats.pg) || 0) + (parseInt(awayStats.pg) || 0);
+        const giocata1 = totalePartite > 0 ? Math.round(((vittorieCasa + vittorieOspite) / totalePartite * 100 + under45) / 2) : 50;
 
-        return {
-            pronostico,
-            sicurezza,
-            sicurezzaText: sicurezza > 60 ? `Si (${sicurezza}%)` : `No (${sicurezza}%)`,
-            tip1,
-            tip2,
-            homeWin: Math.round(homeWin),
-            awayWin: Math.round(awayWin),
-            draw: Math.round(draw),
-            over15,
-            under45,
-            multi13
-        };
+        const multiCasa13 = homeMulti.p13 || 0;
+        const multiOspite13 = awayMulti.p13 || 0;
+        const giocata2 = Math.round((multiCasa13 + multiOspite13) / 2);
+
+        const doppieChance = [
+            { nome: '1X', valore: Math.round((parseInt(homeStats.punti) || 0) / (parseInt(homeStats.pg) || 1) * 2 + 20) },
+            { nome: '12', valore: Math.round(((parseInt(homeStats.punti) || 0) + (parseInt(awayStats.punti) || 0)) / (parseInt(homeStats.pg) || 1 + parseInt(awayStats.pg) || 1) * 2 + 15) },
+            { nome: 'X2', valore: Math.round((parseInt(awayStats.punti) || 0) / (parseInt(awayStats.pg) || 1) * 2 + 20) }
+        ];
+        const multigolTotali = [
+            { nome: 'Over 1.5', valore: over15 },
+            { nome: '1-4', valore: Math.round((homeMulti.p02 + awayMulti.p02 + homeMulti.p13 + awayMulti.p13) / 4) },
+            { nome: '2-5', valore: Math.round((homeMulti.p13 + awayMulti.p13 + homeMulti.p25 + awayMulti.p25) / 4) }
+        ];
+        
+        let bestCombo = { nome: '12+Under4.5', valore: giocata1 };
+        doppieChance.forEach(dc => {
+            multigolTotali.forEach(mg => {
+                const comboVal = Math.round((dc.valore + mg.valore) / 2);
+                if (comboVal > bestCombo.valore) {
+                    bestCombo = { nome: dc.nome + ' + ' + mg.nome, valore: comboVal };
+                }
+            });
+        });
+
+        const homeWin = Math.min(100, Math.max(5, Math.round((parseInt(homeStats.punti) || 0) * 3.5 + (parseInt(homeStats.diff) || 0) * 1.2)));
+        const awayWin = Math.min(100, Math.max(5, Math.round((parseInt(awayStats.punti) || 0) * 3.5 + (parseInt(awayStats.diff) || 0) * 1.2)));
+        let draw = Math.max(5, 100 - homeWin - awayWin);
+        if (draw < 5) draw = 5;
+        const sum = homeWin + awayWin + draw;
+        const homeP = Math.round((homeWin / sum) * 100);
+        const awayP = Math.round((awayWin / sum) * 100);
+        const drawP = Math.round((draw / sum) * 100);
+        
+        let pronostico = 'X';
+        let pronPerc = drawP;
+        if (homeP > awayP && homeP > drawP) { pronostico = '1'; pronPerc = homeP; }
+        else if (awayP > homeP && awayP > drawP) { pronostico = '2'; pronPerc = awayP; }
+
+        const sicurezza = Math.min(100, Math.round(pronPerc + 10));
+
+        // Genera i quadratini colorati per lo stato forma nel report
+        function getFormaBoxes(forma) {
+            if (!forma || forma === '') {
+                return '⬜⬜⬜⬜⬜';
+            }
+            return forma.split(' ').map(c => {
+                if (c === 'W') return '🟩';
+                if (c === 'D') return '🟨';
+                if (c === 'L') return '🟥';
+                return '⬜';
+            }).join('');
+        }
+
+        const homeFormaEmoji = getFormaBoxes(homeStats.forma);
+        const awayFormaEmoji = getFormaBoxes(awayStats.forma);
+
+        return `
+## 📊 STATO DI FORMA
+
+**${match.casa}**: ${homeFormaEmoji} ${homeStats.forma || 'N/D'} | Punti ultimi 5: ${percPuntiHome}% | ${trendHome}
+**${match.ospite}**: ${awayFormaEmoji} ${awayStats.forma || 'N/D'} | Punti ultimi 5: ${percPuntiAway}% | ${trendAway}
+
+---
+
+## 📊 MEDIA GOL
+
+| Squadra | Gol Fatti | Gol Subiti | Totale | xG |
+|---------|-----------|------------|--------|-----|
+| ${match.casa} | ${homeMediaFatti} | ${homeMediaSubiti} | ${homeMediaTotali} | ${homeStats.xg || 'N/D'} |
+| ${match.ospite} | ${awayMediaFatti} | ${awayMediaSubiti} | ${awayMediaTotali} | ${awayStats.xg || 'N/D'} |
+
+---
+
+## 📊 RANGE GOL PIÙ FREQUENTE
+
+**${match.casa}**: 0-2: ${homeMulti.p02}% | 1-3: ${homeMulti.p13}% | Over 1.5: ${Math.round((homeMulti.p13 + homeMulti.p25) / 2)}%
+**${match.ospite}**: 0-2: ${awayMulti.p02}% | 1-3: ${awayMulti.p13}% | Over 1.5: ${Math.round((awayMulti.p13 + awayMulti.p25) / 2)}%
+
+---
+
+## 📊 MULTIGOL CASA/OSPITE
+
+| Squadra | 0-2 | 1-3 | 2-5 |
+|---------|-----|-----|-----|
+| ${match.casa} | ${homeMulti.p02}% | ${homeMulti.p13}% | ${homeMulti.p25}% |
+| ${match.ospite} | ${awayMulti.p02}% | ${awayMulti.p13}% | ${awayMulti.p25}% |
+
+---
+
+## 📊 UNDER/OVER
+
+- Over 1.5: ${over15}%
+- Over 2.5: ${over25}%
+- Under 3.5: ${under35}%
+- Under 4.5: ${under45}%
+
+---
+
+## 📈 DETTAGLIO 3 GIOCATE
+
+**GIOCATA 1 (12+U4.5)**: ${giocata1}%
+- Formula: (Vittorie Casa ${vittorieCasa} + Vittorie Ospite ${vittorieOspite}) / Partite Totali ${totalePartite} * 100 + Under 4.5 ${under45}% / 2
+
+**GIOCATA 2 (COMBINATA)**: ${giocata2}%
+- Multigol 1-3 Casa: ${multiCasa13}% | Multigol 1-3 Ospite: ${multiOspite13}%
+- Media: (${multiCasa13} + ${multiOspite13}) / 2 = ${giocata2}%
+
+**GIOCATA 3 (LIBERA)**: ${bestCombo.nome} = ${bestCombo.valore}%
+
+---
+
+## 💰 CONSIGLI DI TRADING
+
+| # | Giocata | Percentuale |
+|---|---------|-------------|
+| 1 | 12+Under 4.5 | ${giocata1}% |
+| 2 | Multigol 1-3 Media | ${giocata2}% |
+| 3 | ${bestCombo.nome} | ${bestCombo.valore}% |
+
+**🎯 PRONOSTICO 1X2**: ${pronostico} (${pronPerc}%)
+**🎯 SICUREZZA**: ${sicurezza}% ${sicurezza >= 60 ? '✅ Alta' : sicurezza >= 40 ? '⚠️ Media' : '❌ Bassa'}
+
+---
+
+## 📊 VALUTAZIONE FINALE
+
+- **Score Generale**: ${Math.round((giocata1 + giocata2 + bestCombo.valore) / 3)}%
+- **Indice Rischio**: ${sicurezza >= 70 ? '🟢 Basso' : sicurezza >= 50 ? '🟡 Medio' : '🔴 Alto'}
+- **Affidabilità**: ${sicurezza >= 70 ? '✅ Alta' : sicurezza >= 50 ? '⚠️ Media' : '❌ Bassa'}
+
+---
+*Report generato automaticamente in base ai dati statistici disponibili.*`;
+    }
+
+    // ================================================================
+    // FUNZIONE PER FORMATARE IL REPORT (Markdown -> HTML)
+    // ================================================================
+
+    function formatReportToHtml(text) {
+        if (!text) return '';
+        return text
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*(.*?)\*/g, '<em>$1</em>')
+            .replace(/\n/g, '<br>')
+            .replace(/## (.*?)(<br>|$)/g, '<br><strong style="font-size:1.1rem;color:var(--text-primary);">📌 $1</strong><br>')
+            .replace(/### (.*?)(<br>|$)/g, '<br><strong style="font-size:0.95rem;color:var(--text-secondary);">$1</strong><br>')
+            .replace(/---/g, '<hr style="border-color:var(--card-border);margin:8px 0;">')
+            .replace(/\|/g, ' | ')
+            .replace(/🟩/g, '<span style="display:inline-block;width:18px;height:18px;background:#22c55e;border-radius:4px;margin:0 1px;"></span>')
+            .replace(/🟨/g, '<span style="display:inline-block;width:18px;height:18px;background:#eab308;border-radius:4px;margin:0 1px;"></span>')
+            .replace(/🟥/g, '<span style="display:inline-block;width:18px;height:18px;background:#ef4444;border-radius:4px;margin:0 1px;"></span>')
+            .replace(/⬜/g, '<span style="display:inline-block;width:18px;height:18px;background:#6b7280;border-radius:4px;margin:0 1px;"></span>');
+    }
+
+    // ================================================================
+    // TEST CONNESSIONE GROQ
+    // ================================================================
+
+    async function testGroqConnection() {
+        const groqKey = document.getElementById('groqKey').value.trim() || localStorage.getItem('groqApiKey') || '';
+        const groqModel = document.getElementById('groqModel').value || localStorage.getItem('groqModel') || 'llama-3.1-8b-instant';
+        const btn = document.getElementById('testGroqBtn');
+        
+        if (!groqKey) {
+            btn.innerHTML = '❌ Inserisci una API Key!';
+            btn.style.background = '#ef4444';
+            btn.style.color = '#fff';
+            setTimeout(() => {
+                btn.innerHTML = '🔍 Test Connessione GROQ';
+                btn.style.background = '#f59e0b';
+                btn.style.color = '#000';
+            }, 3000);
+            return;
+        }
+        
+        btn.innerHTML = '⏳ Test in corso...';
+        btn.disabled = true;
+        btn.style.background = '#f59e0b';
+        
+        try {
+            const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${groqKey}`
+                },
+                body: JSON.stringify({
+                    model: groqModel,
+                    messages: [{ role: 'user', content: 'Rispondi con "OK" se funziona.' }],
+                    temperature: 0.3,
+                    max_tokens: 10
+                })
+            });
+            
+            const data = await response.json();
+            
+            if (response.status === 200 && data.choices && data.choices[0]) {
+                btn.innerHTML = '✅ GROQ FUNZIONA!';
+                btn.style.background = '#22c55e';
+                btn.style.color = '#fff';
+                localStorage.setItem('groqApiKey', groqKey);
+                localStorage.setItem('groqModel', groqModel);
+                setTimeout(() => {
+                    btn.innerHTML = '🔍 Test Connessione GROQ';
+                    btn.style.background = '#f59e0b';
+                    btn.style.color = '#000';
+                    btn.disabled = false;
+                }, 3000);
+                return true;
+            } else {
+                let errorMsg = data.error?.message || 'Errore sconosciuto';
+                if (response.status === 401) errorMsg = '❌ CHIAVE NON VALIDA!';
+                else if (response.status === 429) errorMsg = '❌ TROPPE RICHIESTE! Attendere.';
+                else if (response.status === 404) errorMsg = '❌ MODELLO NON TROVATO!';
+                btn.innerHTML = errorMsg;
+                btn.style.background = '#ef4444';
+                btn.style.color = '#fff';
+                setTimeout(() => {
+                    btn.innerHTML = '🔍 Test Connessione GROQ';
+                    btn.style.background = '#f59e0b';
+                    btn.style.color = '#000';
+                    btn.disabled = false;
+                }, 4000);
+                return false;
+            }
+        } catch (error) {
+            btn.innerHTML = '❌ ERRORE: ' + error.message;
+            btn.style.background = '#ef4444';
+            btn.style.color = '#fff';
+            setTimeout(() => {
+                btn.innerHTML = '🔍 Test Connessione GROQ';
+                btn.style.background = '#f59e0b';
+                btn.style.color = '#000';
+                btn.disabled = false;
+            }, 4000);
+            return false;
+        }
+    }
+
+    // ================================================================
+    // SIMULAZIONE TELEFONO
+    // ================================================================
+
+    function openPhoneSimulator() {
+        const overlay = document.getElementById('phoneSimulator');
+        const content = document.getElementById('phoneContent');
+        
+        // Clona il contenuto principale nella simulazione
+        const mainContent = document.querySelector('.tab-content.active');
+        if (mainContent) {
+            content.innerHTML = mainContent.innerHTML;
+        } else {
+            content.innerHTML = document.querySelector('#tab-palinsesto').innerHTML;
+        }
+        
+        content.style.background = 'var(--bg)';
+        content.style.color = 'var(--text-primary)';
+        
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closePhoneSimulator() {
+        const overlay = document.getElementById('phoneSimulator');
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
     }
 
     // ================================================================
     // RENDER ANALISI AI
     // ================================================================
 
-    async function renderAnalisiAI(index) {
+    async function renderAnalisiAI(index, forceRegenerate = false) {
         const container = document.getElementById('aiContent');
         const match = matches[index];
         if (!match) {
@@ -1411,29 +1936,142 @@
             return;
         }
 
+        currentMatchIndex = index;
+
+        if (forceRegenerate) {
+            const btn = document.getElementById('rigeneraBtn');
+            if (btn) {
+                btn.innerHTML = '<span class="spinner-small"></span> Rigenerando...';
+                btn.disabled = true;
+            }
+        }
+
         const homeStats = getTeamStats(match.campionato, match.casa);
         const awayStats = getTeamStats(match.campionato, match.ospite);
         const homeCity = teamCityMap[match.casa] || match.casa;
 
-        container.innerHTML = `
+        // Box forma
+        const homeFormaBoxes = homeStats.forma ? homeStats.forma.split(' ').map(c => {
+            const letter = c === 'W' ? 'V' : c === 'D' ? 'P' : c === 'L' ? 'S' : '-';
+            return `<span class="forma-box-small ${letter}">${letter}</span>`;
+        }).join('') : '<span class="forma-box-small">-</span><span class="forma-box-small">-</span><span class="forma-box-small">-</span><span class="forma-box-small">-</span><span class="forma-box-small">-</span>';
+
+        const awayFormaBoxes = awayStats.forma ? awayStats.forma.split(' ').map(c => {
+            const letter = c === 'W' ? 'V' : c === 'D' ? 'P' : c === 'L' ? 'S' : '-';
+            return `<span class="forma-box-small ${letter}">${letter}</span>`;
+        }).join('') : '<span class="forma-box-small">-</span><span class="forma-box-small">-</span><span class="forma-box-small">-</span><span class="forma-box-small">-</span><span class="forma-box-small">-</span>';
+
+        // Classifica
+        const allStandings = standings.filter(s => s.campionato === match.campionato);
+        allStandings.sort((a, b) => (parseInt(b.punti) || 0) - (parseInt(a.punti) || 0));
+        
+        let standingsHtml = `
+            <table>
+                <thead>
+                    <tr>
+                        <th>Pos</th>
+                        <th>Squadra</th>
+                        <th>PG</th>
+                        <th>V</th>
+                        <th>P</th>
+                        <th>S</th>
+                        <th>GF</th>
+                        <th>GS</th>
+                        <th>Diff</th>
+                        <th>xG</th>
+                        <th>Pti</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+        allStandings.forEach(s => {
+            const isGold = s.squadra === match.casa || s.squadra === match.ospite;
+            standingsHtml += `
+                <tr class="${isGold ? 'gold' : ''}">
+                    <td>${s.pos}</td>
+                    <td>${s.squadra}</td>
+                    <td>${s.pg}</td>
+                    <td>${s.v}</td>
+                    <td>${s.p}</td>
+                    <td>${s.s}</td>
+                    <td>${s.gf}</td>
+                    <td>${s.gs}</td>
+                    <td>${s.diff}</td>
+                    <td>${s.xg}</td>
+                    <td>${s.punti}</td>
+                </tr>
+            `;
+        });
+        standingsHtml += '</tbody></table>';
+
+        const stats = generateStatsForPrompt(match);
+
+        // HTML base
+        let htmlContent = `
             <div class="ai-container">
                 <div class="ai-header">
                     <span class="match-title">${match.casa} vs ${match.ospite}</span>
                     <span class="match-league">${match.campionato}</span>
                 </div>
+                
+                <div class="ai-rigenera">
+                    <button id="rigeneraBtn" onclick="handleRigenera()">
+                        🔄 Rigenera Pronostico
+                    </button>
+                </div>
+
                 <div class="ai-weather" id="weatherDisplay">
                     <span class="weather-icon">🌤️</span>
                     <span class="temp" id="weatherTemp">⏳ Caricamento...</span>
                     <span class="city">📍 ${homeCity}</span>
                     <span class="desc" id="weatherDesc"></span>
                 </div>
-                <div class="ai-loading">
-                    <div class="spinner"></div>
-                    <p>🧠 Generando analisi dettagliata...</p>
+
+                <div class="ai-section" style="border-left-color: var(--gold);">
+                    <div class="section-title">🏆 CLASSIFICA ${match.campionato}</div>
+                    <div class="section-content">${standingsHtml}</div>
+                </div>
+
+                <div class="ai-section" style="border-left-color: #f59e0b;">
+                    <div class="section-title">📊 STATO DI FORMA</div>
+                    <div class="section-content">
+                        <div class="ai-forma-row">
+                            <span class="team-name">${match.casa}</span>
+                            ${homeFormaBoxes}
+                            <span style="color:var(--text-secondary);font-size:0.8rem;">${homeStats.forma || 'N/D'}</span>
+                            <span style="color:var(--text-secondary);font-size:0.8rem;">| Punti: ${stats.percPuntiHome}% | ${stats.trendHome}</span>
+                        </div>
+                        <div class="ai-forma-row">
+                            <span class="team-name">${match.ospite}</span>
+                            ${awayFormaBoxes}
+                            <span style="color:var(--text-secondary);font-size:0.8rem;">${awayStats.forma || 'N/D'}</span>
+                            <span style="color:var(--text-secondary);font-size:0.8rem;">| Punti: ${stats.percPuntiAway}% | ${stats.trendAway}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ai-section">
+                    <div class="section-title">📊 STATISTICHE CHIAVE</div>
+                    <div class="section-content">
+                        <strong>${match.casa}:</strong> Punti ${homeStats.punti} | Pos. ${homeStats.pos} | PG ${homeStats.pg} | V${homeStats.v}-P${homeStats.p}-S${homeStats.s} | GF ${homeStats.gf} | GS ${homeStats.gs} | Diff ${homeStats.diff} | xG ${homeStats.xg}<br>
+                        <strong>${match.ospite}:</strong> Punti ${awayStats.punti} | Pos. ${awayStats.pos} | PG ${awayStats.pg} | V${awayStats.v}-P${awayStats.p}-S${awayStats.s} | GF ${awayStats.gf} | GS ${awayStats.gs} | Diff ${awayStats.diff} | xG ${awayStats.xg}<br>
+                        <strong>Media Gol Casa:</strong> Fatti ${stats.homeMediaFatti} | Subiti ${stats.homeMediaSubiti} | Totali ${stats.homeMediaTotali}<br>
+                        <strong>Media Gol Ospite:</strong> Fatti ${stats.awayMediaFatti} | Subiti ${stats.awayMediaSubiti} | Totali ${stats.awayMediaTotali}
+                    </div>
+                </div>
+
+                <div id="aiReportContainer">
+                    <div class="ai-loading">
+                        <div class="spinner"></div>
+                        <p>🧠 Generando analisi professionale con GROQ...</p>
+                    </div>
                 </div>
             </div>
         `;
 
+        container.innerHTML = htmlContent;
+
+        // Meteo
         const weatherKey = localStorage.getItem('weatherApiKey') || 'd8df501134ef44eab6515526262007';
         let weatherTemp = '--°C', weatherDesc = '--', weatherIcon = '🌤️';
         try {
@@ -1453,21 +2091,30 @@
         document.getElementById('weatherDesc').textContent = weatherDesc;
         document.querySelector('#weatherDisplay .weather-icon').textContent = weatherIcon;
 
-        const groqKey = localStorage.getItem('groqApiKey') || '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';
+        // ================================================================
+        // CHIAMATA GROQ
+        // ================================================================
 
-        const homeForma = homeStats.forma || 'N/D';
-        const awayForma = awayStats.forma || 'N/D';
-        const homeScore = calculateFormScore(homeStats.forma);
-        const awayScore = calculateFormScore(awayStats.forma);
+        const groqKey = localStorage.getItem('groqApiKey') || '';
+        const groqModel = localStorage.getItem('groqModel') || 'llama-3.1-8b-instant';
+        let reportHtml = '';
+        let groqSuccess = false;
+        let groqError = '';
 
-        const prompt = `Sei un analista sportivo professionista. Analizza:
+        // Se non c'è una chiave API, usa subito il fallback
+        if (!groqKey) {
+            groqError = 'Nessuna API Key configurata';
+            console.log('🔄 Nessuna API Key, uso fallback');
+        } else {
+            // Costruisci il prompt per GROQ
+            const prompt = `Sei un analista sportivo professionista specializzato in statistica calcistica. Analizza questa partita:
 
 CAMPIONATO: ${match.campionato}
-CASA: ${match.casa} (Punti ${homeStats.punti}, Pos. ${homeStats.pos}, Gol ${homeStats.gf}/${homeStats.gs}, Forma: ${homeForma}, Punteggio: ${homeScore})
-OSPITE: ${match.ospite} (Punti ${awayStats.punti}, Pos. ${awayStats.pos}, Gol ${awayStats.gf}/${awayStats.gs}, Forma: ${awayForma}, Punteggio: ${awayScore})
+CASA: ${match.casa} (Punti ${homeStats.punti}, Pos. ${homeStats.pos}, Gol ${homeStats.gf}/${homeStats.gs}, Forma: ${homeStats.forma || 'N/D'})
+OSPITE: ${match.ospite} (Punti ${awayStats.punti}, Pos. ${awayStats.pos}, Gol ${awayStats.gf}/${awayStats.gs}, Forma: ${awayStats.forma || 'N/D'})
 
 Genera un report conciso con:
-1. STATO DI FORMA - sequenza e trend
+1. STATO DI FORMA - sequenza e trend (usa emoji per i risultati: 🟩=vittoria, 🟨=pareggio, 🟥=sconfitta)
 2. STATISTICHE CHIAVE - punti, gol, differenza reti
 3. PRONOSTICO 1X2
 4. SICUREZZA (0-100%)
@@ -1476,133 +2123,104 @@ Genera un report conciso con:
 
 Usa solo i dati forniti. Arrotonda le percentuali.`;
 
-        let groqSuccess = false;
-        let analysis = '';
+            try {
+                console.log('📤 GROQ - Model:', groqModel);
+                console.log('📤 GROQ - Key presente:', groqKey ? 'Sì' : 'No');
+                
+                const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${groqKey}`
+                    },
+                    body: JSON.stringify({
+                        model: groqModel,
+                        messages: [{ role: 'user', content: prompt }],
+                        temperature: 0.3,
+                        max_tokens: 800
+                    })
+                });
 
-        try {
-            const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${groqKey}`
-                },
-                body: JSON.stringify({
-                    model: 'llama3-8b-8192',
-                    messages: [{ role: 'user', content: prompt }],
-                    temperature: 0.3,
-                    max_tokens: 600
-                })
-            });
+                const data = await groqRes.json();
+                console.log('📥 GROQ - Status:', groqRes.status);
 
-            const data = await groqRes.json();
-
-            if (data.choices && data.choices[0]) {
-                analysis = data.choices[0].message.content;
-                groqSuccess = true;
-            } else {
-                console.error('GROQ risposta non valida:', data);
+                if (groqRes.status === 200 && data.choices && data.choices[0]) {
+                    reportHtml = formatReportToHtml(data.choices[0].message.content);
+                    groqSuccess = true;
+                    console.log('✅ GROQ successo!');
+                } else {
+                    groqError = data.error?.message || 'Errore sconosciuto';
+                    console.error('❌ GROQ errore:', groqError);
+                    if (groqRes.status === 401) groqError = '❌ CHIAVE API NON VALIDA!';
+                    else if (groqRes.status === 429) groqError = '❌ TROPPE RICHIESTE! Attendere.';
+                    else if (groqRes.status === 404) groqError = '❌ MODELLO NON TROVATO!';
+                }
+            } catch (error) {
+                console.error('❌ GROQ errore di rete:', error);
+                groqError = error.message;
             }
-        } catch (error) {
-            console.error('Errore GROQ:', error);
         }
 
-        if (!groqSuccess || !analysis || analysis.length < 30) {
-            const tips = generateStatisticalTips(match);
-            const homePerc = winPercentage(homeStats);
-            const awayPerc = winPercentage(awayStats);
-            const under45 = under45Percent(homeStats, awayStats);
-            const over15 = over15Percent(homeStats, awayStats);
-            const homeMulti = multiGoalValues(homeStats);
-            const awayMulti = multiGoalValues(awayStats);
-            const multiAvg13 = Math.round((homeMulti.p13 + awayMulti.p13) / 2);
+        // Fallback se GROQ fallisce
+        if (!groqSuccess) {
+            console.log('🔄 Uso fallback locale');
+            const fallbackReport = generateFallbackReport(match, stats);
+            reportHtml = formatReportToHtml(fallbackReport);
+            
+            if (reportHtml.length < 30) {
+                reportHtml = `
+                <strong>📊 STATO DI FORMA</strong><br>
+                <strong>${match.casa}:</strong> ${stats.formaHome || 'N/D'} | Punti: ${stats.percPuntiHome}%<br>
+                <strong>${match.ospite}:</strong> ${stats.formaAway || 'N/D'} | Punti: ${stats.percPuntiAway}%<br><br>
+                <strong>📊 STATISTICHE CHIAVE</strong><br>
+                <strong>${match.casa}:</strong> Punti ${homeStats.punti} | GF ${homeStats.gf} | GS ${homeStats.gs}<br>
+                <strong>${match.ospite}:</strong> Punti ${awayStats.punti} | GF ${awayStats.gf} | GS ${awayStats.gs}
+                `;
+            }
+            
+            // Aggiungi avviso se GROQ ha fallito
+            if (groqError) {
+                reportHtml = `
+                <div style="padding:10px;background:var(--red);color:#fff;border-radius:8px;margin-bottom:10px;font-size:0.85rem;">
+                    ⚠️ GROQ: ${groqError}<br>
+                    <span style="font-size:0.75rem;opacity:0.8;">Utilizzo analisi statistica locale</span>
+                </div>
+                ${reportHtml}
+                `;
+            }
+        }
 
-            container.innerHTML = `
-                <div class="ai-container">
-                    <div class="ai-header">
-                        <span class="match-title">${match.casa} vs ${match.ospite}</span>
-                        <span class="match-league">${match.campionato}</span>
-                    </div>
-                    <div class="ai-weather">
-                        <span class="weather-icon">${weatherIcon}</span>
-                        <span class="temp">${weatherTemp}</span>
-                        <span class="city">📍 ${homeCity}</span>
-                        <span class="desc">${weatherDesc}</span>
-                    </div>
-
-                    <div class="ai-section" style="border-left-color: #f59e0b;">
-                        <div class="section-title">📊 STATO DI FORMA</div>
-                        <div class="section-content">
-                            <strong>${match.casa}:</strong> ${homeStats.forma || 'N/D'} (Punteggio: ${homeScore})<br>
-                            <strong>${match.ospite}:</strong> ${awayStats.forma || 'N/D'} (Punteggio: ${awayScore})<br>
-                            <strong>Trend:</strong> ${homeScore > awayScore ? '📈 ' + match.casa + ' in crescita' : awayScore > homeScore ? '📈 ' + match.ospite + ' in crescita' : '⚖️ Equilibrato'}
-                        </div>
-                    </div>
-
-                    <div class="ai-section">
-                        <div class="section-title">📊 STATISTICHE CHIAVE</div>
-                        <div class="section-content">
-                            <strong>${match.casa}:</strong> Punti ${homeStats.punti} | Pos. ${homeStats.pos} | Gol Fatti ${homeStats.gf} | Subiti ${homeStats.gs} | Diff ${homeStats.gf - homeStats.gs}<br>
-                            <strong>${match.ospite}:</strong> Punti ${awayStats.punti} | Pos. ${awayStats.pos} | Gol Fatti ${awayStats.gf} | Subiti ${awayStats.gs} | Diff ${awayStats.gf - awayStats.gs}<br>
-                            <strong>Multigol 1-3 Media:</strong> ${multiAvg13}%<br>
-                            <strong>Over 1.5:</strong> ${over15.label} | <strong>12+Under 4.5:</strong> ${under45.label}
-                        </div>
-                    </div>
-
-                    <div class="ai-pronostico">
-                        <div class="pron-box">
-                            <div class="label">🎯 PRONOSTICO 1X2</div>
-                            <div class="value">${tips.pronostico}</div>
-                            <div class="sub">${match.casa} ${tips.homeWin}% | X ${tips.draw}% | ${match.ospite} ${tips.awayWin}%</div>
-                        </div>
-                        <div class="pron-box">
-                            <div class="label">🎯 SICUREZZA</div>
-                            <div class="value">${tips.sicurezza}%</div>
-                            <div class="sub">${tips.sicurezza >= 60 ? '✅ Alta' : tips.sicurezza >= 40 ? '⚠️ Media' : '❌ Bassa'}</div>
-                        </div>
-                        <div class="pron-box">
-                            <div class="label">🎯 SICUREZZA</div>
-                            <div class="value" style="font-size:18px;">${tips.sicurezzaText}</div>
-                        </div>
-                    </div>
-
-                    <div class="ai-tips">
-                        <div class="tip-box">
-                            <div class="tip-label">🎯 Consiglio Singola</div>
-                            <div class="tip-value">${tips.tip1}</div>
-                        </div>
-                        <div class="tip-box">
-                            <div class="tip-label">🎯 Consiglio Combo</div>
-                            <div class="tip-value">${tips.tip2}</div>
-                        </div>
-                    </div>
-
-                    <div style="text-align:center;padding:12px;color:var(--text-secondary);font-size:0.75rem;margin-top:10px;border-top:1px solid var(--card-border);">
-                        ℹ️ Analisi basata su dati statistici reali
-                    </div>
+        const finalContainer = document.getElementById('aiReportContainer');
+        if (finalContainer) {
+            finalContainer.innerHTML = `
+                <div class="ai-section" style="border-left-color: ${groqSuccess ? '#22c55e' : '#ef4444'};">
+                    <div class="section-title">${groqSuccess ? '✅' : '📋'} REPORT ANALISI ${groqSuccess ? 'GROQ' : 'LOCALE'}</div>
+                    <div class="section-content">${reportHtml}</div>
                 </div>
             `;
-            return;
         }
 
-        container.innerHTML = `
-            <div class="ai-container">
-                <div class="ai-header">
-                    <span class="match-title">${match.casa} vs ${match.ospite}</span>
-                    <span class="match-league">${match.campionato}</span>
-                </div>
-                <div class="ai-weather">
-                    <span class="weather-icon">${weatherIcon}</span>
-                    <span class="temp">${weatherTemp}</span>
-                    <span class="city">📍 ${homeCity}</span>
-                    <span class="desc">${weatherDesc}</span>
-                </div>
-                <div class="ai-section">
-                    <div class="section-title">📋 Report Completo</div>
-                    <div class="section-content" style="white-space:pre-wrap;">${analysis}</div>
-                </div>
-            </div>
-        `;
+        // Ripristina il bottone
+        const btn = document.getElementById('rigeneraBtn');
+        if (btn) {
+            btn.innerHTML = '🔄 Rigenera Pronostico';
+            btn.disabled = false;
+        }
     }
+
+    // ================================================================
+    // HANDLER RIGENERA
+    // ================================================================
+
+    window.handleRigenera = function() {
+        console.log('🔄 Rigenera - index:', currentMatchIndex);
+        if (matches.length > 0 && currentMatchIndex < matches.length) {
+            renderAnalisiAI(currentMatchIndex, true);
+        } else if (matches.length > 0) {
+            currentMatchIndex = 0;
+            renderAnalisiAI(0, true);
+        }
+    };
 
     // ================================================================
     // ICONE METEO
@@ -1746,19 +2364,35 @@ Usa solo i dati forniti. Arrotonda le percentuali.`;
         applyFontSize(level);
     });
 
+    // Test GROQ
+    document.getElementById('testGroqBtn').addEventListener('click', testGroqConnection);
+
     document.getElementById('saveSettings').addEventListener('click', () => {
         const groq = document.getElementById('groqKey').value.trim();
+        const model = document.getElementById('groqModel').value;
         const weather = document.getElementById('weatherKey').value.trim();
         if (groq) localStorage.setItem('groqApiKey', groq);
+        localStorage.setItem('groqModel', model);
         if (weather) localStorage.setItem('weatherApiKey', weather);
         alert('✅ Impostazioni salvate!');
+        if (currentTab === 'analisi' && matches.length > 0) {
+            renderAnalisiAI(currentMatchIndex, true);
+        }
     });
 
-    document.getElementById('groqKey').value = localStorage.getItem('groqApiKey') || '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';
+    // Carica impostazioni
+    document.getElementById('groqKey').value = localStorage.getItem('groqApiKey') || '';
+    document.getElementById('groqModel').value = localStorage.getItem('groqModel') || 'llama-3.1-8b-instant';
     document.getElementById('weatherKey').value = localStorage.getItem('weatherApiKey') || 'd8df501134ef44eab6515526262007';
 
     // ================================================================
-    // FILTRO EVENT LISTENER
+    // SIMULA TELEFONO
+    // ================================================================
+
+    document.getElementById('simulateBtn').addEventListener('click', openPhoneSimulator);
+
+    // ================================================================
+    // FILTRO
     // ================================================================
 
     document.getElementById('campFilter').addEventListener('change', function() {
