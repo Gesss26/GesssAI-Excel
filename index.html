@@ -77,6 +77,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            flex-wrap: wrap;
         }
         .header h1 small {
             font-size: 14px;
@@ -476,6 +477,29 @@
             justify-content: center;
         }
 
+        /* ── Impostazioni ── */
+        .settings-group {
+            margin-bottom: 16px;
+        }
+        .settings-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text-secondary);
+        }
+        .settings-group input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: var(--input-bg);
+            color: var(--input-text);
+            font-size: 14px;
+        }
+        .settings-group .btn {
+            margin-top: 6px;
+        }
+
         /* ── Responsive ── */
         @media (max-width: 420px) {
             .squadra .nome {
@@ -520,7 +544,6 @@
             }
         }
 
-        /* ── Utility ── */
         .hidden {
             display: none !important;
         }
@@ -533,16 +556,19 @@
         .text-center {
             text-align: center;
         }
-        .flex-center {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
         .gap-8 {
             gap: 8px;
         }
         .w-full {
             width: 100%;
+        }
+        .flex {
+            display: flex;
+        }
+        .flex-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
@@ -575,29 +601,29 @@
     <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     TAB 1: PALINSESTO
     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-    <div class="tab-content active" id="tab-palinsesto">
 
-        <!-- Upload Area -->
-        <div class="upload-area" id="uploadArea">
-            <div class="btn-group">
-                <label class="btn btn-primary" for="fileClassifica">📊 Carica Classifica</label>
-                <label class="btn btn-primary" for="filePartite">📅 Carica Partite</label>
-            </div>
-            <div class="info">
-                <span id="statusClassifica">Classifica: ❌ non caricata</span><br>
-                <span id="statusPartite">Partite: ❌ non caricate</span>
-            </div>
-            <input type="file" id="fileClassifica" accept=".csv" />
-            <input type="file" id="filePartite" accept=".csv" />
+    <!-- Upload Area -->
+    <div class="upload-area" id="uploadArea">
+        <div class="btn-group">
+            <label class="btn btn-primary" for="fileClassifica">📊 Carica Classifica</label>
+            <label class="btn btn-primary" for="filePartite">📅 Carica Risultati</label>
         </div>
+        <div class="info">
+            <span id="statusClassifica">Classifica: ❌ non caricata</span><br>
+            <span id="statusPartite">Partite: ❌ non caricate</span>
+        </div>
+        <input type="file" id="fileClassifica" accept=".csv" />
+        <input type="file" id="filePartite" accept=".csv" />
+    </div>
 
+    <div class="tab-content active" id="tab-palinsesto">
         <!-- Container Partite -->
         <div id="container">
             <div class="loading">
                 <div class="spinner"></div>
                 Carica i file CSV per iniziare<br>
                 <span style="font-size:13px;color:var(--text-muted);">
-                    Seleziona "Classifica.csv" e "Partite.csv"
+                    Seleziona "classifica.csv" e "risultati.csv"
                 </span>
             </div>
         </div>
@@ -632,35 +658,25 @@
         <div class="ai-area">
             <h3 style="margin-bottom:16px;">⚙️ Impostazioni</h3>
 
-            <div style="margin-bottom:16px;">
-                <label style="display:block;font-weight:600;margin-bottom:4px;color:var(--text-secondary);">
-                    🌓 Tema
-                </label>
+            <div class="settings-group">
+                <label>🌓 Tema</label>
                 <div style="display:flex;gap:8px;">
                     <button class="btn" onclick="setTema('dark')" id="btnDark">🌙 Scuro (Blu Notte)</button>
                     <button class="btn" onclick="setTema('light')" id="btnLight">☀️ Chiaro</button>
                 </div>
             </div>
 
-            <div style="margin-bottom:16px;">
-                <label style="display:block;font-weight:600;margin-bottom:4px;color:var(--text-secondary);">
-                    🤖 Groq API Key
-                </label>
-                <input type="password" id="groqKey" placeholder="Inserisci la tua Groq API Key"
-                style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--border);
-                background:var(--input-bg);color:var(--input-text);font-size:14px;" />
-                <button class="btn btn-outline mt-8" onclick="salvaGroqKey()">💾 Salva</button>
+            <div class="settings-group">
+                <label>🤖 Groq API Key</label>
+                <input type="password" id="groqKey" placeholder="Inserisci la tua Groq API Key" />
+                <button class="btn btn-outline" onclick="salvaGroqKey()">💾 Salva</button>
                 <span id="groqStatus" style="color:var(--text-muted);font-size:12px;margin-left:8px;"></span>
             </div>
 
-            <div>
-                <label style="display:block;font-weight:600;margin-bottom:4px;color:var(--text-secondary);">
-                    🌤️ World Weather Online API Key
-                </label>
-                <input type="password" id="weatherKey" placeholder="Inserisci la tua Weather API Key"
-                style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--border);
-                background:var(--input-bg);color:var(--input-text);font-size:14px;" />
-                <button class="btn btn-outline mt-8" onclick="salvaWeatherKey()">💾 Salva</button>
+            <div class="settings-group">
+                <label>🌤️ World Weather Online API Key</label>
+                <input type="password" id="weatherKey" placeholder="Inserisci la tua Weather API Key" />
+                <button class="btn btn-outline" onclick="salvaWeatherKey()">💾 Salva</button>
                 <span id="weatherStatus" style="color:var(--text-muted);font-size:12px;margin-left:8px;"></span>
             </div>
 
@@ -714,8 +730,7 @@
         //  3.  API KEYS
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-        // Groq API Key
-        groqKey = localStorage.getItem('groqKey') || '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';
+        groqKey = localStorage.getItem('groqKey') || '';
         if (groqKey) document.getElementById('groqKey').value = groqKey;
 
         function salvaGroqKey() {
@@ -725,8 +740,7 @@
             setTimeout(() => document.getElementById('groqStatus').textContent = '', 3000);
         }
 
-        // Weather API Key
-        weatherKey = localStorage.getItem('weatherKey') || 'd8df501134ef44eab6515526262007';
+        weatherKey = localStorage.getItem('weatherKey') || '';
         if (weatherKey) document.getElementById('weatherKey').value = weatherKey;
 
         function salvaWeatherKey() {
@@ -831,6 +845,9 @@
                 const over = parseFloat(row['Over 1,5'] || row['Over 1.5'] || row[21]) || 0;
                 const mg0_2 = parseFloat(row['0-2 Casa'] || row[22]) || 0;
                 const mg1_3 = parseFloat(row['1-3 Casa'] || row[23]) || 0;
+                const mg2_5 = parseFloat(row['2-5 Casa'] || row[24]) || 0;
+                const multigol1_4 = parseFloat(row['Multigol 1-4'] || row[28]) || 0;
+                const multigol2_5 = parseFloat(row['Multigol 2-5'] || row[29]) || 0;
 
                 if (!casa || casa === 'Casa' || casa === 'Home') return;
                 if (!ospite || ospite === 'Ospite' || ospite === 'Away') return;
@@ -854,7 +871,10 @@
                     under12: under12,
                     over: over,
                     mg0_2: mg0_2,
-                    mg1_3: mg1_3
+                    mg1_3: mg1_3,
+                    mg2_5: mg2_5,
+                    multigol1_4: multigol1_4,
+                    multigol2_5: multigol2_5
                 });
             });
 
@@ -886,6 +906,7 @@
 
             const underDisplay = partita.under || partita.under12 || 0;
             const overDisplay = partita.over || 0;
+            const multigolDisplay = partita.multigol1_4 || partita.multigol2_5 || (partita.mg0_2 + partita.mg1_3) || 0;
 
             return `
                 <div class="card">
@@ -950,7 +971,7 @@
             if (partite.length === 0) {
                 container.innerHTML = `
                     <div class="error">
-                        ⚠️ Carica il file <strong>partite.csv</strong><br>
+                        ⚠️ Carica il file <strong>risultati.csv</strong><br>
                         <span class="dettaglio">Seleziona il file delle partite per visualizzarle</span>
                     </div>
                 `;
@@ -1068,7 +1089,7 @@
                 const nome = file.name.toLowerCase();
                 if (nome.includes('classifica')) {
                     handleFile(file, 'classifica');
-                } else if (nome.includes('partite')) {
+                } else if (nome.includes('risultati') || nome.includes('partite')) {
                     handleFile(file, 'partite');
                 }
             }
@@ -1079,7 +1100,6 @@
             if (Object.keys(classifica).length > 0 || partite.length > 0) {
                 renderTutteLePartite();
                 aggiornaStatus();
-                // Mostra feedback
                 const btn = document.querySelector('.header-actions .btn-primary');
                 const orig = btn.textContent;
                 btn.textContent = '✅ Aggiornato!';
@@ -1102,12 +1122,11 @@
                 return;
             }
 
-            // Controlla se la chiave è salvata
-            const key = localStorage.getItem('groqKey') || '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';
+            const key = localStorage.getItem('groqKey');
             if (!key || key === '') {
                 responseDiv.innerHTML = `
                     ⚠️ Inserisci la tua Groq API Key nelle <strong>Impostazioni</strong>.<br>
-                    <span style="font-size:12px;color:var(--text-muted);">Oppure usa la chiave predefinita.</span>
+                    <span style="font-size:12px;color:var(--text-muted);">Puoi ottenere una chiave su <a href="https://console.groq.com" target="_blank" style="color:var(--accent);">console.groq.com</a></span>
                 `;
                 return;
             }
@@ -1206,6 +1225,7 @@
 
         console.log('✅ App pronta!');
         console.log('📊 Carica i file CSV per iniziare.');
+        console.log('📂 Cerca: classifica.csv e risultati.csv');
     </script>
 
 </body>
