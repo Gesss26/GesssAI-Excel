@@ -5,14 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>⚽ Calcio - Excel</title>
 
-    <!-- PapaParse per CSV -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js">
     </script>
 
     <style>
-        /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-           TEMI
-           ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+        /* ─── STILI COMPLETI (come prima) ─── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         :root {
             --bg: #0d0d0d;
             --bg-card: #1a1a1a;
@@ -30,7 +32,6 @@
             --danger: #ef5350;
             --warning: #ffa726;
         }
-
         body.light {
             --bg: #f5f5f5;
             --bg-card: #ffffff;
@@ -46,13 +47,6 @@
             --accent: #2e7d32;
             --accent-dark: #1b5e20;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--bg);
@@ -61,8 +55,6 @@
             min-height: 100vh;
             transition: background 0.3s, color 0.3s;
         }
-
-        /* ── Header ── */
         .header {
             display: flex;
             justify-content: space-between;
@@ -84,14 +76,12 @@
             font-weight: 400;
             color: var(--text-secondary);
         }
-
         .header-actions {
             display: flex;
             gap: 8px;
             flex-wrap: wrap;
             align-items: center;
         }
-
         .btn {
             padding: 8px 16px;
             border: none;
@@ -125,8 +115,6 @@
             background: transparent;
             border: 1px solid var(--border);
         }
-
-        /* ── Tabs ── */
         .tabs {
             display: flex;
             gap: 4px;
@@ -164,8 +152,6 @@
         .tab-content.active {
             display: block;
         }
-
-        /* ── Upload Area ── */
         .upload-area {
             background: var(--bg-card);
             border: 2px dashed var(--border);
@@ -195,8 +181,6 @@
             justify-content: center;
             flex-wrap: wrap;
         }
-
-        /* ── Card Partita ── */
         .card {
             background: var(--bg-card);
             border-radius: 16px;
@@ -206,7 +190,6 @@
             box-shadow: 0 4px 12px var(--shadow);
             transition: background 0.3s;
         }
-
         .card-header {
             display: flex;
             justify-content: space-between;
@@ -225,7 +208,6 @@
             color: var(--text-muted);
             font-size: 12px;
         }
-
         .squadre {
             display: flex;
             align-items: center;
@@ -233,7 +215,6 @@
             gap: 6px;
             margin-bottom: 8px;
         }
-
         .squadra {
             flex: 1;
             display: flex;
@@ -241,14 +222,12 @@
             align-items: center;
             text-align: center;
         }
-
         .squadra .nome {
             font-size: 16px;
             font-weight: 700;
             letter-spacing: -0.2px;
             margin-bottom: 4px;
         }
-
         .stato-forma {
             display: flex;
             gap: 4px;
@@ -266,7 +245,6 @@
             background: var(--input-bg);
             font-size: 14px;
         }
-
         .vs {
             font-size: 20px;
             font-weight: 700;
@@ -274,13 +252,11 @@
             padding: 0 2px;
             flex-shrink: 0;
         }
-
         .barra-wrap {
             width: 100%;
             max-width: 160px;
             margin: 2px auto 0;
         }
-
         .barra {
             height: 18px;
             background: var(--input-bg);
@@ -289,7 +265,6 @@
             position: relative;
             box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
         }
-
         .barra-fill {
             height: 100%;
             border-radius: 20px;
@@ -303,7 +278,6 @@
             transition: width 0.4s ease;
             min-width: 28px;
         }
-
         .barra-fill.alta {
             background: linear-gradient(90deg, #2e7d32, #66bb6a);
         }
@@ -313,7 +287,6 @@
         .barra-fill.bassa {
             background: linear-gradient(90deg, #b71c1c, #ef5350);
         }
-
         .diff-row {
             display: flex;
             justify-content: space-between;
@@ -342,7 +315,6 @@
         .diff-row .xg strong {
             color: var(--text);
         }
-
         .stats {
             display: flex;
             flex-wrap: wrap;
@@ -360,7 +332,6 @@
             color: var(--text);
             font-weight: 600;
         }
-
         .stats-scroll {
             overflow-x: auto;
             white-space: nowrap;
@@ -374,7 +345,6 @@
             background: var(--border);
             border-radius: 4px;
         }
-
         .badge {
             display: inline-block;
             background: var(--input-bg);
@@ -384,7 +354,6 @@
             color: var(--text-secondary);
             margin-left: 8px;
         }
-
         .loading {
             text-align: center;
             color: var(--text-secondary);
@@ -406,7 +375,6 @@
                 transform: rotate(360deg);
             }
         }
-
         .error {
             background: #2a0a0a;
             border: 1px solid #5a1a1a;
@@ -426,8 +394,6 @@
             color: var(--text-muted);
             margin-top: 8px;
         }
-
-        /* ── Analisi AI ── */
         .ai-area {
             background: var(--bg-card);
             border-radius: 16px;
@@ -476,8 +442,6 @@
             min-width: 100px;
             justify-content: center;
         }
-
-        /* ── Impostazioni ── */
         .settings-group {
             margin-bottom: 16px;
         }
@@ -499,8 +463,26 @@
         .settings-group .btn {
             margin-top: 6px;
         }
-
-        /* ── Responsive ── */
+        .debug-box {
+            background: var(--input-bg);
+            border-radius: 10px;
+            padding: 12px;
+            margin-top: 12px;
+            font-size: 12px;
+            font-family: monospace;
+            color: var(--text-secondary);
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+            text-align: left;
+            white-space: pre-wrap;
+        }
+        .debug-box .ok {
+            color: var(--accent);
+        }
+        .debug-box .err {
+            color: var(--danger);
+        }
         @media (max-width: 420px) {
             .squadra .nome {
                 font-size: 14px;
@@ -543,7 +525,6 @@
                 min-width: 60px;
             }
         }
-
         .hidden {
             display: none !important;
         }
@@ -574,50 +555,40 @@
 </head>
 <body>
 
-    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    HEADER
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
     <div class="header">
-        <h1>
-            ⚽ Partite
-            <small id="dataOggi"></small>
-            <span class="badge" id="partiteCount">0 partite</span>
-        </h1>
+        <h1>⚽ Partite <small id="dataOggi"></small> <span class="badge" id="partiteCount">0 partite</span></h1>
         <div class="header-actions">
             <button class="btn btn-outline" onclick="toggleTema()" id="btnTema">🌙 Tema</button>
             <button class="btn btn-primary" onclick="refreshDati()">🔄 Refresh</button>
         </div>
     </div>
 
-    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    TABS
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
     <div class="tabs">
         <button class="tab-btn active" data-tab="tab-palinsesto">📋 Palinsesto</button>
         <button class="tab-btn" data-tab="tab-analisi">🧠 Analisi AI</button>
         <button class="tab-btn" data-tab="tab-impostazioni">⚙️ Impostazioni</button>
     </div>
 
-    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    TAB 1: PALINSESTO
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
-
-    <!-- Upload Area -->
-    <div class="upload-area" id="uploadArea">
-        <div class="btn-group">
-            <label class="btn btn-primary" for="fileClassifica">📊 Carica Classifica</label>
-            <label class="btn btn-primary" for="filePartite">📅 Carica Risultati</label>
-        </div>
-        <div class="info">
-            <span id="statusClassifica">Classifica: ❌ non caricata</span><br>
-            <span id="statusPartite">Partite: ❌ non caricate</span>
-        </div>
-        <input type="file" id="fileClassifica" accept=".csv" />
-        <input type="file" id="filePartite" accept=".csv" />
-    </div>
-
     <div class="tab-content active" id="tab-palinsesto">
-        <!-- Container Partite -->
+
+        <div class="upload-area" id="uploadArea">
+            <div class="btn-group">
+                <label class="btn btn-primary" for="fileClassifica">📊 Carica Classifica</label>
+                <label class="btn btn-primary" for="filePartite">📅 Carica Risultati</label>
+            </div>
+            <div class="info">
+                <span id="statusClassifica">Classifica: ❌ non caricata</span><br>
+                <span id="statusPartite">Partite: ❌ non caricate</span>
+            </div>
+            <input type="file" id="fileClassifica" accept=".csv" />
+            <input type="file" id="filePartite" accept=".csv" />
+
+            <!-- DEBUG BOX -->
+            <div class="debug-box" id="debugBox">
+                📋 Log dei caricamenti...
+            </div>
+        </div>
+
         <div id="container">
             <div class="loading">
                 <div class="spinner"></div>
@@ -629,9 +600,6 @@
         </div>
     </div>
 
-    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    TAB 2: ANALISI AI
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
     <div class="tab-content" id="tab-analisi">
         <div class="ai-area">
             <h3 style="margin-bottom:10px;">🧠 Analisi AI con Groq</h3>
@@ -639,25 +607,19 @@
                 Inserisci una domanda sulle partite o chiedi un'analisi.
             </p>
             <textarea id="aiPrompt" placeholder="Es: Analizza le partite di oggi...">Analizza le partite di oggi e dammi un pronostico basato sullo stato forma delle squadre.</textarea>
-
             <div class="btn-group">
                 <button class="btn btn-primary" onclick="callGroq()">🤖 Chiedi a Groq</button>
                 <button class="btn btn-outline" onclick="document.getElementById('aiPrompt').value='';document.getElementById('aiResponse').innerHTML='';">🗑️ Cancella</button>
             </div>
-
             <div id="aiResponse" class="response">
                 <span class="loading-text">💡 Fai una domanda per ricevere un'analisi...</span>
             </div>
         </div>
     </div>
 
-    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    TAB 3: IMPOSTAZIONI
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
     <div class="tab-content" id="tab-impostazioni">
         <div class="ai-area">
             <h3 style="margin-bottom:16px;">⚙️ Impostazioni</h3>
-
             <div class="settings-group">
                 <label>🌓 Tema</label>
                 <div style="display:flex;gap:8px;">
@@ -665,30 +627,24 @@
                     <button class="btn" onclick="setTema('light')" id="btnLight">☀️ Chiaro</button>
                 </div>
             </div>
-
             <div class="settings-group">
                 <label>🤖 Groq API Key</label>
                 <input type="password" id="groqKey" placeholder="Inserisci la tua Groq API Key" />
                 <button class="btn btn-outline" onclick="salvaGroqKey()">💾 Salva</button>
                 <span id="groqStatus" style="color:var(--text-muted);font-size:12px;margin-left:8px;"></span>
             </div>
-
             <div class="settings-group">
                 <label>🌤️ World Weather Online API Key</label>
                 <input type="password" id="weatherKey" placeholder="Inserisci la tua Weather API Key" />
                 <button class="btn btn-outline" onclick="salvaWeatherKey()">💾 Salva</button>
                 <span id="weatherStatus" style="color:var(--text-muted);font-size:12px;margin-left:8px;"></span>
             </div>
-
             <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border);">
                 <button class="btn btn-danger" onclick="resetTutto()">🗑️ Reset Tutti i Dati</button>
             </div>
         </div>
     </div>
 
-    <!-- ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    SCRIPT
-    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ -->
     <script>
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         //  1.  STATO GLOBALE
@@ -701,6 +657,16 @@
         let temaCorrente = 'dark';
 
         const MAPPA_ICONE = { 'W': '🟢', 'D': '🟡', 'L': '🔴' };
+
+        // ─── DEBUG ───
+        function debugLog(msg, tipo) {
+            const box = document.getElementById('debugBox');
+            const time = new Date().toLocaleTimeString();
+            const icon = tipo === 'ok' ? '✅' : tipo === 'err' ? '❌' : '📌';
+            const cls = tipo === 'ok' ? 'ok' : tipo === 'err' ? 'err' : '';
+            box.innerHTML += `<div class="${cls}">${icon} [${time}] ${msg}</div>`;
+            box.scrollTop = box.scrollHeight;
+        }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         //  2.  TEMA
@@ -722,7 +688,6 @@
             setTema(nuovo);
         }
 
-        // Carica tema salvato
         const temaSalvato = localStorage.getItem('tema');
         if (temaSalvato) setTema(temaSalvato);
 
@@ -738,6 +703,7 @@
             localStorage.setItem('groqKey', groqKey);
             document.getElementById('groqStatus').textContent = groqKey ? '✅ Salvata' : '❌ Vuota';
             setTimeout(() => document.getElementById('groqStatus').textContent = '', 3000);
+            debugLog(groqKey ? 'Groq Key salvata' : 'Groq Key rimossa', groqKey ? 'ok' : 'err');
         }
 
         weatherKey = localStorage.getItem('weatherKey') || '';
@@ -748,6 +714,7 @@
             localStorage.setItem('weatherKey', weatherKey);
             document.getElementById('weatherStatus').textContent = weatherKey ? '✅ Salvata' : '❌ Vuota';
             setTimeout(() => document.getElementById('weatherStatus').textContent = '', 3000);
+            debugLog(weatherKey ? 'Weather Key salvata' : 'Weather Key rimossa', weatherKey ? 'ok' : 'err');
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -801,17 +768,29 @@
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  5.  PARSING CSV
+        //  5.  PARSING CSV - CON DEBUG
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
         function parseClassifica(csv) {
+            debugLog('📊 Inizio parsing classifica...', '');
             const result = Papa.parse(csv, { delimiter: ';', header: true, skipEmptyLines: true });
+            debugLog(`📊 PapaParse: ${result.data.length} righe trovate`, '');
+
+            if (result.errors && result.errors.length > 0) {
+                debugLog(`⚠️ Errori parsing: ${result.errors.length}`, 'err');
+                result.errors.forEach(e => debugLog(`   ${e.message}`, 'err'));
+            }
+
             const rows = result.data;
             const nuovaClassifica = {};
+            let conteggio = 0;
 
-            rows.forEach(row => {
+            rows.forEach((row, i) => {
                 const nome = row.Squadra?.trim();
-                if (!nome) return;
+                if (!nome) {
+                    if (i < 5) debugLog(`⚠️ Riga ${i+1}: nessun nome squadra (${JSON.stringify(row).substring(0,50)})`, 'err');
+                    return;
+                }
 
                 const formaRaw = row.Forma || '';
                 const forma = formaRaw.split(/\s+/).filter(s => s.length > 0);
@@ -822,23 +801,39 @@
                     p: parseInt(row.P) || 0,
                     punti: parseInt(row.Punti) || 0
                 };
+                conteggio++;
             });
 
             classifica = nuovaClassifica;
-            return Object.keys(classifica).length;
+            debugLog(`✅ Classifica caricata: ${conteggio} squadre`, 'ok');
+            return conteggio;
         }
 
         function parsePartite(csv) {
+            debugLog('📅 Inizio parsing risultati...', '');
             const result = Papa.parse(csv, { delimiter: ';', header: true, skipEmptyLines: true });
+            debugLog(`📅 PapaParse: ${result.data.length} righe trovate`, '');
+
+            if (result.errors && result.errors.length > 0) {
+                debugLog(`⚠️ Errori parsing: ${result.errors.length}`, 'err');
+                result.errors.forEach(e => debugLog(`   ${e.message}`, 'err'));
+            }
+
             const rows = result.data;
             const nuovePartite = [];
+            let conteggio = 0;
 
-            rows.forEach(row => {
+            rows.forEach((row, i) => {
                 const campionato = row.Campionato || row[1] || '';
                 const dataRaw = row.Data || row[5] || '';
                 const ora = row.Ora || row[6] || '';
                 const casa = row.Casa || row[7] || '';
                 const ospite = row.Ospite || row[9] || '';
+
+                if (!casa || casa === 'Casa' || casa === 'Home' || !ospite || ospite === 'Ospite' || ospite === 'Away') {
+                    if (i < 5 && casa) debugLog(`⚠️ Riga ${i+1}: saltata (casa="${casa}", ospite="${ospite}")`, 'err');
+                    return;
+                }
 
                 const under = parseFloat(row['Under 4,5'] || row['Under 4.5'] || row[18]) || 0;
                 const under12 = parseFloat(row['12+Under 4,5'] || row['12+Under 4.5'] || row[20]) || 0;
@@ -848,9 +843,6 @@
                 const mg2_5 = parseFloat(row['2-5 Casa'] || row[24]) || 0;
                 const multigol1_4 = parseFloat(row['Multigol 1-4'] || row[28]) || 0;
                 const multigol2_5 = parseFloat(row['Multigol 2-5'] || row[29]) || 0;
-
-                if (!casa || casa === 'Casa' || casa === 'Home') return;
-                if (!ospite || ospite === 'Ospite' || ospite === 'Away') return;
 
                 let data = dataRaw;
                 if (dataRaw.includes('/')) {
@@ -876,10 +868,12 @@
                     multigol1_4: multigol1_4,
                     multigol2_5: multigol2_5
                 });
+                conteggio++;
             });
 
             partite = nuovePartite;
-            return partite.length;
+            debugLog(`✅ Partite caricate: ${conteggio} partite`, 'ok');
+            return conteggio;
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -906,7 +900,6 @@
 
             const underDisplay = partita.under || partita.under12 || 0;
             const overDisplay = partita.over || 0;
-            const multigolDisplay = partita.multigol1_4 || partita.multigol2_5 || (partita.mg0_2 + partita.mg1_3) || 0;
 
             return `
                 <div class="card">
@@ -978,7 +971,6 @@
                 return;
             }
 
-            // Filtra partite del 24 e 25 Luglio 2026
             const oggi = new Date('2026-07-24');
             const domani = new Date('2026-07-25');
 
@@ -1010,10 +1002,11 @@
             });
 
             container.innerHTML = html;
+            debugLog(`✅ Renderizzate ${partiteFiltrate.length} partite`, 'ok');
         }
 
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  7.  GESTIONE UPLOAD FILE
+        //  7.  GESTIONE UPLOAD FILE - CON DEBUG
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
         function aggiornaStatus() {
@@ -1033,28 +1026,48 @@
         }
 
         function handleFile(file, tipo) {
+            debugLog(`📂 File selezionato: "${file.name}" (${Math.round(file.size/1024)} KB)`, '');
+            debugLog(`📂 Tipo: ${tipo}`, '');
+
             const reader = new FileReader();
             reader.onload = function(e) {
                 try {
                     const csv = e.target.result;
+                    debugLog(`📄 Contenuto letto: ${csv.length} caratteri`, '');
+                    debugLog(`📄 Prime 200 caratteri: ${csv.substring(0, 200)}...`, '');
+
                     let count = 0;
                     if (tipo === 'classifica') {
                         count = parseClassifica(csv);
                     } else {
                         count = parsePartite(csv);
                     }
+
+                    debugLog(`✅ ${tipo === 'classifica' ? 'Classifica' : 'Partite'} caricata: ${count} elementi`, 'ok');
                     aggiornaStatus();
                     renderTutteLePartite();
+
+                    if (count === 0) {
+                        debugLog(`⚠️ ATTENZIONE: 0 elementi caricati! Verifica il formato CSV.`, 'err');
+                        debugLog(`📄 Il file dovrebbe avere intestazioni come: Campionato;Data;Casa;Ospite;...`, 'err');
+                    }
+
                 } catch (err) {
+                    debugLog(`❌ Errore nella lettura del file: ${err.message}`, 'err');
                     alert('Errore nella lettura del file: ' + err.message);
                 }
             };
-            reader.readAsText(file);
+            reader.onerror = function() {
+                debugLog(`❌ Errore di lettura del file`, 'err');
+                alert('Errore di lettura del file');
+            };
+            reader.readAsText(file, 'UTF-8');
         }
 
         // ── Eventi upload ──
         document.getElementById('fileClassifica').addEventListener('change', function(e) {
             if (this.files.length > 0) {
+                debugLog(`📂 Click su "Carica Classifica"`, '');
                 handleFile(this.files[0], 'classifica');
             }
             this.value = '';
@@ -1062,6 +1075,7 @@
 
         document.getElementById('filePartite').addEventListener('change', function(e) {
             if (this.files.length > 0) {
+                debugLog(`📂 Click su "Carica Risultati"`, '');
                 handleFile(this.files[0], 'partite');
             }
             this.value = '';
@@ -1085,18 +1099,23 @@
             this.classList.remove('dragover');
 
             const files = e.dataTransfer.files;
+            debugLog(`📂 Drop: ${files.length} file`, '');
             for (const file of files) {
                 const nome = file.name.toLowerCase();
+                debugLog(`📂 File droppato: "${file.name}"`, '');
                 if (nome.includes('classifica')) {
                     handleFile(file, 'classifica');
                 } else if (nome.includes('risultati') || nome.includes('partite')) {
                     handleFile(file, 'partite');
+                } else {
+                    debugLog(`⚠️ File ignorato: "${file.name}" (nome non riconosciuto)`, 'err');
                 }
             }
         });
 
         // ── Refresh ──
         function refreshDati() {
+            debugLog(`🔄 Refresh manuale`, '');
             if (Object.keys(classifica).length > 0 || partite.length > 0) {
                 renderTutteLePartite();
                 aggiornaStatus();
@@ -1104,7 +1123,9 @@
                 const orig = btn.textContent;
                 btn.textContent = '✅ Aggiornato!';
                 setTimeout(() => btn.textContent = orig, 2000);
+                debugLog(`✅ Refresh completato`, 'ok');
             } else {
+                debugLog(`⚠️ Nessun dato da refresare`, 'err');
                 alert('Carica prima i file CSV!');
             }
         }
@@ -1155,18 +1176,22 @@
 
                 if (data.error) {
                     responseDiv.innerHTML = `❌ Errore: ${data.error.message || 'Errore sconosciuto'}`;
+                    debugLog(`❌ Groq errore: ${data.error.message}`, 'err');
                     return;
                 }
 
                 if (data.choices && data.choices.length > 0) {
                     const testo = data.choices[0].message.content;
                     responseDiv.innerHTML = testo.replace(/\n/g, '<br>');
+                    debugLog(`✅ Groq risposta ricevuta (${testo.length} caratteri)`, 'ok');
                 } else {
                     responseDiv.innerHTML = '❌ Nessuna risposta ricevuta.';
+                    debugLog(`❌ Groq: nessuna risposta`, 'err');
                 }
 
             } catch (err) {
                 responseDiv.innerHTML = `❌ Errore di rete: ${err.message}`;
+                debugLog(`❌ Groq errore di rete: ${err.message}`, 'err');
                 console.error(err);
             }
         }
@@ -1190,6 +1215,7 @@
                 `;
                 document.getElementById('partiteCount').textContent = '0 partite';
                 aggiornaStatus();
+                debugLog(`🗑️ Reset completato`, 'ok');
             }
         }
 
@@ -1214,8 +1240,8 @@
 
         document.getElementById('dataOggi').textContent = '24/07/2026';
         aggiornaStatus();
+        debugLog('🚀 App avviata! Carica i file CSV.', '');
 
-        // Carica le chiavi salvate
         if (localStorage.getItem('groqKey')) {
             document.getElementById('groqKey').value = localStorage.getItem('groqKey');
         }
@@ -1224,8 +1250,6 @@
         }
 
         console.log('✅ App pronta!');
-        console.log('📊 Carica i file CSV per iniziare.');
-        console.log('📂 Cerca: classifica.csv e risultati.csv');
     </script>
 
 </body>
